@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { registerUser } from '../../redux/slices/authSlice';
-import backgroundImage from '../../assets/register-background.png'; 
+import registerImg from '../../assets/register-img.png';
 
 export default function Register() {
   const dispatch = useDispatch();
@@ -39,93 +39,78 @@ export default function Register() {
   };
 
   return (
-    <div
-      className="min-h-screen bg-cover bg-center flex flex-col justify-center items-center"
-      style={{
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundColor: '#ffffff',
-      }}
-    >
-      <div
-        className="w-full max-w-5xl mx-auto bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 mt-8" // Increased max width
-        style={{ borderRadius: '10px' }}
-      >
+    <div className="min-h-screen bg-cover bg-center flex flex-col justify-center items-center" style={{ backgroundImage: 'url(/src/assets/register-background.png)' }}>
+      <div className="w-full max-w-5xl mx-auto glass-container overflow-hidden border border-gray-200 mt-8">
         <div className="px-8 py-12 flex">
           <div className="w-1/2 flex flex-col justify-center items-center">
-            <div className="bg-gray-200 h-64 w-64 flex items-center justify-center border border-dashed border-gray-400">
-              Image Placeholder
+          < div className="w-100 h-100 flex items-center justify-center">
+              <img src={registerImg} alt="registerImg" />
             </div>
             <div className="mt-4 text-center">
-              <Link to="/login" className="italic" style={{ color: '#002e4d' }}>
+              <Link to="/login" className="italic font-bold underline" style={{ color: '#35393D' }}>
                 Already have an account? Sign in
               </Link>
             </div>
           </div>
-          <div className="w-2/2">
+          <div className="w-1/2">
             <h2 className="text-4xl font-bold italic" style={{ color: '#002e4d' }}>Registration</h2>
-            <form className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6" onSubmit={handleSubmit}> {/* Adjusted gap */}
+            <form className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6" onSubmit={handleSubmit}>
               <div className="col-span-1">
-                <label className="block italic" style={{ color: '#1693a5' }}>Full Name</label>
+                <label className="text-lg	block italic font-bold" style={{ color: '#513C2C' }}>Full Name</label>
                 <input
                   type="text"
-                  className="mt-1 block w-full px-3 py-2 bg-white border-b focus:outline-none focus:ring-teal focus:border-teal"
-                  style={{ borderBottomColor: '#1693a5' }}
+                  className="glass-input mt-1 block w-full"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   required
                 />
               </div>
               <div className="col-span-1">
-                <label className="block italic" style={{ color: '#1693a5' }}>Email</label>
+                <label className="text-lg	block italic font-bold" style={{ color: '#513C2C' }}>Email</label>
                 <input
                   type="email"
-                  className="mt-1 block w-full px-3 py-2 bg-white border-b focus:outline-none focus:ring-teal focus:border-teal"
-                  style={{ borderBottomColor: '#1693a5' }}
+                  className="glass-input mt-1 block w-full"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
               <div className="col-span-1">
-                <label className="block italic" style={{ color: '#1693a5' }}>Password</label>
+                <label className="text-lg	block italic font-bold" style={{ color: '#513C2C' }}>Password</label>
                 <input
                   type="password"
-                  className="mt-1 block w-full px-3 py-2 bg-white border-b focus:outline-none focus:ring-teal focus:border-teal"
-                  style={{ borderBottomColor: '#1693a5' }}
+                  className="glass-input mt-1 block w-full"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </div>
               <div className="col-span-1">
-                <label className="block italic" style={{ color: '#1693a5' }}>Confirm Password</label>
+                <label className="text-lg	block italic font-bold" style={{ color: '#513C2C' }}>Confirm Password</label>
                 <input
                   type="password"
-                  className="mt-1 block w-full px-3 py-2 bg-white border-b focus:outline-none focus:ring-teal focus:border-teal"
-                  style={{ borderBottomColor: '#1693a5' }}
+                  className="glass-input mt-1 block w-full"
                   value={passwordConfirmation}
                   onChange={(e) => setPasswordConfirmation(e.target.value)}
                   required
                 />
               </div>
               <div className="col-span-1">
-                <label className="block italic" style={{ color: '#1693a5' }}>Contact</label>
+                <label className="text-lg	block italic font-bold" style={{ color: '#513C2C' }}>Contact</label>
                 <input
                   type="text"
-                  className="mt-1 block w-full px-3 py-2 bg-white border-b focus:outline-none focus:ring-teal focus:border-teal"
-                  placeholder="0123456789"
-                  style={{ borderBottomColor: '#1693a5' }}
+                  className="glass-input mt-1 block w-full"
+                  placeholder="012 345 6789"
                   value={contact}
                   onChange={(e) => setContact(e.target.value)}
                   required
                 />
               </div>
               <div className="col-span-1">
-                <label className="block italic" style={{ color: '#1693a5' }}>Address</label>
+                <label className="text-lg	block italic font-bold" style={{ color: '#513C2C' }}>Address</label>
                 <input
                   type="text"
-                  className="mt-1 block w-full px-3 py-2 bg-white border-b focus:outline-none focus:ring-teal focus:border-teal"
-                  style={{ borderBottomColor: '#1693a5' }}
+                  className="glass-input mt-1 block w-full h-32"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                   required

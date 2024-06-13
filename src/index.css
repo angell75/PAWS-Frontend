@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.glass-container {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  box-shadow: var(--tw-shadow-glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-bottom: 2px solid #1693a5;
+  border-radius: 5px;
+  padding: 10px;
+  color: #000000;
+  font-size: 16px;
+}
+
+.glass-input::placeholder {
+  color: #000000;
+}
+
+.glass-input:focus {
+  outline: none;
+  border-bottom-color: #007f8a;
+}

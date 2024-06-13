@@ -14,6 +14,7 @@ import Landing from "./views/common/Landing";
 import NotFound from "./views/common/NotFound";
 import Register from "./views/common/Register";
 import ViewPetList from "./views/common/ViewPetList";
+import ViewPetDetail from "./views/common/ViewPetDetail";
 import UserDonate from "./views/common/UserDonate";
 
 // Admin Views
@@ -22,6 +23,7 @@ import AdminDashboard from "./views/admin/AdminDashboard";
 
 // User Views
 import CustomerDashboard from "./views/customer/CustomerDashboard";
+import AdoptionApplication from "./views/common/AdoptionApplication";
 // import OrganizationList from "./views/admin/OrganizationList";
 
 // Seller Views
@@ -41,6 +43,8 @@ const router = createBrowserRouter([
       { path: 'login', element: <Login /> },
       { path: 'register', element: <Register /> }, 
       { path: 'viewpetlist', element: <ViewPetList /> }, //For all user to view pet list
+      { path: 'viewpetdetail', element: <ViewPetDetail /> }, //For all user to view pet detail
+      { path: 'adoptionapplication', element: <AdoptionApplication /> }, //For all user to view pet detail
       { path: 'userdonate', element: <UserDonate /> }, //For user to donate
     ]
   },
@@ -53,6 +57,8 @@ const router = createBrowserRouter([
         element: <AdminLayout />,
         children: [
           { path: '', element: <Navigate to='dashboard' /> },
+          { path: 'viewpetlist', element: <ViewPetList /> }, //For all user to view pet list
+          { path: 'viewpetdetail', element: <ViewPetDetail /> }, //For all user to view pet detail
           { path: 'dashboard', element: <AdminDashboard /> },
         ]
       },
@@ -67,7 +73,41 @@ const router = createBrowserRouter([
         element: <CustomerLayout />,
         children: [
           { path: '', element: <Navigate to='dashboard' /> },
+          { path: 'viewpetlist', element: <ViewPetList /> }, //For all user to view pet list
+          { path: 'viewpetdetail', element: <ViewPetDetail /> }, //For all user to view pet detail
           { path: 'dashboard', element: <CustomerDashboard /> },
+        ]
+      }
+    ]
+  },
+  {
+    path: 'seller',
+    element: <PrivateRoute allowedRoles={['user']} />,
+    children: [
+      {
+        path: '',
+        element: <SellerLayout />,
+        children: [
+          { path: '', element: <Navigate to='dashboard' /> },
+          { path: 'viewpetlist', element: <ViewPetList /> }, //For all user to view pet list
+          { path: 'viewpetdetail', element: <ViewPetDetail /> }, //For all user to view pet detail
+          { path: 'dashboard', element: <SellerDashboard /> },
+        ]
+      }
+    ]
+  },
+  {
+    path: 'vet',
+    element: <PrivateRoute allowedRoles={['user']} />,
+    children: [
+      {
+        path: '',
+        element: <VetLayout />,
+        children: [
+          { path: '', element: <Navigate to='dashboard' /> },
+          { path: 'viewpetlist', element: <ViewPetList /> }, //For all user to view pet list
+          { path: 'viewpetdetail', element: <ViewPetDetail /> }, //For all user to view pet detail
+          { path: 'dashboard', element: <VetDashboard /> },
         ]
       }
     ]

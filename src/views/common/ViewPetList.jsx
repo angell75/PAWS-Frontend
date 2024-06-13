@@ -12,12 +12,7 @@ export default function ViewPetList() {
       >
         <div className="container mx-auto text-center">
           <h1 className="text-6xl font-bold text-black">Pet List</h1>
-          <p className="text-black mt-4">Find your perfect pet companion</p>
-        </div>
-        <div className="absolute bottom-0 w-full overflow-hidden leading-[0]">
-          <svg viewBox="0 0 500 150" preserveAspectRatio="none" className="block w-full h-[40px]">
-            <path d="M0.00,49.98 C150.00,150.00 271.65,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z" className="fill-current text-gray-50"></path>
-          </svg>
+          <h2 className="text-2xl text-black mt-4">Find your perfect pet companion</h2>
         </div>
       </section>
 

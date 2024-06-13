@@ -37,7 +37,7 @@ export default function LandingPage() {
             <p className="mt-4 text-6xl font-bold">ADOPT A PET!!</p>
             <p className="mt-4 text-4xl font-bold">JOIN US & SUPPORT LOCAL</p>
           </div>
-          <Link to="/puppies" className="mt-8 inline-block px-10 py-3 bg-orange-500 text-white text-2xl font-semibold rounded-md shadow hover:bg-orange-600">
+          <Link to="/viewpetlist" className="mt-8 inline-block px-10 py-3 bg-orange-500 text-white text-2xl font-semibold rounded-md shadow hover:bg-orange-600">
             View Pets
           </Link>
         </div>

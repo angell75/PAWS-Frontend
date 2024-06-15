@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import landingBanner from '../../assets/landingbanner-plain.png'; 
+import landingBanner from '../../assets/test.png'; 
 import vetImage from '../../assets/vaccination.png';
 import petShopImage from '../../assets/Pet-shop.png'; 
 import funActivitiesImage from '../../assets/pet-events.png'; 

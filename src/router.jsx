@@ -16,6 +16,9 @@ import Register from "./views/common/Register";
 import ViewPetList from "./views/common/ViewPetList";
 import ViewPetDetail from "./views/common/ViewPetDetail";
 import UserDonate from "./views/common/UserDonate";
+import ContactUs from "./views/common/ContactUs";
+import ViewBlog from "./views/common/ViewBlog";
+
 
 // Admin Views
 import AdminDashboard from "./views/admin/AdminDashboard";
@@ -44,8 +47,10 @@ const router = createBrowserRouter([
       { path: 'register', element: <Register /> }, 
       { path: 'viewpetlist', element: <ViewPetList /> }, //For all user to view pet list
       { path: 'viewpetdetail', element: <ViewPetDetail /> }, //For all user to view pet detail
-      { path: 'adoptionapplication', element: <AdoptionApplication /> }, //For all user to view pet detail
+      { path: 'adoptionapplication', element: <AdoptionApplication /> }, 
+      { path: 'viewblog', element: <ViewBlog /> }, 
       { path: 'userdonate', element: <UserDonate /> }, //For user to donate
+      { path: 'contactus', element: <ContactUs /> }, 
     ]
   },
   {

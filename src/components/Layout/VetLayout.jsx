@@ -1,16 +1,13 @@
-import { useSelector } from 'react-redux';
-import { Outlet, Navigate } from "react-router-dom";
-// import Navbar from "./Navbar";
-// import PrivateRoute from './PrivateRoute';
+import { Outlet } from 'react-router-dom';
+import Navbar from '../Navbar';
 
 export default function VetLayout() {
-  // const user = useSelector((state) => state.user);
-
   return (
     <div>
-      {/* <Navbar user={user}/> */}
-      VetLayout
-      <Outlet />
+      <Navbar />
+      <div className="vet-content">
+        <Outlet />
+      </div>
     </div>
   );
 }

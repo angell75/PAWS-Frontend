@@ -22,7 +22,7 @@
 }
 
 .glass-input::placeholder {
-  color: #000000;
+  color: #AAAAAA;
 }
 
 .glass-input:focus {
@@ -44,3 +44,90 @@
   max-height: 100%;
   width: auto;
 }
+
+/* Navigation Bar CSS */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-logo img {
+  height: 40px;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-link {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: #007bff;
+}
+
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  padding: 0.5rem;
+}
+
+.nav-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-link {
+  color: #333;
+  text-decoration: none;
+  display: block;
+  padding: 0.5rem 1rem;
+}
+
+.dropdown-link:hover {
+  background-color: #f8f9fa;
+}
+
+/* Modal CSS */
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 600px;
+  overflow-y: auto; 
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+

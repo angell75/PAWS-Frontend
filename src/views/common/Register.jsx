@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from '../../redux/slices/authSlice';
+import Swal from 'sweetalert2';
 import registerImg from '../../assets/register-img.png';
 
 export default function Register() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const auth = useSelector((state) => state.auth);
 
   const [fullName, setFullName] = useState('');
@@ -15,8 +17,36 @@ export default function Register() {
   const [contact, setContact] = useState('');
   const [address, setAddress] = useState('');
 
-  const handleSubmit = (e) => {
+  const validateForm = () => {
+    if (password !== passwordConfirmation) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: 'Passwords do not match.',
+      });
+      return false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: 'Please enter a valid email address.',
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
     const userData = {
       name: fullName,
       email,
@@ -26,16 +56,35 @@ export default function Register() {
       address,
       userRole: 'customer',
     };
-    dispatch(registerUser(userData));
-  };
-
-  const renderError = (error) => {
-    if (typeof error === 'string') {
-      return error;
-    } else if (typeof error === 'object' && error !== null) {
-      return JSON.stringify(error);
+    
+    const result = await dispatch(registerUser(userData));
+    
+    if (result.type === 'auth/registerUser/fulfilled') {
+      Swal.fire({
+        icon: 'success',
+        title: 'Registration Successful',
+        text: 'You have successfully registered!',
+      }).then(() => {
+        navigate('/login'); // Navigate to login page after successful registration
+      });
+    } else if (result.type === 'auth/registerUser/rejected') {
+      const errorMessages = result.payload.errors;
+      if (errorMessages) {
+        for (const key in errorMessages) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Registration Failed',
+            text: errorMessages[key].join(', '),
+          });
+        }
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Registration Failed',
+          text: result.error.message || 'An unknown error occurred',
+        });
+      }
     }
-    return 'Unknown error';
   };
 
   return (
@@ -43,7 +92,7 @@ export default function Register() {
       <div className="w-full max-w-5xl mx-auto glass-container overflow-hidden border border-gray-200 mt-8">
         <div className="px-8 py-12 flex">
           <div className="w-1/2 flex flex-col justify-center items-center">
-          < div className="w-100 h-100 flex items-center justify-center">
+            <div className="w-100 h-100 flex items-center justify-center">
               <img src={registerImg} alt="registerImg" />
             </div>
             <div className="mt-4 text-center">
@@ -54,9 +103,9 @@ export default function Register() {
           </div>
           <div className="w-1/2">
             <h2 className="text-4xl font-bold italic" style={{ color: '#002e4d' }}>Registration</h2>
-            <form className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6" onSubmit={handleSubmit}>
+            <form className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-2" onSubmit={handleSubmit}>
               <div className="col-span-1">
-                <label className="text-lg	block italic font-bold" style={{ color: '#513C2C' }}>Full Name</label>
+                <label className="text-lg block italic font-bold" style={{ color: '#513C2C' }}>Full Name</label>
                 <input
                   type="text"
                   className="glass-input mt-1 block w-full"
@@ -66,7 +115,7 @@ export default function Register() {
                 />
               </div>
               <div className="col-span-1">
-                <label className="text-lg	block italic font-bold" style={{ color: '#513C2C' }}>Email</label>
+                <label className="text-lg block italic font-bold" style={{ color: '#513C2C' }}>Email</label>
                 <input
                   type="email"
                   className="glass-input mt-1 block w-full"
@@ -76,7 +125,7 @@ export default function Register() {
                 />
               </div>
               <div className="col-span-1">
-                <label className="text-lg	block italic font-bold" style={{ color: '#513C2C' }}>Password</label>
+                <label className="text-lg block italic font-bold" style={{ color: '#513C2C' }}>Password</label>
                 <input
                   type="password"
                   className="glass-input mt-1 block w-full"
@@ -86,7 +135,7 @@ export default function Register() {
                 />
               </div>
               <div className="col-span-1">
-                <label className="text-lg	block italic font-bold" style={{ color: '#513C2C' }}>Confirm Password</label>
+                <label className="text-lg block italic font-bold" style={{ color: '#513C2C' }}>Confirm Password</label>
                 <input
                   type="password"
                   className="glass-input mt-1 block w-full"
@@ -96,7 +145,7 @@ export default function Register() {
                 />
               </div>
               <div className="col-span-1">
-                <label className="text-lg	block italic font-bold" style={{ color: '#513C2C' }}>Contact</label>
+                <label className="text-lg block italic font-bold" style={{ color: '#513C2C' }}>Contact</label>
                 <input
                   type="text"
                   className="glass-input mt-1 block w-full"
@@ -107,7 +156,7 @@ export default function Register() {
                 />
               </div>
               <div className="col-span-1">
-                <label className="text-lg	block italic font-bold" style={{ color: '#513C2C' }}>Address</label>
+                <label className="text-lg block italic font-bold" style={{ color: '#513C2C' }}>Address</label>
                 <input
                   type="text"
                   className="glass-input mt-1 block w-full h-32"
@@ -116,11 +165,6 @@ export default function Register() {
                   required
                 />
               </div>
-              {auth.status === 'failed' && (
-                <div className="col-span-2 text-red-500 mb-4">
-                  {renderError(auth.error)}
-                </div>
-              )}
               <div className="col-span-2">
                 <button
                   type="submit"

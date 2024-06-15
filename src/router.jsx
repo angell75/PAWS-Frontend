@@ -14,10 +14,6 @@ import Landing from "./views/common/Landing";
 import NotFound from "./views/common/NotFound";
 import Register from "./views/common/Register";
 import ViewPetList from "./views/common/ViewPetList";
-import ViewPetDetail from "./views/common/ViewPetDetail";
-import UserDonate from "./views/common/UserDonate";
-import ContactUs from "./views/common/ContactUs";
-import ViewBlog from "./views/common/ViewBlog";
 
 
 // Admin Views
@@ -27,6 +23,10 @@ import AdminDashboard from "./views/admin/AdminDashboard";
 // User Views
 import CustomerDashboard from "./views/customer/CustomerDashboard";
 import AdoptionApplication from "./views/common/AdoptionApplication";
+import ViewPetDetail from "./views/common/ViewPetDetail";
+import UserDonate from "./views/common/UserDonate";
+import ContactUs from "./views/common/ContactUs";
+import ViewBlog from "./views/common/ViewBlog";
 // import OrganizationList from "./views/admin/OrganizationList";
 
 // Seller Views

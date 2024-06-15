@@ -1,16 +1,14 @@
-import { useSelector } from 'react-redux';
-import { Outlet, Navigate } from "react-router-dom";
-// import Navbar from "./Navbar";
-// import PrivateRoute from './PrivateRoute';
+import { Outlet } from 'react-router-dom';
+import Navbar from '../Navbar';
 
 export default function GuestLayout() {
-  // const user = useSelector((state) => state.user)
-
   return (
     <div>
-      Guest
-      {/* <Navbar user={user}/> */}
-      <Outlet />
+      <Navbar />
+      <div className="guest-content">
+        <Outlet />
+      </div>
     </div>
   );
 }
+

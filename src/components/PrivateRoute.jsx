@@ -7,7 +7,6 @@ const PrivateRoute = ({ allowedRoles = [] }) => {
   const user = useSelector(state => state.user);
   const { user_info: { userRole } } = user;
   // console.log('private route', user_role);
-  // console.log('private routeddd', organization_id);
 
   // When user state is empty
   if (!user && !user.user_info) {

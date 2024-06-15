@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 import { loginUser } from '../../redux/slices/authSlice';
 import { setUser } from '../../redux/slices/userSlice';
 import loginImg from '../../assets/login-img.png';
@@ -19,15 +20,34 @@ export default function Login() {
     );
     if (result.type === 'auth/loginUser/fulfilled') {
       dispatch(setUser(result.payload.user));
-      navigate('/' + result?.payload?.user?.userRole + '/dashboard');
+      Swal.fire({
+        icon: 'success',
+        title: 'Login Successful',
+        text: 'You have successfully logged in!',
+      }).then(() => {
+        navigate('/' + result?.payload?.user?.userRole + '/dashboard');
+      });
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Login Failed',
+        text: renderError(result.payload || 'Unknown error'),
+      });
     }
   };
 
   const renderError = (error) => {
     if (typeof error === 'string') {
-      return error;
-    } else if (typeof error === 'object' && error !== null) {
-      return JSON.stringify(error);
+      try {
+        const parsedError = JSON.parse(error);
+        if (parsedError.error) {
+          return parsedError.error;
+        }
+      } catch (e) {
+        return error;
+      }
+    } else if (typeof error === 'object' && error !== null && error.error) {
+      return error.error;
     }
     return 'Unknown error';
   };
@@ -37,7 +57,7 @@ export default function Login() {
       <div className="w-full max-w-5xl mx-auto glass-container overflow-hidden border border-gray-200 mt-8">
         <div className="px-8 py-8 flex">
           <div className="w-1/2 flex flex-col justify-center items-center">
-          < div className="w-100 h-100 flex items-center justify-center">
+            <div className="w-100 h-100 flex items-center justify-center">
               <img src={loginImg} alt="loginImg"/>
             </div>
             <div className="mt-4 text-center">
@@ -71,11 +91,6 @@ export default function Login() {
                   required
                 />
               </div>
-              {auth.status === 'failed' && (
-                <div className="col-span-2 text-red-500 mb-4">
-                  {renderError(auth.error)}
-                </div>
-              )}
               <div className="col-span-2">
                 <button
                   type="submit"

@@ -1,16 +1,15 @@
-import { useSelector } from 'react-redux';
-import { Outlet, Navigate } from "react-router-dom";
-// import Navbar from "./Navbar";
-// import PrivateRoute from './PrivateRoute';
+import { Outlet } from "react-router-dom";
+import Navbar from "../Navbar";
+import Landing from "../../views/common/Landing"; // Corrected path
 
 export default function CustomerLayout() {
-  // const user = useSelector((state) => state.user);
-
   return (
     <div>
-      {/* <Navbar user={user}/> */}
-      CustomerLayout
-      <Outlet />
+      <Navbar />
+      <Landing />
+      <div className="container mx-auto py-6">
+        <Outlet />
+      </div>
     </div>
   );
 }

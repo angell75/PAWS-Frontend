@@ -1,16 +1,14 @@
-import { useSelector } from 'react-redux';
-import { Outlet, Navigate } from "react-router-dom";
-// import Navbar from "./Navbar";
-// import PrivateRoute from './PrivateRoute';
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import Navbar from '../Navbar';
 
 export default function AdminLayout() {
-  // const user = useSelector((state) => state.user);
-
   return (
     <div>
-      {/* <Navbar user={user}/> */}
-      admindwjidiwhh
-      <Outlet />
+      <Navbar />
+      <div className="admin-content">
+        <Outlet />
+      </div>
     </div>
   );
 }

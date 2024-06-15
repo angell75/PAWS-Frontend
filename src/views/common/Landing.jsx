@@ -12,32 +12,16 @@ import mission from '../../assets/mission.png';
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Header */}
-      <header className="bg-white shadow-md">
-        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="text-3xl font-bold text-gray-900">PAWS</div>
-          <nav className="flex space-x-6">
-            <Link to="/" className="text-gray-800 hover:text-indigo-500">Home</Link>
-            <Link to="/viewpetlist" className="text-gray-800 hover:text-indigo-500">Pet</Link>
-            <Link to="/userdonate" className="text-gray-800 hover:text-indigo-500">Donate</Link>
-            <Link to="/shop" className="text-gray-800 hover:text-indigo-500">Shop</Link>
-            <Link to="/blog" className="text-gray-800 hover:text-indigo-500">Blog</Link>
-            <Link to="/contact" className="text-gray-800 hover:text-indigo-500">Contact</Link>
-            <Link to="/profile" className="text-gray-800 hover:text-indigo-500">Profile</Link>
-          </nav>
-          <div className="text-gray-800">123-456-7890</div>
-        </div>
-      </header>
 
       {/* Hero Section */}
       <section className="bg-cover bg-center" style={{ backgroundImage: `url(${landingBanner})`, height: '670px' }}>
       <div className="container mx-auto h-full flex flex-col justify-center items-center">
-          <div className="text-center text-blue-900">
-            <h1 className="text-7xl font-bold">ANIMAL NEED HELPS</h1>
-            <p className="mt-4 text-6xl font-bold">ADOPT A PET!!</p>
-            <p className="mt-4 text-4xl font-bold">JOIN US & SUPPORT LOCAL</p>
+          <div className="text-center text-amber-950">
+            <h1 className="text-6xl font-serif font-bold">Welcome to PAWS!</h1>
+            <p className="mt-4 font-serif text-6xl font-bold ">Find your new best friend</p>
+            <p className="mt-4 font-serif text-lg font-bold">Browse pets from our network of over 1,000.</p>
           </div>
-          <Link to="/viewpetlist" className="mt-8 inline-block px-10 py-3 bg-orange-500 text-white text-2xl font-semibold rounded-md shadow hover:bg-orange-600">
+          <Link to="/viewpetlist" className="mt-8 inline-block px-10 py-3 bg-yellow-600 text-white text-2xl font-serif rounded-full shadow hover:bg-yellow-700">
             View Pets
           </Link>
         </div>
@@ -46,7 +30,7 @@ export default function LandingPage() {
       {/* Features Section */}
       <section className="container mx-auto px-6 py-20 bg-white">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold">WELCOME TO PAWS!</h2>
+          <h2 className="text-3xl font-bold">OUR SERVICES!</h2>
           <p className="mt-4 text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -90,7 +74,7 @@ export default function LandingPage() {
             <h3 className="text-2xl font-bold mb-4">Your pets deserve the best</h3>
             <p className="mb-4">We offer quick & easy services for cats and dogs, accumsan felis id, fermentum purus. Quisque vitae hendrerit elit.</p>
             <p className="mb-8">Aliquam erat volutpat In id fermentum augue, ut pellentesque leo. Maecenas at arcu risus. Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id. In aliquet magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec elementum ipsum convallis.</p>
-            <Link to="/contact" className="inline-block px-6 py-3 bg-blue-500 text-white font-semibold rounded-md shadow hover:bg-orange-600">
+            <Link to="/contactus" className="inline-block px-6 py-3 bg-blue-700 text-white font-semibold rounded-md shadow hover:bg-orange-600">
               Contact Us
             </Link>
           </div>

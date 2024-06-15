@@ -4,6 +4,7 @@ import { API_URL } from '../../statis/url';
 
 const initialState = {
   token: '',
+  user: null,
   status: 'idle',
   error: null,
 };
@@ -37,7 +38,10 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      return initialState; 
+      state.token = '';
+      state.user = null;
+      state.status = 'idle';
+      state.error = null;
     },
   },
   extraReducers: (builder) => {
@@ -48,6 +52,7 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.token = action.payload.access_token;
+        state.user = action.payload.user;
         state.error = null;
       })
       .addCase(loginUser.rejected, (state, action) => {

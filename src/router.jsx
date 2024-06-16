@@ -46,11 +46,6 @@ const router = createBrowserRouter([
       { path: 'login', element: <Login /> },
       { path: 'register', element: <Register /> }, 
       { path: 'viewpetlist', element: <ViewPetList /> }, //For all user to view pet list
-      { path: 'viewpetdetail', element: <ViewPetDetail /> }, //For all user to view pet detail
-      { path: 'adoptionapplication', element: <AdoptionApplication /> }, 
-      { path: 'viewblog', element: <ViewBlog /> }, 
-      { path: 'userdonate', element: <UserDonate /> }, //For user to donate
-      { path: 'contactus', element: <ContactUs /> }, 
     ]
   },
   {
@@ -78,9 +73,14 @@ const router = createBrowserRouter([
         element: <CustomerLayout />,
         children: [
           { path: '', element: <Navigate to='dashboard' /> },
+          { path: 'dashboard', element: <CustomerDashboard /> },
           { path: 'viewpetlist', element: <ViewPetList /> }, //For all user to view pet list
           { path: 'viewpetdetail', element: <ViewPetDetail /> }, //For all user to view pet detail
-          { path: 'dashboard', element: <CustomerDashboard /> },
+          { path: 'viewpetdetail', element: <ViewPetDetail /> }, //For all user to view pet detail
+          { path: 'adoptionapplication', element: <AdoptionApplication /> }, 
+          { path: 'viewblog', element: <ViewBlog /> }, 
+          { path: 'userdonate', element: <UserDonate /> }, //For user to donate
+          { path: 'contactus', element: <ContactUs /> }, 
         ]
       }
     ]

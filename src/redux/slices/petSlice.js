@@ -1,17 +1,28 @@
-// slices/petSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../../Utils/axiosInstance';
 import { API_URL } from '../../statis/url';
 
 export const uploadPet = createAsyncThunk(
   'pets/uploadPet',
-  async (petData, { rejectWithValue }) => {
+  async (formData, { rejectWithValue }) => {
     try {
-      const formData = new FormData();
-      for (const key in petData) {
-        formData.append(key, petData[key]);
-      }
-      const response = await axiosInstance.post(API_URL.PETS, formData);
+      const response = await axiosInstance.post(API_URL.PETS, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const fetchPets = createAsyncThunk(
+  'pets/fetchPets',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(API_URL.PETS);
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -29,6 +40,18 @@ const petSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(fetchPets.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchPets.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.pets = action.payload || []; // Ensure it's an array
+        state.error = null;
+      })
+      .addCase(fetchPets.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      })
       .addCase(uploadPet.pending, (state) => {
         state.status = 'loading';
       })

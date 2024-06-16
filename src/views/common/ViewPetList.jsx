@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import Modal from 'react-modal';
-import { uploadPet } from '../../redux/slices/petSlice';
-import dogProfile from '../../assets/dog-profile.jpg';
+import { fetchPets, uploadPet } from '../../redux/slices/petSlice';
 import petListBanner from '../../assets/pet-list-banner.png';
+import noImage from '../../assets/no-image.png';
 
 Modal.setAppElement('#root');
 
 export default function ViewPetList() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { pets, status } = useSelector((state) => state.pets);
   const user = useSelector((state) => state.auth.user);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [petData, setPetData] = useState({
-    image: '',
+    petImage: null,
     name: '',
     breed: '',
     gender: 'Male',
@@ -23,8 +24,15 @@ export default function ViewPetList() {
     description: '',
     vaccineStatus: false,
     vaccineDate: '',
-});
+  });
 
+  useEffect(() => {
+    dispatch(fetchPets());
+  }, [dispatch]);
+
+  useEffect(() => {
+    console.log('Fetched Pets:', pets);
+  }, [pets]);
 
   const handleButtonClick = () => {
     if (!user) {
@@ -59,17 +67,30 @@ export default function ViewPetList() {
   };
 
   const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setPetData({
-      ...petData,
-      [name]: type === 'checkbox' ? checked : value,
-    });
+    const { name, value, type, checked, files } = e.target;
+    if (type === 'checkbox') {
+      setPetData((prevState) => ({
+        ...prevState,
+        [name]: checked,
+      }));
+    } else if (type === 'file') {
+      setPetData((prevState) => ({
+        ...prevState,
+        [name]: files[0],
+      }));
+    } else {
+      setPetData((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      await dispatch(uploadPet(petData)).unwrap();
+      console.log(petData);
+      await dispatch(uploadPet(petData));
       Swal.fire({
         icon: 'success',
         title: 'Upload Successful',
@@ -100,37 +121,18 @@ export default function ViewPetList() {
 
       {/* Main Content */}
       <div className="container mx-auto flex px-12 py-12">
-        {/* Sidebar */}
-        <div className="w-1/4 pr-8">
-          <h2 className="text-2xl font-bold mb-4">Filter</h2>
-          <div className="bg-white p-4 rounded-lg shadow-md">
-            <h3 className="text-xl font-bold mb-2">Animal</h3>
-            <ul>
-              <li><input type="checkbox" /> Category 1</li>
-              <li><input type="checkbox" /> Category 2</li>
-              <li><input type="checkbox" /> Category 3</li>
-            </ul>
-            <h3 className="text-xl font-bold mt-4 mb-2">Breed</h3>
-            <ul>
-              <li><input type="checkbox" /> Category A</li>
-              <li><input type="checkbox" /> Category B</li>
-              <li><input type="checkbox" /> Category C</li>
-            </ul>
-          </div>
-        </div>
-
         {/* Pet Cards */}
-        <div className="w-3/4">
+        <div className="w-full">
           {/* Search Bar */}
-          <div className="mb-8 flex justify-between">
+          <div className="mb-10 flex justify-between">
             <input
               type="text"
-              className="w-full p-4 rounded-lg shadow-md"
+              className="w-5/6 p-4 rounded-lg shadow-md"
               placeholder="Search..."
             />
             <button
               onClick={openModal}
-              className="ml-4 px-4 py-2 bg-orange-600 text-white font-semibold rounded-md shadow hover:bg-orange-700"
+              className="w-1/6 ml-4 px-4 py-2 bg-orange-600 text-white font-semibold rounded-md shadow hover:bg-orange-700"
             >
               Upload Pet
             </button>
@@ -138,50 +140,36 @@ export default function ViewPetList() {
 
           {/* Pet List */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Pet Card 1 */}
-            <div className="bg-white rounded-lg shadow-md flex overflow-hidden">
-              <img src={dogProfile} alt="Pet" className="w-1/3 h-full object-cover" />
-              <div className="w-2/3 p-7">
-                <h2 className="text-2xl font-bold py-2">Magdalene</h2>
-                <p><strong>Gender:</strong> Female</p>
-                <p><strong>Age:</strong> 2 years</p>
-                <p><strong>Breed:</strong> Poodle Mix</p>
-                <div className="mt-4 text-center">
-                  <span className="text-blue-500">Special Needs</span>
-                  <span className="ml-1 text-blue-500">Friendly to other pets</span>
-                </div>
-                <div className="mt-4 text-center">
-                  <button
-                    className={`bg-orange-500 text-white px-4 py-2 rounded-full ${!user ? 'cursor-not-allowed opacity-50' : ''}`}
-                    onClick={handleButtonClick}
-                  >
-                    More Info
-                  </button>
-                </div>
-              </div>
-            </div>
-            {/* Pet Card 2 */}
-            <div className="bg-white rounded-lg shadow-md flex overflow-hidden">
-              <img src={dogProfile} alt="Pet" className="w-1/3 h-full object-cover" />
-              <div className="w-2/3 p-7">
-                <h2 className="text-2xl font-bold py-2">Leelo</h2>
-                <p><strong>Gender:</strong> Male</p>
-                <p><strong>Age:</strong> 7 years</p>
-                <p><strong>Breed:</strong> Mixed</p>
-                <div className="mt-4 text-center">
-                  <span className="text-blue-500">Vaccinated</span>
-                  <span className="ml-2 text-blue-500">Friendly to other pets</span>
-                </div>
-                <div className="mt-4 text-center">
-                  <button
-                    className={`bg-orange-500 text-white px-4 py-2 rounded-full ${!user ? 'cursor-not-allowed opacity-50' : ''}`}
-                    onClick={handleButtonClick}
-                  >
-                    More Info
-                  </button>
+            {pets.map((pet) => (
+              <div key={pet.petId} className="bg-white rounded-lg shadow-md flex overflow-hidden">
+                <img
+                  src={pet.petImage}
+                  alt="Pet"
+                  className="w-24 sm:w-64 h-64 pt-5 aspect-square object-fill"
+                  onError={(e) => {
+                    e.target.src = noImage; 
+                  }}
+                />
+                <div className="w-2/4 p-7">
+                  <h2 className="text-2xl font-bold py-2">{pet.name}</h2>
+                  <p><strong>Gender:</strong> {pet.gender}</p>
+                  <p><strong>Age:</strong> {pet.age}</p>
+                  <p><strong>Breed:</strong> {pet.breed}</p>
+                  <div className="mt-4 text-center">
+                    <span className="text-blue-500">Special Needs</span>
+                    <span className="ml-1 text-blue-500">Friendly to other pets</span>
+                  </div>
+                  <div className="mt-4 text-center">
+                    <button
+                      className={`bg-orange-500 text-white px-4 py-2 rounded-full ${!user ? 'cursor-not-allowed opacity-50' : ''}`}
+                      onClick={handleButtonClick}
+                    >
+                      More Info
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
@@ -204,7 +192,7 @@ export default function ViewPetList() {
         <form onSubmit={handleFormSubmit}>
           <div className="mb-4">
             <label className="block text-lg font-semibold mb-2">Image</label>
-            <input type="file" name="image" className="w-full p-2 border rounded" onChange={handleInputChange} required />
+            <input type="file" name="petImage" className="w-full p-2 border rounded" onChange={handleInputChange} required />
           </div>
           <div className="mb-4">
             <label className="block text-lg font-semibold mb-2">Name</label>
@@ -212,13 +200,7 @@ export default function ViewPetList() {
           </div>
           <div className="mb-4">
             <label className="block text-lg font-semibold mb-2">Breed</label>
-            <select name="breed" className="w-full p-2 border rounded" onChange={handleInputChange} required>
-              <option value="">Select Breed</option>
-              <option value="volvo">Volvo</option>
-              <option value="saab">Saab</option>
-              <option value="mercedes">Mercedes</option>
-              <option value="audi">Audi</option>
-            </select>
+            <input type="text" name="breed" className="w-full p-2 border rounded" onChange={handleInputChange} required />
           </div>
           <div className="mb-4">
             <label className="block text-lg font-semibold mb-2">Gender</label>
@@ -253,8 +235,8 @@ export default function ViewPetList() {
             </div>
           )}
           <div className="text-right">
-            <button type="submit" className="px-4 py-2 bg-green-600 text-white font-semibold rounded-md shadow hover:bg-green-700">Submit</button>
-            <button type="button" onClick={closeModal} className="ml-4 px-4 py-2 bg-gray-600 text-white font-semibold rounded-md shadow hover:bg-gray-700">Cancel</button>
+            <button type="submit" className="px-6 py-2 bg-amber-600 text-white font-semibold rounded-md shadow hover:bg-orange-700">Submit</button>
+            <button type="button" onClick={closeModal} className="ml-4 px-4 py-2 bg-gray-500 text-white font-semibold rounded-md shadow hover:bg-gray-700">Cancel</button>
           </div>
         </form>
       </Modal>

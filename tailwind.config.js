@@ -19,6 +19,7 @@ module.exports = {
           700: '#CC6600',
         },
         title: '#607984',
+        customBg: '#E2E9FE',
       },
       boxShadow: {
         glass: '0 4px 8px rgba(0, 0, 0, 0.2)',

@@ -1,5 +1,6 @@
-import React from 'react';
-import articleImage from '../../assets/article-img.png'; 
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import articleImage from '../../assets/no-image.png'; 
 
 export default function ViewBlog() {
   return (

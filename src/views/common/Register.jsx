@@ -88,12 +88,12 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-cover bg-center flex flex-col justify-center items-center" style={{ backgroundImage: 'url(/src/assets/register-background.png)' }}>
-      <div className="w-full max-w-5xl mx-auto glass-container overflow-hidden border border-gray-200 mt-8">
-        <div className="px-8 py-12 flex">
-          <div className="w-1/2 flex flex-col justify-center items-center">
-            <div className="w-100 h-100 flex items-center justify-center">
-              <img src={registerImg} alt="registerImg" />
+    <div className="min-h-screen bg-cover bg-center flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8" style={{ backgroundImage: 'url(/src/assets/register-background.png)' }}>
+      <div className="w-full max-w-lg lg:max-w-5xl mx-auto glass-container overflow-hidden border border-gray-200 mt-8">
+        <div className="px-8 py-12 flex flex-col md:flex-row">
+          <div className="w-full md:w-1/2 flex flex-col justify-center items-center">
+            <div className="w-full h-full flex items-center justify-center">
+              <img src={registerImg} alt="registerImg" className="w-full max-w-xs md:max-w-none"/>
             </div>
             <div className="mt-4 text-center">
               <Link to="/login" className="italic font-bold underline" style={{ color: '#35393D' }}>
@@ -101,11 +101,11 @@ export default function Register() {
               </Link>
             </div>
           </div>
-          <div className="w-1/2">
-            <h2 className="text-4xl font-bold italic" style={{ color: '#002e4d' }}>Registration</h2>
-            <form className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-2" onSubmit={handleSubmit}>
+          <div className="w-full md:w-1/2 mt-8 md:mt-0 md:pl-8">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold italic" style={{ color: '#002e4d' }}>Registration</h2>
+            <form className="mt-4 grid grid-cols-1 gap-4" onSubmit={handleSubmit}>
               <div className="col-span-1">
-                <label className="text-lg block italic font-bold" style={{ color: '#513C2C' }}>Full Name</label>
+                <label className="text-lg sm:text-xl md:text-2xl block italic font-bold" style={{ color: '#513C2C' }}>Full Name</label>
                 <input
                   type="text"
                   className="glass-input mt-1 block w-full"
@@ -115,7 +115,7 @@ export default function Register() {
                 />
               </div>
               <div className="col-span-1">
-                <label className="text-lg block italic font-bold" style={{ color: '#513C2C' }}>Email</label>
+                <label className="text-lg sm:text-xl md:text-2xl block italic font-bold" style={{ color: '#513C2C' }}>Email</label>
                 <input
                   type="email"
                   className="glass-input mt-1 block w-full"
@@ -125,7 +125,7 @@ export default function Register() {
                 />
               </div>
               <div className="col-span-1">
-                <label className="text-lg block italic font-bold" style={{ color: '#513C2C' }}>Password</label>
+                <label className="text-lg sm:text-xl md:text-2xl block italic font-bold" style={{ color: '#513C2C' }}>Password</label>
                 <input
                   type="password"
                   className="glass-input mt-1 block w-full"
@@ -135,7 +135,7 @@ export default function Register() {
                 />
               </div>
               <div className="col-span-1">
-                <label className="text-lg block italic font-bold" style={{ color: '#513C2C' }}>Confirm Password</label>
+                <label className="text-lg sm:text-xl md:text-2xl block italic font-bold" style={{ color: '#513C2C' }}>Confirm Password</label>
                 <input
                   type="password"
                   className="glass-input mt-1 block w-full"
@@ -145,7 +145,7 @@ export default function Register() {
                 />
               </div>
               <div className="col-span-1">
-                <label className="text-lg block italic font-bold" style={{ color: '#513C2C' }}>Contact</label>
+                <label className="text-lg sm:text-xl md:text-2xl block italic font-bold" style={{ color: '#513C2C' }}>Contact</label>
                 <input
                   type="text"
                   className="glass-input mt-1 block w-full"
@@ -156,16 +156,16 @@ export default function Register() {
                 />
               </div>
               <div className="col-span-1">
-                <label className="text-lg block italic font-bold" style={{ color: '#513C2C' }}>Address</label>
+                <label className="text-lg sm:text-xl md:text-2xl block italic font-bold" style={{ color: '#513C2C' }}>Address</label>
                 <input
                   type="text"
-                  className="glass-input mt-1 block w-full h-32"
+                  className="glass-input mt-1 block w-full"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                   required
                 />
               </div>
-              <div className="col-span-2">
+              <div className="col-span-1">
                 <button
                   type="submit"
                   className="w-full py-3 px-4 bg-orange-600 text-white font-semibold rounded-md shadow hover:bg-orange-700 focus:outline-none"

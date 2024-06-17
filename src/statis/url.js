@@ -4,4 +4,6 @@ export const API_URL = {
   LOGIN: API_BASE_URL + 'login',
   REGISTER: API_BASE_URL + 'register',
   PETS: API_BASE_URL + 'pets',
+  DONATIONS: API_BASE_URL + 'donations',
+
 };

@@ -5,6 +5,7 @@ import { combineReducers } from 'redux';
 import authReducer from './slices/authSlice';
 import userReducer from './slices/userSlice';
 import petReducer from './slices/petSlice';
+import donationReducer from './slices/donationSlice';
 
 const reduxLogger = (store) => (next) => (action) => {
   console.log('Dispatching action:', action);
@@ -21,7 +22,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authReducer,
   user: userReducer,
-  pets: petReducer, 
+  pets: petReducer,
+  donations: donationReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

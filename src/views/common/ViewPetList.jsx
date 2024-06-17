@@ -107,7 +107,7 @@ export default function ViewPetList() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen flex flex-col"  style={{ backgroundImage: 'url(/src/assets/login-background.png)'}}>
       {/* Banner */}
       <section
         className="bg-cover bg-center py-20"
@@ -146,9 +146,7 @@ export default function ViewPetList() {
                   src={pet.petImage}
                   alt="Pet"
                   className="w-24 sm:w-64 h-64 pt-5 aspect-square object-fill"
-                  onError={(e) => {
-                    e.target.src = noImage; 
-                  }}
+                  onError={(e) => {e.target.src = noImage;}}
                 />
                 <div className="w-2/4 p-7">
                   <h2 className="text-2xl font-bold py-2">{pet.name}</h2>

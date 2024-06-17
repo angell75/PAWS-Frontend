@@ -5,12 +5,15 @@ import PropTypes from 'prop-types';
 
 const PrivateRoute = ({ allowedRoles = [] }) => {
   const user = useSelector(state => state.user);
-  const { user_info: { userRole } } = user;
-  // console.log('private route', user_role);
+  const { user_info } = user || {};
+  const { userRole } = user_info || {};
 
-  // When user state is empty
-  if (!user && !user.user_info) {
+  if (!user_info || !userRole) {
     return <Navigate to='/login' />;
+  }
+
+  if (!allowedRoles.includes(userRole)) {
+    return <Navigate to='/unauthorized' />;
   }
 
   return <Outlet />;

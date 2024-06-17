@@ -1,7 +1,9 @@
+import Landing from "../../views/common/Landing";
+
 export default function CustomerDashboard(){
   return(
     <div>
-      CustomerDashboard
+      <Landing />
     </div>
   )
 }

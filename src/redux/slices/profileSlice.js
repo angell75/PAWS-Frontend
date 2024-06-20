@@ -12,9 +12,9 @@ export const updateUserProfile = createAsyncThunk(
   'user/updateUserProfile',
   async (formData, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.post(API_URL.UPDATE_PROFILE, formData, {
+      const response = await axiosInstance.post(API_URL.UPDATE_USER_PROFILE, formData, {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'multipart/form-data',
         },
       });
       return response.data.user;
@@ -65,7 +65,7 @@ const userSlice = createSlice({
       .addCase(changePassword.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(changePassword.fulfilled, (state) => {
+      .addCase(changePassword.fulfilled, (state, action) => {
         state.status = 'succeeded';
       })
       .addCase(changePassword.rejected, (state, action) => {

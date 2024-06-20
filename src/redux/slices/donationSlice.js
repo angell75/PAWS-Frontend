@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { API_URL } from '../../statis/url';  // Correct the path to your API URL
+import { API_URL } from '../../statis/url';  
 
 export const makeDonation = createAsyncThunk(
   'donations/makeDonation',
   async (donationData, { rejectWithValue, getState }) => {
     const state = getState();
-    const token = state.auth.token; // Ensure you are getting the token correctly
+    const token = state.auth.token; 
     try {
       const response = await axios.post(API_URL.DONATIONS, donationData, {
         headers: {

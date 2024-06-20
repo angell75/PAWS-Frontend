@@ -26,6 +26,7 @@ import ViewPetDetail from './views/common/ViewPetDetail';
 import UserDonate from './views/common/UserDonate';
 import ContactUs from './views/common/ContactUs';
 import ViewBlog from './views/common/ViewBlog';
+import ViewProfile from './views/common/ViewProfile';
 
 // Seller Views
 import SellerDashboard from './views/seller/SellerDashboard';
@@ -76,7 +77,7 @@ const router = createBrowserRouter([
         children: [
           { path: '', element: <Navigate to='dashboard' /> },
           { path: 'viewpetlist', element: <ViewPetList /> }, // For all users to view pet list
-          { path: 'viewpetdetail', element: <ViewPetDetail /> }, // For all users to view pet detail
+          { path: 'pet/:petId', element: <ViewPetDetail /> }, // For all users to view pet detail
           { path: 'dashboard', element: <AdminDashboard /> },
         ],
       },
@@ -93,11 +94,13 @@ const router = createBrowserRouter([
           { path: '', element: <Navigate to='dashboard' /> },
           { path: 'dashboard', element: <CustomerDashboard /> },
           { path: 'viewpetlist', element: <ViewPetList /> }, // For all users to view pet list
-          { path: 'viewpetdetail', element: <ViewPetDetail /> }, // For all users to view pet detail
-          { path: 'adoptionapplication', element: <AdoptionApplication /> },
+          { path: 'pet/:petId', element: <ViewPetDetail /> }, // For all users to view pet detail
+          { path: 'adoptionapplication/:petId', element: <AdoptionApplication /> },
           { path: 'viewblog', element: <ViewBlog /> },
           { path: 'userdonate', element: <UserDonate /> }, // For user to donate
           { path: 'contactus', element: <ContactUs /> },
+          { path: 'profile', element: <ViewProfile  /> },
+          
         ],
       },
     ],
@@ -125,9 +128,9 @@ const router = createBrowserRouter([
         element: <VetLayout />,
         children: [
           { path: '', element: <Navigate to='dashboard' /> },
-          { path: 'viewpetlist', element: <ViewPetList /> }, // For all users to view pet list
-          { path: 'viewpetdetail', element: <ViewPetDetail /> }, // For all users to view pet detail
           { path: 'dashboard', element: <VetDashboard /> },
+          { path: 'viewpetlist', element: <ViewPetList /> }, // For all users to view pet list
+          { path: 'pet/:petId', element: <ViewPetDetail /> }, // For all users to view pet detail
         ],
       },
     ],

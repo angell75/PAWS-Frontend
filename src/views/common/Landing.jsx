@@ -13,7 +13,6 @@ import noImage from '../../assets/no-image.png';
 import findPet from '../../assets/find-pet.jpg';
 import knowPet from '../../assets/know-pet.jpg';
 import takeHome from '../../assets/take-home.jpg';
-import adoptionProcessBanner from '../../assets/paws22.png'; 
 
 export default function LandingPage() {
   const [featuredPets, setFeaturedPets] = useState([]);
@@ -24,21 +23,17 @@ export default function LandingPage() {
   useEffect(() => {
     const fetchFeaturedPets = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/top-pets', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get('http://localhost:8000/api/top-pets');
         setFeaturedPets(response.data);
-        setLoading(false);
       } catch (err) {
         setError(err);
+      } finally {
         setLoading(false);
       }
     };
 
     fetchFeaturedPets();
-  }, [token]);
+  }, []);
 
   return (
     <div className="min-h-screen bg-customBg flex flex-col">
@@ -103,7 +98,7 @@ export default function LandingPage() {
             <h3 className="text-2xl font-bold mb-4">Your pets deserve the best</h3>
             <p className="text-lg mb-4">We offer quick & easy services for cats and dogs, accumsan felis id, fermentum purus. Quisque vitae hendrerit elit.</p>
             <p className="text-lg mb-8">Aliquam erat volutpat In id fermentum augue, ut pellentesque leo. Maecenas at arcu risus. Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id. In aliquet magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec elementum ipsum convallis.</p>
-            <Link to="/contactus" className="inline-block px-6 py-3 bg-blue-700 text-white font-semibold rounded-md shadow hover:bg-orange-600">
+            <Link to="/customer/contactus" className="inline-block px-6 py-3 bg-blue-700 text-white font-semibold rounded-md shadow hover:bg-orange-600">
               Contact Us
             </Link>
           </div>
@@ -153,8 +148,8 @@ export default function LandingPage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {featuredPets?.map((pet) => (
-              <div key={pet.id} className="bg-white p-4 sm:p-6 rounded-lg shadow">
-                <div className="flex justify-center items-center h-48 sm:h-64 mb-12 mt-12">
+              <div key={pet.id} className="bg-white sm:p-6 rounded-lg shadow">
+                <div className="flex justify-center items-center h-48 sm:h-64 mb-2 mt-2">
                   <img
                     src={pet.petImage}
                     alt={pet.name}

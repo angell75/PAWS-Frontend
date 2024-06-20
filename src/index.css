@@ -104,7 +104,6 @@
 }
 
 /* Modal CSS */
-
 .modal {
   position: absolute;
   top: 50%;
@@ -123,6 +122,15 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
+/* Add this to style the input fields */
+.modal input,
+.modal select,
+.modal textarea {
+  border: 2px solid #DCCCBB; 
+  border-radius: 4px;
+  font-size: 16px;
+}
+
 .overlay {
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
@@ -130,4 +138,9 @@
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+.input-focused {
+  border: 2px solid #DCCCBB; 
+  outline: none; 
 }

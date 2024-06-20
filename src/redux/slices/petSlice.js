@@ -30,10 +30,23 @@ export const fetchPets = createAsyncThunk(
   }
 );
 
+export const fetchPetById = createAsyncThunk(
+  'pets/fetchPetById',
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(`${API_URL.PETS}/${id}`);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 const petSlice = createSlice({
   name: 'pets',
   initialState: {
     pets: [],
+    selectedPet: null,
     status: 'idle',
     error: null,
   },
@@ -61,6 +74,18 @@ const petSlice = createSlice({
         state.error = null;
       })
       .addCase(uploadPet.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      })
+      .addCase(fetchPetById.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchPetById.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.selectedPet = action.payload;
+        state.error = null;
+      })
+      .addCase(fetchPetById.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
       });

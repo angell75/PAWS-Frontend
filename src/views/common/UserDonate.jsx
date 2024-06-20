@@ -4,7 +4,6 @@ import { makeDonation, clearError } from "../../redux/slices/donationSlice";
 import feedStrays from "../../assets/feed-strays.jpg";
 import treatment from "../../assets/treatment.jpg";
 import vaccinate from "../../assets/vaccination.jpg";
-import rescue from "../../assets/rescue-pet.jpg";
 
 export default function UserDonate() {
   const [donationAmount, setDonationAmount] = useState("");
@@ -28,9 +27,7 @@ export default function UserDonate() {
       <section className="bg-gray-900 text-gray-300 py-20">
         <div className="container mx-auto text-center">
           <h1 className="text-6xl font-bold text-title">Donate</h1>
-          <p className="text-white mt-4">
-            Thank you for your support of our furry friends!
-          </p>
+          <h2 className="text-2xl text-white mt-4">Your support helps us save more lives</h2>
         </div>
       </section>
 
@@ -102,7 +99,7 @@ export default function UserDonate() {
                 <select
                   value={donationAmount}
                   onChange={(e) => setDonationAmount(e.target.value)}
-                  className="w-full p-2 border rounded-md"
+                  className="w-full p-2 border rounded-md input-focused"
                 >
                   <option value="">Select an amount</option>
                   <option value="20">$20</option>
@@ -114,7 +111,7 @@ export default function UserDonate() {
               <div className="text-right">
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-green-500 text-white font-semibold rounded-md shadow hover:bg-green-700"
+                  className="px-6 py-2 bg-orange-500 text-white font-semibold rounded-md shadow hover:bg-blue-700"
                 >
                   Donate
                 </button>

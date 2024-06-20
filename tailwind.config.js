@@ -20,6 +20,8 @@ module.exports = {
         },
         title: '#607984',
         customBg: '#E2E9FE',
+        petBg: '#FFF9F5',
+        blogBg: '#B3AA99',
       },
       boxShadow: {
         glass: '0 4px 8px rgba(0, 0, 0, 0.2)',

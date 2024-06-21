@@ -27,6 +27,7 @@ import UserDonate from './views/common/UserDonate';
 import ContactUs from './views/common/ContactUs';
 import ViewBlog from './views/common/ViewBlog';
 import ViewProfile from './views/common/ViewProfile';
+import ViewMyPet from './views/common/ViewMyPet';
 
 // Seller Views
 import SellerDashboard from './views/seller/SellerDashboard';
@@ -100,6 +101,7 @@ const router = createBrowserRouter([
           { path: 'userdonate', element: <UserDonate /> }, // For user to donate
           { path: 'contactus', element: <ContactUs /> },
           { path: 'profile', element: <ViewProfile  /> },
+          { path: 'mypet', element: <ViewMyPet  /> },
           
         ],
       },

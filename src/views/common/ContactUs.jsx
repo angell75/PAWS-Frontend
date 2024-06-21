@@ -54,8 +54,8 @@ export default function ContactUs() {
         style={{ backgroundImage: `url(${contactUsBanner})`, height: "300px" }}
       >
         <div className="container mx-auto text-center">
-          <h1 className="text-6xl font-bold text-black">Contact Us</h1>
-          <h2 className="text-2xl text-black mt-4">
+          <h1 className="text-4xl md:text-6xl font-bold text-black">Contact Us</h1>
+          <h2 className="text-xl md:text-2xl text-black mt-4">
             We’d love to hear from you!
           </h2>
         </div>

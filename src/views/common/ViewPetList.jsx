@@ -7,8 +7,6 @@ import { fetchPets, uploadPet } from "../../redux/slices/petSlice";
 import petListBanner from "../../assets/pet-list-banner.png";
 import noImage from "../../assets/no-image.png";
 
-Modal.setAppElement("#root");
-
 export default function ViewPetList() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -33,10 +31,12 @@ export default function ViewPetList() {
   }, [dispatch]);
 
   useEffect(() => {
-    // Filter out pets without an adoption status
-    const petsWithAdoptionStatus = pets.filter(pet => pet.adoptionStatus);
-    setFilteredPets(petsWithAdoptionStatus);
-  }, [pets]);
+    if (user) {
+      setFilteredPets(pets.filter((pet) => pet.userId !== user.userId));
+    } else {
+      setFilteredPets(pets);
+    }
+  }, [pets, user]);
 
   useEffect(() => {
     console.log("Fetched Pets:", pets);
@@ -56,11 +56,11 @@ export default function ViewPetList() {
   const handleButtonClick = (petId) => {
     if (!user) {
       Swal.fire({
-        icon: 'warning',
-        title: 'Please log in',
-        text: 'You need to log in to see more details.',
+        icon: "warning",
+        title: "Please log in",
+        text: "You need to log in to see more details.",
       }).then(() => {
-        navigate('/login');
+        navigate("/login");
       });
     } else {
       navigate(`/customer/pet/${petId}`);

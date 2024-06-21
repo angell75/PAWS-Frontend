@@ -74,7 +74,7 @@ const Navbar = () => {
                     {dropdownOpen && (
                       <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
                         <Link to="/customer/profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">My Profile</Link>
-                        <Link to="/customer/my-pet" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">My Pet</Link>
+                        <Link to="/customer/mypet" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">My Pet</Link>
                         <Link to="/customer/applications" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Applications</Link>
                         <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</button>
                       </div>

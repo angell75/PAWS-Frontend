@@ -144,3 +144,26 @@
   border: 2px solid #DCCCBB; 
   outline: none; 
 }
+
+.status-badge {
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  border-radius: 0.25em;
+  font-size: 0.875em;
+  font-weight: 600;
+}
+
+.status-badge.available {
+  background-color: #28a745;
+  color: white;
+}
+
+.status-badge.pending {
+  background-color: #ffc107;
+  color: white;
+}
+
+.status-badge.adopted {
+  background-color: #007bff;
+  color: white;
+}

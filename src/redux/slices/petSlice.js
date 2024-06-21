@@ -42,6 +42,34 @@ export const fetchPetById = createAsyncThunk(
   }
 );
 
+export const updatePet = createAsyncThunk(
+  'pets/updatePet',
+  async ({ id, formData }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post(`${API_URL.PETS}/${id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const deletePet = createAsyncThunk(
+  'pets/deletePet',
+  async (id, { rejectWithValue }) => {
+    try {
+      await axiosInstance.delete(`${API_URL.PETS}/${id}`);
+      return id;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 const petSlice = createSlice({
   name: 'pets',
   initialState: {
@@ -50,7 +78,12 @@ const petSlice = createSlice({
     status: 'idle',
     error: null,
   },
-  reducers: {},
+  reducers: {
+    resetStatus: (state) => {
+      state.status = 'idle';
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPets.pending, (state) => {
@@ -58,7 +91,7 @@ const petSlice = createSlice({
       })
       .addCase(fetchPets.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.pets = action.payload || []; // Ensure it's an array
+        state.pets = action.payload || []; 
         state.error = null;
       })
       .addCase(fetchPets.rejected, (state, action) => {
@@ -88,8 +121,36 @@ const petSlice = createSlice({
       .addCase(fetchPetById.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
+      })
+      .addCase(updatePet.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(updatePet.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        const index = state.pets.findIndex(pet => pet.id === action.payload.id);
+        if (index !== -1) {
+          state.pets[index] = action.payload;
+        }
+        state.error = null;
+      })
+      .addCase(updatePet.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      })
+      .addCase(deletePet.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(deletePet.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.pets = state.pets.filter(pet => pet.petId !== action.payload);
+      })
+      .addCase(deletePet.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
       });
   },
 });
+
+export const { resetStatus } = petSlice.actions;
 
 export default petSlice.reducer;

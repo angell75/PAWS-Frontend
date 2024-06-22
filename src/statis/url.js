@@ -9,4 +9,5 @@ export const API_URL = {
   APPLICATIONS: API_BASE_URL + 'applications',
   UPDATE_PROFILE: API_BASE_URL + 'updateProfile',
   CHANGE_PASSWORD: API_BASE_URL + 'changePassword',
+  PRODUCTS: API_BASE_URL + 'products',
 };

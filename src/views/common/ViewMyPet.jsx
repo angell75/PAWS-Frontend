@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Modal from "react-modal";
-import { fetchPets, updatePet, deletePet, resetStatus } from "../../redux/slices/petSlice";
+import {
+  fetchPets,
+  updatePet,
+  deletePet,
+  resetStatus,
+} from "../../redux/slices/petSlice";
 import Swal from "sweetalert2";
 import profileBanner from "../../assets/my-pets.png";
 import { Icon } from "@iconify/react";
-
-Modal.setAppElement("#root");
 
 export default function ViewMyPet() {
   const dispatch = useDispatch();
@@ -21,7 +24,7 @@ export default function ViewMyPet() {
     gender: "",
     age: "",
     description: "",
-    vaccineStatus: false,
+    vaccineStatus: "",
     vaccineDate: "",
   });
 
@@ -38,13 +41,24 @@ export default function ViewMyPet() {
       gender: pet.gender || "",
       age: pet.age || "",
       description: pet.description || "",
-      vaccineStatus: Boolean(pet.vaccineStatus),
+      vaccineStatus: pet.vaccineStatus === "true",
       vaccineDate: pet.vaccineDate || "",
     });
     setModalIsOpen(true);
   };
 
   const closeModal = () => {
+    setPetData({
+      id: "",
+      petImage: null,
+      name: "",
+      breed: "",
+      gender: "",
+      age: "",
+      description: "",
+      vaccineStatus: false,
+      vaccineDate: "",
+    });
     setModalIsOpen(false);
   };
 
@@ -52,7 +66,8 @@ export default function ViewMyPet() {
     const { name, value, type, checked, files } = e.target;
     setPetData({
       ...petData,
-      [name]: type === "checkbox" ? checked : type === "file" ? files[0] : value,
+      [name]:
+        type === "checkbox" ? checked : type === "file" ? files[0] : value,
     });
   };
 
@@ -85,7 +100,11 @@ export default function ViewMyPet() {
         dispatch(resetStatus());
         dispatch(fetchPets());
       } else {
-        Swal.fire("Error", `Error updating pet: ${error.message || "Unknown error"}`, "error");
+        Swal.fire(
+          "Error",
+          `Error updating pet: ${error.message || "Image too large"}`,
+          "error"
+        );
         dispatch(resetStatus());
         closeModal();
       }
@@ -113,10 +132,15 @@ export default function ViewMyPet() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-900">
-      <section className="bg-cover bg-center py-20" style={{ backgroundImage: `url(${profileBanner})`, height: "300px" }}>
+      <section
+        className="bg-cover bg-center py-20"
+        style={{ backgroundImage: `url(${profileBanner})`, height: "300px" }}
+      >
         <div className="container mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-bold text-black">My Pets</h1>
-          <h2 className="text-xl md:text-2xl text-black mt-4">View and edit your uploaded pets.</h2>
+          <h2 className="text-xl md:text-2xl text-black mt-4">
+            View and edit your uploaded pets.
+          </h2>
         </div>
       </section>
 
@@ -140,7 +164,11 @@ export default function ViewMyPet() {
                 {userPets.map((pet) => (
                   <tr key={pet.id}>
                     <td className="py-2 px-4">
-                      <img src={pet.petImage} alt={pet.name} className="w-12 h-12 rounded-full" />
+                      <img
+                        src={pet.petImage}
+                        alt={pet.name}
+                        className="w-12 h-12 rounded-full"
+                      />
                     </td>
                     <td className="py-2 px-4">{pet.name}</td>
                     <td className="py-2 px-4">{pet.breed}</td>
@@ -148,13 +176,23 @@ export default function ViewMyPet() {
                     <td className="py-2 px-4">{pet.age}</td>
                     <td className="py-2 px-4">{pet.description}</td>
                     <td className="py-2 px-4">
-                      <span className={`status-badge ${pet.adoptionStatus.toLowerCase()}`}>{pet.adoptionStatus}</span>
+                      <span
+                        className={`status-badge ${pet.adoptionStatus.toLowerCase()}`}
+                      >
+                        {pet.adoptionStatus}
+                      </span>
                     </td>
                     <td className="py-2 px-4 flex space-x-2">
-                      <button onClick={() => openModal(pet)} className="bg-blue-500 text-white py-1 px-3 rounded">
+                      <button
+                        onClick={() => openModal(pet)}
+                        className="bg-blue-500 text-white py-1 px-3 rounded"
+                      >
                         <Icon icon="mdi:pencil" />
                       </button>
-                      <button onClick={() => handleDelete(pet.petId)} className="bg-red-500 text-white py-1 px-3 rounded">
+                      <button
+                        onClick={() => handleDelete(pet.petId)}
+                        className="bg-red-500 text-white py-1 px-3 rounded"
+                      >
                         <Icon icon="mdi:delete" />
                       </button>
                     </td>
@@ -183,53 +221,124 @@ export default function ViewMyPet() {
         <form onSubmit={handleFormSubmit}>
           <div className="mb-4">
             <label className="block text-lg font-semibold mb-2">Image</label>
-            <input type="file" name="petImage" className="w-full p-2 border rounded" onChange={handleInputChange} />
+            <input
+              type="file"
+              name="petImage"
+              className="w-full p-2 border rounded"
+              onChange={handleInputChange}
+            />
           </div>
           <div className="mb-4">
             <label className="block text-lg font-semibold mb-2">Name</label>
-            <input type="text" name="name" value={petData.name} className="w-full p-2 border rounded" onChange={handleInputChange} required />
+            <input
+              type="text"
+              name="name"
+              value={petData.name}
+              className="w-full p-2 border rounded"
+              onChange={handleInputChange}
+              required
+            />
           </div>
           <div className="mb-4">
             <label className="block text-lg font-semibold mb-2">Breed</label>
-            <input type="text" name="breed" value={petData.breed} className="w-full p-2 border rounded" onChange={handleInputChange} required />
+            <input
+              type="text"
+              name="breed"
+              value={petData.breed}
+              className="w-full p-2 border rounded"
+              onChange={handleInputChange}
+              required
+            />
           </div>
           <div className="mb-4">
             <label className="block text-lg font-semibold mb-2">Gender</label>
             <div className="flex items-center">
               <label className="mr-4">
-                <input type="radio" name="gender" value="Male" checked={petData.gender === "Male"} onChange={handleInputChange} />
+                <input
+                  type="radio"
+                  name="gender"
+                  value="Male"
+                  checked={petData.gender === "Male"}
+                  onChange={handleInputChange}
+                />
                 Male
               </label>
               <label>
-                <input type="radio" name="gender" value="Female" checked={petData.gender === "Female"} onChange={handleInputChange} />
+                <input
+                  type="radio"
+                  name="gender"
+                  value="Female"
+                  checked={petData.gender === "Female"}
+                  onChange={handleInputChange}
+                />
                 Female
               </label>
             </div>
           </div>
           <div className="mb-4">
             <label className="block text-lg font-semibold mb-2">Age</label>
-            <input type="text" name="age" value={petData.age} className="w-full p-2 border rounded" onChange={handleInputChange} required />
+            <input
+              type="number"
+              name="age"
+              value={petData.age}
+              className="w-full p-2 border rounded"
+              onChange={handleInputChange}
+              required
+              pattern="\d*"
+              min="0"
+              step="1"
+            />
           </div>
           <div className="mb-4">
-            <label className="block text-lg font-semibold mb-2">Description</label>
-            <textarea name="description" value={petData.description} className="w-full p-2 border rounded" onChange={handleInputChange} required />
+            <label className="block text-lg font-semibold mb-2">
+              Description
+            </label>
+            <textarea
+              name="description"
+              value={petData.description}
+              className="w-full p-2 border rounded"
+              onChange={handleInputChange}
+              required
+            />
           </div>
           <div className="mb-4">
-            <label className="block text-lg font-semibold mb-2">Vaccine Status</label>
-            <input type="checkbox" name="vaccineStatus" checked={!!petData.vaccineStatus} onChange={handleInputChange} />
+            <label className="block text-lg font-semibold mb-2">
+              Vaccine Status
+            </label>
+            <input
+              type="checkbox"
+              name="vaccineStatus"
+              checked={!!petData.vaccineStatus}
+              onChange={handleInputChange}
+            />
             <label className="ml-2">Vaccinated</label>
           </div>
-          {petData.vaccineStatus && (
+          {!!petData.vaccineStatus && (
             <div className="mb-4">
-              <label className="block text-lg font-semibold mb-2">Vaccine Date</label>
-              <input type="date" name="vaccineDate" value={petData.vaccineDate} className="w-full p-2 border rounded" onChange={handleInputChange} />
+              <label className="block text-lg font-semibold mb-2">
+                Vaccine Date
+              </label>
+              <input
+                type="date"
+                name="vaccineDate"
+                value={petData.vaccineDate}
+                className="w-full p-2 border rounded"
+                onChange={handleInputChange}
+              />
             </div>
           )}
           <div className="text-right">
-            <button type="submit" className="px-6 py-2 bg-amber-600 text-white font-semibold rounded-md shadow hover:bg-orange-700">
+            <button
+              type="submit"
+              className="px-6 py-2 bg-amber-600 text-white font-semibold rounded-md shadow hover:bg-orange-700"
+            >
               Save
             </button>
-            <button type="button" onClick={closeModal} className="ml-4 px-4 py-2 bg-gray-500 text-white font-semibold rounded-md shadow hover:bg-gray-700">
+            <button
+              type="button"
+              onClick={closeModal}
+              className="ml-4 px-4 py-2 bg-gray-500 text-white font-semibold rounded-md shadow hover:bg-gray-700"
+            >
               Cancel
             </button>
           </div>

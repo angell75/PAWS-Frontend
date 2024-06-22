@@ -28,6 +28,7 @@ import ContactUs from './views/common/ContactUs';
 import ViewBlog from './views/common/ViewBlog';
 import ViewProfile from './views/common/ViewProfile';
 import ViewMyPet from './views/common/ViewMyPet';
+import ViewMyApplication from './views/common/ViewMyApplication';
 
 // Seller Views
 import SellerDashboard from './views/seller/SellerDashboard';
@@ -102,7 +103,7 @@ const router = createBrowserRouter([
           { path: 'contactus', element: <ContactUs /> },
           { path: 'profile', element: <ViewProfile  /> },
           { path: 'mypet', element: <ViewMyPet  /> },
-          
+          { path: 'myapplication', element: <ViewMyApplication  /> },
         ],
       },
     ],

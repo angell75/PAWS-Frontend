@@ -113,7 +113,12 @@ export default function ViewPetList() {
       Swal.fire({
         icon: "success",
         title: "Upload Successful",
-        text: "Your pet has been uploaded successfully.",
+        text:
+          "Your pet has been uploaded successfully. You can view your pet under Profile > My Pets.",
+        confirmButtonText: "View My Pets",
+        willClose: () => {
+          navigate("/customer/mypet");
+        },
       });
       closeModal();
     } catch (error) {
@@ -192,7 +197,7 @@ export default function ViewPetList() {
                   </div>
                   <div className="mt-4 text-center">
                     <button
-                      className={`bg-orange-500 text-white px-4 py-2 rounded-full ${
+                      className={`bg-orange-500 text-white px-4 py-2 rounded-full hover:bg-blue-700 ${
                         !user ? "cursor-not-allowed opacity-50" : ""
                       }`}
                       onClick={() => handleButtonClick(pet.petId)}
@@ -281,11 +286,14 @@ export default function ViewPetList() {
           <div className="mb-4">
             <label className="block text-lg font-semibold mb-2">Age</label>
             <input
-              type="text"
+              type="number"
               name="age"
+              value={petData.age}
               className="w-full p-2 border rounded"
               onChange={handleInputChange}
               required
+              min="0"
+              step="1"
             />
           </div>
           <div className="mb-4">
@@ -306,7 +314,7 @@ export default function ViewPetList() {
             <input
               type="checkbox"
               name="vaccineStatus"
-              checked={petData.vaccineStatus}
+              checked={!!petData.vaccineStatus}
               onChange={handleInputChange}
             />
             <label className="ml-2">Vaccinated</label>

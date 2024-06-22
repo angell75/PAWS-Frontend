@@ -9,6 +9,7 @@ import donationReducer from './slices/donationSlice';
 import enquiriesReducer from './slices/enquiriesSlice';
 import applicationReducer from './slices/applicationSlice';
 import profileReducer from './slices/profileSlice';
+import productsReducer from './slices/productsSlice';
 
 const reduxLogger = (store) => (next) => (action) => {
   console.log('Dispatching action:', action);
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   enquiries: enquiriesReducer,
   applications: applicationReducer,
   profile: profileReducer,
+  products: productsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

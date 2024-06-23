@@ -34,14 +34,16 @@ export const addProduct = createAsyncThunk('products/addProduct', async (product
 });
 
 // Update an existing product
-export const updateProduct = createAsyncThunk('products/updateProduct', async (productData) => {
-  const response = await axiosInstance.post(`${API_URL.PRODUCTS}/${productData.productId}`, productData, {
+export const updateProduct = createAsyncThunk('products/updateProduct', async ({ id, formData }) => {
+  const response = await axiosInstance.post(`${API_URL.PRODUCTS}/${id}`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
   });
   return response.data;
 });
+
+
 
 // Delete a product
 export const deleteProduct = createAsyncThunk('products/deleteProduct', async (productId) => {

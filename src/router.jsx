@@ -15,20 +15,20 @@ import Login from './views/common/Login';
 import Landing from './views/common/Landing';
 import Register from './views/common/Register';
 import ViewPetList from './views/common/ViewPetList';
+import ViewProfile from './views/common/ViewProfile';
+import ViewPetDetail from './views/common/ViewPetDetail';
 
 // Admin Views
 import AdminDashboard from './views/admin/AdminDashboard';
 
 // User Views
 import CustomerDashboard from './views/customer/CustomerDashboard';
-import AdoptionApplication from './views/common/AdoptionApplication';
-import ViewPetDetail from './views/common/ViewPetDetail';
-import UserDonate from './views/common/UserDonate';
-import ContactUs from './views/common/ContactUs';
-import ViewBlog from './views/common/ViewBlog';
-import ViewProfile from './views/common/ViewProfile';
-import ViewMyPet from './views/common/ViewMyPet';
-import ViewMyApplication from './views/common/ViewMyApplication';
+import AdoptionApplication from './views/customer/AdoptionApplication';
+import UserDonate from './views/customer/UserDonate';
+import ContactUs from './views/customer/ContactUs';
+import ViewBlog from './views/customer/ViewBlog';
+import ViewMyPet from './views/customer/ViewMyPet';
+import ViewMyApplication from './views/customer/ViewMyApplication';
 
 // Seller Views
 import SellerDashboard from './views/seller/SellerDashboard';
@@ -118,6 +118,7 @@ const router = createBrowserRouter([
         children: [
           { path: '', element: <Navigate to='dashboard' /> },
           { path: 'dashboard', element: <SellerDashboard /> },
+          { path: 'profile', element: <ViewProfile  /> },
         ],
       },
     ],

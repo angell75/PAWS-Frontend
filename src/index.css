@@ -167,3 +167,27 @@
   background-color: #007bff;
   color: white;
 }
+
+/* Default styles for desktop */
+@media (max-width: 1024px) {
+  /* Styles for tablets */
+  .grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-cols-3 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Styles for mobile */
+  .grid-cols-1, .grid-cols-2, .grid-cols-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    padding: 0 15px;
+  }
+}
+

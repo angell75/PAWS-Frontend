@@ -64,6 +64,9 @@ const Navbar = () => {
                   <Link to="/customer/viewblog" className="px-4">Blog</Link>
                   <Link to="/customer/userdonate" className="px-4">Donate</Link>
                   <Link to="/customer/contactus" className="px-4">Contact Us</Link>
+                  <Link to="/customer/shopnow" className="px-4 flex items-center">
+                    <Icon icon="ic:baseline-store" className="mr-1" /> Shop
+                  </Link>
                   <Link to="/customer/cart" className="px-4 flex items-center">
                     <Icon icon="ic:baseline-shopping-cart" className="mr-1" /> Cart
                   </Link>
@@ -84,15 +87,20 @@ const Navbar = () => {
               )}
               {user.userRole === 'seller' && (
                 <>
-                  <Link to="/seller/products" className="px-4 flex items-center">
-                    <Icon icon="ic:baseline-store" className="mr-1" /> Products
-                  </Link>
                   <Link to="/seller/orders" className="px-4 flex items-center">
                     <Icon icon="ic:baseline-receipt-long" className="mr-1" /> Orders
                   </Link>
-                  <button onClick={handleLogout} className="px-4 flex items-center">
-                    <Icon icon="ic:baseline-logout" className="mr-1" /> Logout
-                  </button>
+                  <div className="relative" ref={dropdownRef}>
+                    <button className="px-4 flex items-center" onClick={toggleDropdown}>
+                      <Icon icon="ic:baseline-account-circle" className="mr-1" /> Profile
+                    </button>
+                    {dropdownOpen && (
+                      <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
+                        <Link to="/seller/profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">My Profile</Link>
+                        <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</button>
+                      </div>
+                    )}
+                  </div>
                 </>
               )}
               {user.userRole === 'vet' && (

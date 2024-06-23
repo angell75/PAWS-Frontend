@@ -196,14 +196,23 @@ export default function ViewPetList() {
                     <span className="text-blue-500">{pet.diagnosis}</span>
                   </div>
                   <div className="mt-4 text-center">
-                    <button
-                      className={`bg-orange-500 text-white px-4 py-2 rounded-full hover:bg-blue-700 ${
-                        !user ? "cursor-not-allowed opacity-50" : ""
-                      }`}
-                      onClick={() => handleButtonClick(pet.petId)}
-                    >
-                      More Info
-                    </button>
+                    {pet.adoptionStatus === "adopted" ? (
+                      <button
+                        className="bg-gray-400 text-white px-4 py-2 rounded-full cursor-not-allowed"
+                        disabled
+                      >
+                        Adopted
+                      </button>
+                    ) : (
+                      <button
+                        className={`bg-orange-500 text-white px-4 py-2 rounded-full hover:bg-blue-700 ${
+                          !user ? "cursor-not-allowed opacity-50" : ""
+                        }`}
+                        onClick={() => handleButtonClick(pet.petId)}
+                      >
+                        More Info
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

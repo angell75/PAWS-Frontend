@@ -71,7 +71,7 @@ export default function ViewMyApplication() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100">
+    <div className="min-h-screen flex flex-col bg-petBg">
       <section className="bg-gray-900 text-gray-300 py-20">
         <div className="container mx-auto text-center">
           <h1 className="text-6xl font-bold text-title">My Pet Applications</h1>

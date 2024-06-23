@@ -189,7 +189,7 @@ export default function SellerDashboard() {
               {['all', 'food', 'treat', 'training-needs', 'clothes-accessories', 'supplies-others'].map((category) => (
                 <button
                   key={category}
-                  className={`px-2 md:px-4 py-1 md:py-2 rounded-md ${selectedCategory === category ? 'bg-cyan-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                  className={`px-2 md:px-4 py-1 md:py-2 rounded-md ${selectedCategory === category ? 'bg-cyan-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-300'}`}
                   onClick={() => handleCategoryChange(category)}
                 >
                   {category.replace('-', ' ').replace(/\b\w/g, (l) => l.toUpperCase())}

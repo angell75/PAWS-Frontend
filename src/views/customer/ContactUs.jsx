@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
-import contactUsBanner from "../../assets/contact-us.png";
+import contactUsBanner from "../../assets/contact-us.jpg";
+import faqBanner from "../../assets/faq-ban.jpg"; 
 import { submitEnquiry } from "../../redux/slices/enquiriesSlice";
 
 export default function ContactUs() {
   const dispatch = useDispatch();
-  const [enquiryData, setenquiryData] = useState({
+  const [enquiryData, setEnquiryData] = useState({
     message: "",
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setenquiryData((prevState) => ({
+    setEnquiryData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -53,7 +54,7 @@ export default function ContactUs() {
         className="bg-cover bg-center py-20"
         style={{ backgroundImage: `url(${contactUsBanner})`, height: "300px" }}
       >
-        <div className="container mx-auto text-center">
+        <div className="container mx-auto text-left pl-64">
           <h1 className="text-4xl md:text-6xl font-bold text-black">Contact Us</h1>
           <h2 className="text-xl md:text-2xl text-black mt-4">
             We’d love to hear from you!
@@ -64,6 +65,7 @@ export default function ContactUs() {
       {/* Contact Form */}
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-20 bg-petBg">
         <div className="max-w-3xl mx-auto glass-container p-8 rounded-lg shadow-md">
+        <h2 className="text-3xl font-bold mb-5 text-center">Send us a message</h2>
           <form onSubmit={handleFormSubmit}>
             <div className="mb-4">
               <label className="block text-lg font-semibold mb-2">
@@ -87,6 +89,65 @@ export default function ContactUs() {
               </button>
             </div>
           </form>
+        </div>
+      </section>
+
+      {/* FAQ Banner Section */}
+      <section className="bg-cover bg-center" style={{ backgroundImage: `url(${faqBanner})`, height: '250px' }}>
+        <div className="container mx-auto h-full flex flex-col justify-center items-center sm:px-6 lg:px-8">
+          <h2 className="text-5xl text-white font-bold mb-5 text-center">FAQ</h2>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="bg-petBg py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row items-center">
+            <div className="w-full">
+              <ul className="space-y-4">
+                <li>
+                  <details className="bg-amber-100 p-4 rounded-md">
+                    <summary className="font-semibold cursor-pointer">
+                      What makes Snappy different from other messaging apps?
+                    </summary>
+                    <p className="mt-2">
+                      Snappy offers unique features like XYZ which differentiate it from other messaging apps.
+                    </p>
+                  </details>
+                </li>
+                <li>
+                  <details className="bg-amber-100 p-4 rounded-md">
+                    <summary className="font-semibold cursor-pointer">
+                      How secure are my conversations on Snappy?
+                    </summary>
+                    <p className="mt-2">
+                      Snappy uses end-to-end encryption to ensure that your conversations are secure.
+                    </p>
+                  </details>
+                </li>
+                <li>
+                  <details className="bg-amber-100 p-4 rounded-md">
+                    <summary className="font-semibold cursor-pointer">
+                      Can I personalize my Snappy experience?
+                    </summary>
+                    <p className="mt-2">
+                      Yes, Snappy allows you to personalize your experience with various customization options.
+                    </p>
+                  </details>
+                </li>
+                <li>
+                  <details className="bg-amber-100 p-4 rounded-md">
+                    <summary className="font-semibold cursor-pointer">
+                      What group features does Snappy offer?
+                    </summary>
+                    <p className="mt-2">
+                      Snappy offers group features like ABC which make group communication easy and efficient.
+                    </p>
+                  </details>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 

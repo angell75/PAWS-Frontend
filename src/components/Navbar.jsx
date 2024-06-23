@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Icon } from '@iconify/react';
 import pawsLogo from '../assets/paws.png';
 import { logout } from '../redux/slices/authSlice';
+import CartModal from "../views/customer/CartModal";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ const Navbar = () => {
   const user = useSelector((state) => state.auth.user);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [cartModalOpen, setCartModalOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   const handleLogout = () => {
@@ -149,13 +151,10 @@ const Navbar = () => {
                     <Link to="/customer/viewblog" className="block px-4 py-2">Blog</Link>
                     <Link to="/customer/userdonate" className="block px-4 py-2">Donate</Link>
                     <Link to="/customer/contactus" className="block px-4 py-2">Contact Us</Link>
-                    <Link to="/customer/cart" className="block px-4 py-2 flex items-center">
-                      <Icon icon="ic:baseline-shopping-cart" className="mr-1" /> Cart
-                    </Link>
+                    <Link to="/customer/cart" className="block px-4 py-2">Cart</Link>
+                    <Link to="/customer/shopnow" className="block px-4 py-2">Shop</Link>
                     <div className="relative" ref={dropdownRef}>
-                      <button className="block px-4 py-2 flex items-center" onClick={toggleDropdown}>
-                        <Icon icon="ic:baseline-account-circle" className="mr-1" /> Profile
-                      </button>
+                      <button className="block px-4 py-2" onClick={toggleDropdown}>Profile</button>
                       {dropdownOpen && (
                         <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
                           <Link to="/customer/profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">My Profile</Link>
@@ -169,42 +168,42 @@ const Navbar = () => {
                 )}
                 {user.userRole === 'seller' && (
                   <>
-                    <Link to="/seller/products" className="block px-4 py-2 flex items-center">
+                    <Link to="/seller/products" className="block px-4 py-2 items-center">
                       <Icon icon="ic:baseline-store" className="mr-1" /> Products
                     </Link>
-                    <Link to="/seller/orders" className="block px-4 py-2 flex items-center">
+                    <Link to="/seller/orders" className="block px-4 py-2 items-center">
                       <Icon icon="ic:baseline-receipt-long" className="mr-1" /> Orders
                     </Link>
-                    <button onClick={handleLogout} className="block px-4 py-2 flex items-center">
+                    <button onClick={handleLogout} className="block px-4 py-2 items-center">
                       <Icon icon="ic:baseline-logout" className="mr-1" /> Logout
                     </button>
                   </>
                 )}
                 {user.userRole === 'vet' && (
                   <>
-                    <Link to="/vet/pets" className="block px-4 py-2 flex items-center">
+                    <Link to="/vet/pets" className="block px-4 py-2 items-center">
                       <Icon icon="ic:baseline-pets" className="mr-1" /> Pets
                     </Link>
-                    <Link to="/vet/appointments" className="block px-4 py-2 flex items-center">
+                    <Link to="/vet/appointments" className="block px-4 py-2 items-center">
                       <Icon icon="ic:baseline-event-note" className="mr-1" /> Appointments
                     </Link>
-                    <button onClick={handleLogout} className="block px-4 py-2 flex items-center">
+                    <button onClick={handleLogout} className="block px-4 py-2 items-center">
                       <Icon icon="ic:baseline-logout" className="mr-1" /> Logout
                     </button>
                   </>
                 )}
                 {user.userRole === 'admin' && (
                   <>
-                    <Link to="/admin/dashboard" className="block px-4 py-2 flex items-center">
+                    <Link to="/admin/dashboard" className="block px-4 py-2 items-center">
                       <Icon icon="ic:baseline-dashboard" className="mr-1" /> Dashboard
                     </Link>
-                    <Link to="/admin/users" className="block px-4 py-2 flex items-center">
+                    <Link to="/admin/users" className="block px-4 py-2 items-center">
                       <Icon icon="ic:baseline-people" className="mr-1" /> Users
                     </Link>
-                    <Link to="/admin/settings" className="block px-4 py-2 flex items-center">
+                    <Link to="/admin/settings" className="block px-4 py-2 items-center">
                       <Icon icon="ic:baseline-settings" className="mr-1" /> Settings
                     </Link>
-                    <button onClick={handleLogout} className="block px-4 py-2 flex items-center">
+                    <button onClick={handleLogout} className="block px-4 py-2 items-center">
                       <Icon icon="ic:baseline-logout" className="mr-1" /> Logout
                     </button>
                   </>

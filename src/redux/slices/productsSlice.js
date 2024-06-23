@@ -23,6 +23,19 @@ export const fetchSellerProducts = createAsyncThunk(
   }
 );
 
+// Fetch all products
+export const fetchAllProducts = createAsyncThunk(
+  'products/fetchAllProducts',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(`${API_URL.PRODUCTS}`);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 // Add a new product
 export const addProduct = createAsyncThunk('products/addProduct', async (productData) => {
   const response = await axiosInstance.post(API_URL.PRODUCTS, productData, {

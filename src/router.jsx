@@ -29,6 +29,8 @@ import ContactUs from './views/customer/ContactUs';
 import ViewBlog from './views/customer/ViewBlog';
 import ViewMyPet from './views/customer/ViewMyPet';
 import ViewMyApplication from './views/customer/ViewMyApplication';
+import CartModal from './views/customer/CartModal';
+import Shopping from './views/customer/Shopping';
 
 // Seller Views
 import SellerDashboard from './views/seller/SellerDashboard';
@@ -104,6 +106,8 @@ const router = createBrowserRouter([
           { path: 'profile', element: <ViewProfile  /> },
           { path: 'mypet', element: <ViewMyPet  /> },
           { path: 'myapplication', element: <ViewMyApplication  /> },
+          { path: 'shopnow', element: <Shopping  /> },
+          { path: 'cart', element: <CartModal  /> },
         ],
       },
     ],

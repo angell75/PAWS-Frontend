@@ -9,6 +9,7 @@ import {
 } from "../../redux/slices/petSlice";
 import Swal from "sweetalert2";
 import profileBanner from "../../assets/my-pets.png";
+import Background from '../../assets/mypet-back.png'; 
 import { Icon } from "@iconify/react";
 
 export default function ViewMyPet() {
@@ -131,7 +132,7 @@ export default function ViewMyPet() {
   const userPets = pets.filter((pet) => pet.userId === user.userId);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-900">
+    <div className="min-h-screen flex flex-col" style={{ backgroundImage: `url(${Background})`, height:'auto' }}>
       <section
         className="bg-cover bg-center py-20"
         style={{ backgroundImage: `url(${profileBanner})`, height: "300px" }}

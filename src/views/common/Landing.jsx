@@ -10,9 +10,9 @@ import blogImage from '../../assets/blog.png';
 import mission from '../../assets/mission.png';
 import { useSelector } from 'react-redux';
 import noImage from '../../assets/no-image.png';
-import findPet from '../../assets/find-pet.jpg';
-import knowPet from '../../assets/know-pet.jpg';
-import takeHome from '../../assets/take-home.jpg';
+import findPet from '../../assets/faq-ban.jpg';
+import knowPet from '../../assets/know.jpg';
+import takeHome from '../../assets/home.jpg';
 
 export default function LandingPage() {
   const [featuredPets, setFeaturedPets] = useState([]);
@@ -36,7 +36,7 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-customBg flex flex-col">
+    <div className="min-h-screen bg-white flex flex-col">
       {/* Hero Section */}
       <section className="bg-cover bg-center" style={{ backgroundImage: `url(${landingBanner})`, height: '670px' }}>
         <div className="container mx-auto h-full flex flex-col justify-center items-center">
@@ -89,7 +89,7 @@ export default function LandingPage() {
       </section>
 
       {/* Our Mission Section */}
-      <section className="bg-customBg container mx-auto px-6 md:px-16 py-20">
+      <section className="bg-white container mx-auto px-6 md:px-16 py-20">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold uppercase">Our Mission</h2>
         </div>
@@ -117,17 +117,17 @@ export default function LandingPage() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-8">
             <div className="p-10 rounded-lg flex flex-col items-center">
-              <img src={findPet} alt="Find your pet" className="w-32 sm:w-48 md:w-64 h-auto rounded mb-4" />
+              <img src={findPet} alt="Find your pet" className="w-64 sm:w-70 md:w-72 h-52 rounded mb-4" />
               <h3 className="text-xl font-bold mb-2">Find your pet</h3>
               <p className="text-gray-600 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             </div>
             <div className="p-10 rounded-lg flex flex-col items-center">
-              <img src={knowPet} alt="Know your pet" className="w-32 sm:w-48 md:w-64 h-auto rounded mb-4" />
+              <img src={knowPet} alt="Know your pet" className="w-64 sm:w-70 md:w-72 h-52 rounded mb-4" />
               <h3 className="text-xl font-bold mb-2">Know your pet</h3>
               <p className="text-gray-600 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             </div>
             <div className="p-10 rounded-lg flex flex-col items-center">
-              <img src={takeHome} alt="Take your pet home" className="w-32 sm:w-48 md:w-64 h-auto rounded mb-4" />
+              <img src={takeHome} alt="Take your pet home" className="w-64 sm:w-70 md:w-72 h-52 rounded mb-4" />
               <h3 className="text-xl font-bold mb-2">Take your pet home</h3>
               <p className="text-gray-600 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             </div>
@@ -136,7 +136,7 @@ export default function LandingPage() {
       </section>
 
       {/* Featured Pets Section */}
-      <section className="bg-customBg container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <section className="bg-white container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold uppercase">Featured Pets</h2>
           <p className="mt-4 text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>

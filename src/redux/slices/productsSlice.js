@@ -37,32 +37,51 @@ export const fetchAllProducts = createAsyncThunk(
 );
 
 // Add a new product
-export const addProduct = createAsyncThunk('products/addProduct', async (productData) => {
-  const response = await axiosInstance.post(API_URL.PRODUCTS, productData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
-  return response.data;
-});
+export const addProduct = createAsyncThunk(
+  'products/addProduct',
+  async (productData, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post(API_URL.PRODUCTS, productData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
 
 // Update an existing product
-export const updateProduct = createAsyncThunk('products/updateProduct', async ({ id, formData }) => {
-  const response = await axiosInstance.post(`${API_URL.PRODUCTS}/${id}`, formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
-  return response.data;
-});
-
-
+export const updateProduct = createAsyncThunk(
+  'products/updateProduct',
+  async ({ id, formData }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post(`${API_URL.PRODUCTS}/${id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
 
 // Delete a product
-export const deleteProduct = createAsyncThunk('products/deleteProduct', async (productId) => {
-  await axiosInstance.delete(`${API_URL.PRODUCTS}/${productId}`);
-  return productId;
-});
+export const deleteProduct = createAsyncThunk(
+  'products/deleteProduct',
+  async (productId, { rejectWithValue }) => {
+    try {
+      await axiosInstance.delete(`${API_URL.PRODUCTS}/${productId}`);
+      return productId;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
 
 // Create a slice for products
 const productSlice = createSlice({
@@ -84,10 +103,24 @@ const productSlice = createSlice({
       })
       .addCase(fetchSellerProducts.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.error.message;
+        state.error = action.payload?.message || action.error.message;
+      })
+      .addCase(fetchAllProducts.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchAllProducts.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.products = action.payload;
+      })
+      .addCase(fetchAllProducts.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload?.message || action.error.message;
       })
       .addCase(addProduct.fulfilled, (state, action) => {
         state.products.push(action.payload);
+      })
+      .addCase(addProduct.rejected, (state, action) => {
+        state.error = action.payload?.message || action.error.message;
       })
       .addCase(updateProduct.fulfilled, (state, action) => {
         const index = state.products.findIndex(product => product.productId === action.payload.productId);
@@ -95,8 +128,14 @@ const productSlice = createSlice({
           state.products[index] = action.payload;
         }
       })
+      .addCase(updateProduct.rejected, (state, action) => {
+        state.error = action.payload?.message || action.error.message;
+      })
       .addCase(deleteProduct.fulfilled, (state, action) => {
         state.products = state.products.filter(product => product.productId !== action.payload);
+      })
+      .addCase(deleteProduct.rejected, (state, action) => {
+        state.error = action.payload?.message || action.error.message;
       });
   },
 });

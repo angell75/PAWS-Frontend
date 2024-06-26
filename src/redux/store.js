@@ -10,6 +10,8 @@ import enquiriesReducer from './slices/enquiriesSlice';
 import applicationReducer from './slices/applicationSlice';
 import profileReducer from './slices/profileSlice';
 import productsReducer from './slices/productsSlice';
+import cartReducer from './slices/cartSlice';
+import orderReducer from './slices/orderSlice';
 
 const reduxLogger = (store) => (next) => (action) => {
   console.log('Dispatching action:', action);
@@ -32,6 +34,8 @@ const rootReducer = combineReducers({
   applications: applicationReducer,
   profile: profileReducer,
   products: productsReducer,
+  carts: cartReducer,
+  order: orderReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

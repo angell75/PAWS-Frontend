@@ -65,13 +65,13 @@ const Navbar = () => {
                   <Link to="/customer/viewpetlist" className="px-4">Pet</Link>
                   <Link to="/customer/viewblog" className="px-4">Blog</Link>
                   <Link to="/customer/userdonate" className="px-4">Donate</Link>
-                  <Link to="/customer/contactus" className="px-4">Contact Us</Link>
                   <Link to="/customer/shopnow" className="px-4 flex items-center">
                     <Icon icon="ic:baseline-store" className="mr-1" /> Shop
                   </Link>
                   <Link to="/customer/cart" className="px-4 flex items-center">
                     <Icon icon="ic:baseline-shopping-cart" className="mr-1" /> Cart
                   </Link>
+                  <Link to="/customer/contactus" className="px-4">Contact Us</Link>
                   <div className="relative" ref={dropdownRef}>
                     <button className="px-4 flex items-center" onClick={toggleDropdown}>
                       <Icon icon="ic:baseline-account-circle" className="mr-1" /> Profile

@@ -8,8 +8,7 @@ import {
   resetStatus,
 } from "../../redux/slices/petSlice";
 import Swal from "sweetalert2";
-import profileBanner from "../../assets/my-pets.png";
-import Background from '../../assets/mypet-back.png'; 
+import profileBanner from "../../assets/white-cat.png";
 import { Icon } from "@iconify/react";
 
 export default function ViewMyPet() {
@@ -132,14 +131,14 @@ export default function ViewMyPet() {
   const userPets = pets.filter((pet) => pet.userId === user.userId);
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ backgroundImage: `url(${Background})`, height:'auto' }}>
+    <div className="min-h-screen flex flex-col bg-petBg">
       <section
         className="bg-cover bg-center py-20"
         style={{ backgroundImage: `url(${profileBanner})`, height: "300px" }}
       >
-        <div className="container mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-black">My Pets</h1>
-          <h2 className="text-xl md:text-2xl text-black mt-4">
+        <div className="container mx-auto text-left pl-20">
+          <h1 className="text-4xl md:text-6xl font-bold text-white">My Pets</h1>
+          <h2 className="text-xl md:text-2xl text-white mt-4">
             View and edit your uploaded pets.
           </h2>
         </div>

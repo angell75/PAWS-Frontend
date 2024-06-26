@@ -15,7 +15,10 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const result = await dispatch(loginUser({ email, password }));
+    const result = await dispatch(loginUser({ 
+      email: "a@gmail.com", 
+      password: "abc12345"
+    }));
     if (result.type === 'auth/loginUser/fulfilled') {
       dispatch(setUser(result.payload.user));
       Swal.fire({
@@ -75,7 +78,7 @@ export default function Login() {
                   placeholder="Your Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  required
+                  // required
                 />
               </div>
               <div className="col-span-1">
@@ -86,7 +89,7 @@ export default function Login() {
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  required
+                  // required
                 />
               </div>
               <div className="col-span-1">

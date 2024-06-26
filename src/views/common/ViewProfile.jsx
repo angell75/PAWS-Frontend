@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Modal from "react-modal";
 import Swal from "sweetalert2";
 import { updateUserProfile, changePassword } from '../../redux/slices/userSlice';
-import profileBanner from "../../assets/my-profile.png";
+import profileBanner from "../../assets/profile.png";
 
 Modal.setAppElement("#root");
 
@@ -86,8 +86,8 @@ export default function ViewProfile() {
         style={{ backgroundImage: `url(${profileBanner})`, height: "300px" }}
       >
         <div className="container mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-black">Profile</h1>
-          <h2 className="text-xl md:text-2xl text-black mt-4">
+          <h1 className="text-4xl md:text-6xl font-bold text-white">Profile</h1>
+          <h2 className="text-xl md:text-2xl text-white mt-4">
             Update your photo and personal details.
           </h2>
         </div>

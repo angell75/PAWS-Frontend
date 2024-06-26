@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Modal from "react-modal";
 import { fetchPets, uploadPet } from "../../redux/slices/petSlice";
-import petListBanner from "../../assets/pet-list-banner.png";
+import petListBanner from "../../assets/petlist-ban.png";
 import noImage from "../../assets/no-image.png";
 
 export default function ViewPetList() {
@@ -138,8 +138,8 @@ export default function ViewPetList() {
         style={{ backgroundImage: `url(${petListBanner})`, height: "300px" }}
       >
         <div className="container mx-auto text-center">
-          <h1 className="text-6xl font-bold text-black">Pet</h1>
-          <h2 className="text-2xl text-black mt-4">
+          <h1 className="text-6xl font-bold text-white">Pet</h1>
+          <h2 className="text-2xl text-white mt-4">
             Find your perfect pet companion
           </h2>
         </div>

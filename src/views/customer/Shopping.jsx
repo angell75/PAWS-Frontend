@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllProducts } from '../../redux/slices/productsSlice';
-import { addToCart } from '../../redux/slices/cartSlice'; // Import the addToCart thunk
-import { FaShoppingCart } from 'react-icons/fa'; // Import the cart icon
-import Swal from 'sweetalert2'; // Import SweetAlert2
+import { addToCart } from '../../redux/slices/cartSlice'; 
 import notFoundImage from '../../assets/not-found.png';
 import myPetBack from '../../assets/mypet-back.png';
 
@@ -22,14 +20,7 @@ const Shopping = () => {
   };
 
   const handleAddToCart = (product) => {
-    dispatch(addToCart(product))
-      .unwrap()
-      .then(() => {
-        Swal.fire('Success', 'Product added to cart', 'success');
-      })
-      .catch((err) => {
-        Swal.fire('Error', err.message, 'error');
-      });
+    dispatch(addToCart(product));
   };
 
   if (status === 'loading') {
@@ -82,7 +73,7 @@ const Shopping = () => {
           {filteredProducts.map((product) => {
             const price = parseFloat(product.price);
             return (
-              <div key={product.id} className="bg-white rounded-lg shadow-md p-6">
+              <div key={product.productId} className="bg-white rounded-lg shadow-md p-6">
                 <img src={product.image || notFoundImage} alt={product.name} className="h-64 w-full object-cover mb-4 rounded" />
                 <h2 className="text-xl font-bold">{product.name}</h2>
                 <p className="text-sm text-gray-600 mb-4">{product.description}</p>
@@ -90,9 +81,9 @@ const Shopping = () => {
                   <span className="text-lg md:text-xl font-semibold">${!isNaN(price) ? price.toFixed(2) : '0.00'}</span>
                   <button 
                     onClick={() => handleAddToCart(product)} 
-                    className="p-2 bg-orange-500 text-white rounded-full ml-4 flex items-center justify-center"
+                    className="p-2 bg-orange-500 text-white rounded ml-4"
                   >
-                    <FaShoppingCart />
+                    Add to cart
                   </button>
                 </div>
               </div>

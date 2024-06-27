@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { createOrder } from '../../redux/slices/orderSlice';
-import Swal from "sweetalert2";
+import { deleteCartItem } from '../../redux/slices/cartSlice';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
-const PaymentModal = ({ onClose, user, selectedItems }) => {
+const PaymentModal = ({ onClose, user, selectedItems, total }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [cardInfo, setCardInfo] = useState({
     nameOnCard: '',
     cardNumber: '',
@@ -39,8 +42,23 @@ const PaymentModal = ({ onClose, user, selectedItems }) => {
       Swal.fire('Error', 'Please enter a valid expiry date in MM/YY format.', 'error');
       return false;
     }
+
+    const [month, year] = expiryDate.split('/');
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1;
+    const currentYear = currentDate.getFullYear() % 100; // Get last two digits of the year
+
+    if (parseInt(year, 10) < currentYear || (parseInt(year, 10) === currentYear && parseInt(month, 10) < currentMonth)) {
+      Swal.fire('Error', 'The card had expired.', 'error');
+      return false;
+    }
+
     if (!cvcPattern.test(cvc)) {
       Swal.fire('Error', 'Please enter a valid 3-digit CVC/CVV.', 'error');
+      return false;
+    }
+    if (total === 0) {
+      Swal.fire('Error', 'Your order total cannot be 0.', 'error');
       return false;
     }
     return true;
@@ -65,9 +83,12 @@ const PaymentModal = ({ onClose, user, selectedItems }) => {
           card_expiry: cardInfo.expiryDate,
           card_cvc: cardInfo.cvc,
         };
-        dispatch(createOrder(orderData));
+        dispatch(createOrder(orderData)).then(() => {
+          dispatch(deleteCartItem(item.cartId));
+        });
       });
       onClose();
+      navigate('/customer/myorder'); 
     }
   };
 

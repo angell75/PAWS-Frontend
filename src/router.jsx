@@ -31,6 +31,7 @@ import ViewMyPet from './views/customer/ViewMyPet';
 import ViewMyApplication from './views/customer/ViewMyApplication';
 import CartModal from './views/customer/CartModal';
 import Shopping from './views/customer/Shopping';
+import ViewMyOrder from './views/customer/ViewMyOrder';
 
 // Seller Views
 import SellerDashboard from './views/seller/SellerDashboard';
@@ -108,6 +109,7 @@ const router = createBrowserRouter([
           { path: 'myapplication', element: <ViewMyApplication  /> },
           { path: 'shopnow', element: <Shopping  /> },
           { path: 'cart', element: <CartModal  /> },
+          { path: 'myorder', element: <ViewMyOrder  /> },
         ],
       },
     ],

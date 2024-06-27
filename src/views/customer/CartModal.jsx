@@ -5,6 +5,7 @@ import { Icon } from '@iconify/react';
 import myPetBack from '../../assets/mypet-back.png';
 import notFoundImage from '../../assets/not-found.png';
 import PaymentModal from './PaymentModal';
+import { useNavigate } from 'react-router-dom';
 
 const CartModal = () => {
   const dispatch = useDispatch();
@@ -12,13 +13,14 @@ const CartModal = () => {
   const currentUser = useSelector((state) => state.auth.user);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchCartItems());
   }, [dispatch]);
 
   // Filter cart items for the current user
-  const userCartItems = cartItems.filter(item => item.userId === currentUser.userId);
+  const userCartItems = Array.isArray(cartItems) ? cartItems.filter(item => item.userId === currentUser.userId) : [];
 
   const handleSelectItem = (item) => {
     setSelectedItems(prevState =>
@@ -45,7 +47,7 @@ const CartModal = () => {
 
   const handleConfirmPayment = () => {
     setShowPaymentModal(false);
-    // Handle payment logic here
+    navigate('/myorder'); 
   };
 
   if (status === 'loading' && userCartItems.length === 0) {
@@ -72,7 +74,15 @@ const CartModal = () => {
         <div className="flex flex-col md:flex-row w-full max-w-6xl bg-white p-6 rounded-md shadow-md">
           <div className="flex-1">
             {userCartItems.length === 0 ? (
-              <h2 className="text-2xl text-white mt-4">Your Cart is Empty!</h2>
+              <div className="text-center mt-4">
+                <h2 className="text-2xl text-gray-800">Your Cart is Empty!</h2>
+                <button
+                  className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                  onClick={() => navigate('/customer/shopnow')}
+                >
+                  Shop Now
+                </button>
+              </div>
             ) : (
               userCartItems.map((item) => {
                 const price = parseFloat(item.price);
@@ -134,13 +144,18 @@ const CartModal = () => {
               <span>Tax (16%)</span>
               <span>${tax.toFixed(2)}</span>
             </div>
+            <div className="flex justify-between mb-2">
+              <span>Delivery</span>
+              <span>Free</span>
+            </div>
             <div className="flex justify-between font-bold text-lg md:text-xl mb-4">
               <span>Total</span>
               <span>${total.toFixed(2)}</span>
             </div>
             <button
-              className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800"
-              onClick={() => setShowPaymentModal(true)}
+              className={`w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 ${total === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+              onClick={() => total !== 0 && setShowPaymentModal(true)}
+              disabled={total === 0}
             >
               Checkout
             </button>
@@ -150,8 +165,10 @@ const CartModal = () => {
       {showPaymentModal && (
         <PaymentModal
           onClose={() => setShowPaymentModal(false)}
-          onConfirm={handleConfirmPayment}
           user={currentUser}
+          selectedItems={selectedItems}
+          total={total} // Pass total to the PaymentModal
+          onConfirm={handleConfirmPayment}
         />
       )}
     </div>

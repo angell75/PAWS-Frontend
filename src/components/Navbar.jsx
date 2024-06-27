@@ -81,6 +81,7 @@ const Navbar = () => {
                         <Link to="/customer/profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">My Profile</Link>
                         <Link to="/customer/mypet" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">My Pet</Link>
                         <Link to="/customer/myapplication" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Applications</Link>
+                        <Link to="/customer/myorder" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Orders</Link>
                         <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</button>
                       </div>
                     )}
@@ -160,6 +161,7 @@ const Navbar = () => {
                           <Link to="/customer/profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">My Profile</Link>
                           <Link to="/customer/my-pet" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">My Pet</Link>
                           <Link to="/customer/applications" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Applications</Link>
+                          <Link to="/customer/myorder" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Orders</Link>
                           <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</button>
                         </div>
                       )}

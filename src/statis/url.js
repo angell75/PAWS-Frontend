@@ -10,5 +10,6 @@ export const API_URL = {
   UPDATE_PROFILE: API_BASE_URL + 'updateProfile',
   CHANGE_PASSWORD: API_BASE_URL + 'changePassword',
   PRODUCTS: API_BASE_URL + 'products',
-  CART: API_BASE_URL + 'cart'
+  CART: API_BASE_URL + 'cart',
+  ORDERS: API_BASE_URL + 'orders',
 };

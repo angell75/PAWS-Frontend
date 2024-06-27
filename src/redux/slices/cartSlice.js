@@ -106,7 +106,7 @@ const cartSlice = createSlice({
       })
       .addCase(fetchCartItems.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.items = action.payload;
+        state.items = action.payload; // Ensure this is an array
       })
       .addCase(fetchCartItems.rejected, (state, action) => {
         state.status = 'failed';

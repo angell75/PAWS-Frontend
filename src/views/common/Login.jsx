@@ -16,8 +16,8 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = await dispatch(loginUser({ 
-      email: "a@gmail.com", 
-      password: "abc12345"
+      email: "john@gmail.com", 
+      password: "Abc@12345"
     }));
     if (result.type === 'auth/loginUser/fulfilled') {
       dispatch(setUser(result.payload.user));

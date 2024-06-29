@@ -222,8 +222,8 @@ export default function SellerDashboard() {
           </div>
         ) : (
           <div className="text-center">
-            <img src={notFoundImage} alt="Not found" className="mx-auto mb-4" />
-            <p className="text-gray-500">No products found.</p>
+            <img src={notFoundImage} alt="Not found" className="mx-auto mb-4 h-64 w-64" />
+            <p className="text-gray-500 text-lg font-bold">No products currently.</p>
           </div>
         )}
       </div>

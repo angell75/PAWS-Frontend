@@ -49,7 +49,7 @@ const PaymentModal = ({ onClose, user, selectedItems, total }) => {
     const currentYear = currentDate.getFullYear() % 100; // Get last two digits of the year
 
     if (parseInt(year, 10) < currentYear || (parseInt(year, 10) === currentYear && parseInt(month, 10) < currentMonth)) {
-      Swal.fire('Error', 'The card had expired.', 'error');
+      Swal.fire('Error', 'The card has.', 'error');
       return false;
     }
 
@@ -67,30 +67,34 @@ const PaymentModal = ({ onClose, user, selectedItems, total }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      selectedItems.forEach(item => {
         const orderData = {
-          userId: user.userId,
-          productId: item.productId,
-          quantity: item.quantity,
-          orderDate: new Date().toISOString().slice(0, 10),
-          price: item.price,
-          status: 'Pending',
-          name: user.name,
-          contact: user.contact,
-          address: user.address,
-          card_name: cardInfo.nameOnCard,
-          card_number: cardInfo.cardNumber,
-          card_expiry: cardInfo.expiryDate,
-          card_cvc: cardInfo.cvc,
+            userId: user.userId,
+            products: selectedItems.map(item => ({
+                productId: item.productId,
+                quantity: item.quantity,
+                price: item.price
+            })),
+            orderDate: new Date().toISOString().slice(0, 10),
+            status: 'Pending',
+            name: user.name,
+            contact: user.contact,
+            address: user.address,
+            card_name: cardInfo.nameOnCard,
+            card_number: cardInfo.cardNumber,
+            card_expiry: cardInfo.expiryDate,
+            card_cvc: cardInfo.cvc,
         };
+
         dispatch(createOrder(orderData)).then(() => {
-          dispatch(deleteCartItem(item.cartId));
+            selectedItems.forEach(item => {
+                dispatch(deleteCartItem(item.cartId));
+            });
+            onClose();
+            navigate('/customer/myorder'); 
         });
-      });
-      onClose();
-      navigate('/customer/myorder'); 
     }
-  };
+};
+
 
   return (
     <Modal

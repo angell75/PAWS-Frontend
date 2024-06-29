@@ -93,7 +93,6 @@ const cartSlice = createSlice({
       })
       .addCase(addToCart.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.items.push(action.payload);
         Swal.fire('Success', 'Product added to cart', 'success'); // Success alert
       })
       .addCase(addToCart.rejected, (state, action) => {

@@ -90,7 +90,10 @@ const Navbar = () => {
               )}
               {user.userRole === 'seller' && (
                 <>
-                  <Link to="/seller/orders" className="px-4 flex items-center">
+                  <Link to="/seller/manageproducts" className="px-4 flex items-center">
+                    <Icon icon="ic:baseline-store" className="mr-1" /> Products
+                  </Link>
+                  <Link to="/seller/manageorders" className="px-4 flex items-center">
                     <Icon icon="ic:baseline-receipt-long" className="mr-1" /> Orders
                   </Link>
                   <div className="relative" ref={dropdownRef}>

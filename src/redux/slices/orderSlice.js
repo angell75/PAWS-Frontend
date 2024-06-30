@@ -19,13 +19,28 @@ export const createOrder = createAsyncThunk(
   }
 );
 
-// Thunk to fetch user orders
+// Thunk to fetch all orders
 export const fetchOrders = createAsyncThunk(
-  'orders/fetchOrders',
-  async (userId, { rejectWithValue }) => {
+  'order/fetchOrders',
+  async (_, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.get(`${API_URL.ORDERS}/user/${userId}`);
-      console.log(response.data); // Debug the response
+      const response = await axiosInstance.get(API_URL.ORDERS);
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+// Thunk to update order status
+export const updateOrderStatus = createAsyncThunk(
+  'orders/updateOrderStatus',
+  async ({ orderId, status }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.put(`${API_URL.ORDERS}/update-status/${orderId}`, { status });
       return response.data;
     } catch (error) {
       if (!error.response) {
@@ -67,6 +82,21 @@ const orderSlice = createSlice({
         state.orders = action.payload;
       })
       .addCase(fetchOrders.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+        Swal.fire('Error', action.payload.message, 'error');
+      })
+      .addCase(updateOrderStatus.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(updateOrderStatus.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        const updatedOrder = action.payload;
+        state.orders = state.orders.map((order) =>
+          order.orderId === updatedOrder.orderId ? updatedOrder : order
+        );
+      })
+      .addCase(updateOrderStatus.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
         Swal.fire('Error', action.payload.message, 'error');

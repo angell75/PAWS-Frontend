@@ -32,7 +32,13 @@ const CartModal = () => {
 
   const handleQuantityChange = (item, quantity) => {
     if (quantity < 1) return;
-    dispatch(updateCartItemQuantity({ cartId: item.cartId, quantity }));
+    dispatch(updateCartItemQuantity({ cartId: item.cartId, quantity })).then(() => {
+      setSelectedItems(prevState =>
+        prevState.map(selected =>
+          selected.cartId === item.cartId ? { ...selected, quantity } : selected
+        )
+      );
+    });
   };
 
   const handleDeleteItem = (item) => {
@@ -49,6 +55,10 @@ const CartModal = () => {
     setShowPaymentModal(false);
     navigate('/myorder'); 
   };
+
+  useEffect(() => {
+    // Update the subtotal, tax, and total whenever selectedItems changes
+  }, [selectedItems]);
 
   if (status === 'loading' && userCartItems.length === 0) {
     return <p className='text-3xl text-center pt-10'>Loading cart items...</p>;
@@ -86,13 +96,14 @@ const CartModal = () => {
             ) : (
               userCartItems.map((item) => {
                 const price = parseFloat(item.price);
+                const isSelected = selectedItems.some(selected => selected.cartId === item.cartId);
                 return (
                   <div key={item.cartId} className="flex flex-col md:flex-row items-center border-b py-4">
                     <div className="flex items-center mb-4 md:mb-0">
                       <input
                         type="checkbox"
                         className="mr-4"
-                        checked={selectedItems.includes(item)}
+                        checked={isSelected}
                         onChange={() => handleSelectItem(item)}
                       />
                       <img src={item.productImage || notFoundImage} alt={item.productName} className="w-16 h-16 md:w-24 md:h-24 object-cover" />

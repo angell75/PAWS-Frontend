@@ -50,7 +50,7 @@ const ViewMyOrder = () => {
           orders.map((order) => (
             <div
               key={order.orderId}
-              className="bg-white p-6 rounded-md shadow-md mb-6"
+              className="bg-white p-6 rounded-md shadow-md mb-6 border-2 border-black"
             >
               <div className="mb-4">
                 <div className="flex justify-between items-center mb-4">
@@ -69,7 +69,7 @@ const ViewMyOrder = () => {
                   Your order is {order.status.toLowerCase()}.
                 </div>
               </div>
-              <div className="bg-gray-100 p-4 rounded-md">
+              <div className="bg-white p-4 rounded-md">
                 <h3 className="text-lg font-semibold mb-2">Products:</h3>
                 {order.products && order.products.length > 0 ? (
                   order.products.map((product) => (

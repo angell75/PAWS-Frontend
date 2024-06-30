@@ -12,4 +12,5 @@ export const API_URL = {
   PRODUCTS: API_BASE_URL + 'products',
   CART: API_BASE_URL + 'cart',
   ORDERS: API_BASE_URL + 'orders',
+  SUMMARY: API_BASE_URL + 'summary',
 };

@@ -12,6 +12,7 @@ import profileReducer from './slices/profileSlice';
 import productsReducer from './slices/productsSlice';
 import cartReducer from './slices/cartSlice';
 import orderReducer from './slices/orderSlice';
+import sellerReducer from './slices/sellerSlice';
 
 const reduxLogger = (store) => (next) => (action) => {
   console.log('Dispatching action:', action);
@@ -36,6 +37,7 @@ const rootReducer = combineReducers({
   products: productsReducer,
   carts: cartReducer,
   order: orderReducer,
+  seller: sellerReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

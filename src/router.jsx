@@ -35,6 +35,8 @@ import ViewMyOrder from './views/customer/ViewMyOrder';
 
 // Seller Views
 import SellerDashboard from './views/seller/SellerDashboard';
+import ManageProduct from './views/seller/ManageProduct';
+import ManageOrder from './views/seller/ManageOrder';
 
 // Vet Views
 import VetDashboard from './views/vet/VetDashboard';
@@ -97,19 +99,19 @@ const router = createBrowserRouter([
         element: <CustomerLayout />,
         children: [
           { path: '', element: <Navigate to='dashboard' /> },
-          { path: 'dashboard', element: <CustomerDashboard /> },
-          { path: 'viewpetlist', element: <ViewPetList /> }, // For all users to view pet list
-          { path: 'pet/:petId', element: <ViewPetDetail /> }, // For all users to view pet detail
+          { path: 'dashboard', element: <CustomerDashboard /> }, // Customer Dashboard
+          { path: 'viewpetlist', element: <ViewPetList /> }, 
+          { path: 'pet/:petId', element: <ViewPetDetail /> }, 
           { path: 'adoptionapplication/:petId', element: <AdoptionApplication /> },
-          { path: 'viewblog', element: <ViewBlog /> },
+          { path: 'viewblog', element: <ViewBlog /> },  // For user to view blog, events, and activities
           { path: 'userdonate', element: <UserDonate /> }, // For user to donate
-          { path: 'contactus', element: <ContactUs /> },
-          { path: 'profile', element: <ViewProfile  /> },
-          { path: 'mypet', element: <ViewMyPet  /> },
-          { path: 'myapplication', element: <ViewMyApplication  /> },
-          { path: 'shopnow', element: <Shopping  /> },
-          { path: 'cart', element: <CartModal  /> },
-          { path: 'myorder', element: <ViewMyOrder  /> },
+          { path: 'contactus', element: <ContactUs /> },  // For user to contact PAWS
+          { path: 'profile', element: <ViewProfile  /> }, // For user to view profile
+          { path: 'mypet', element: <ViewMyPet  /> }, // For user to view the uploaded pet
+          { path: 'myapplication', element: <ViewMyApplication  /> }, // For user to view request application from other adopter
+          { path: 'shopnow', element: <Shopping  /> }, // For user to shop pet product
+          { path: 'cart', element: <CartModal  /> },  // For user to view cart and place order
+          { path: 'myorder', element: <ViewMyOrder  /> }, // For user to track thier current order
         ],
       },
     ],
@@ -125,6 +127,8 @@ const router = createBrowserRouter([
           { path: '', element: <Navigate to='dashboard' /> },
           { path: 'dashboard', element: <SellerDashboard /> },
           { path: 'profile', element: <ViewProfile  /> },
+          { path: 'manageproducts', element: <ManageProduct  /> },
+          { path: 'manageorders', element: <ManageOrder  /> },
         ],
       },
     ],

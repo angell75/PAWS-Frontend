@@ -98,9 +98,6 @@ export default function LandingPage() {
             <h3 className="text-2xl font-bold mb-4">Your pets deserve the best</h3>
             <p className="text-lg mb-4">We offer quick & easy services for cats and dogs, accumsan felis id, fermentum purus. Quisque vitae hendrerit elit.</p>
             <p className="text-lg mb-8">Aliquam erat volutpat In id fermentum augue, ut pellentesque leo. Maecenas at arcu risus. Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id. In aliquet magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec elementum ipsum convallis.</p>
-            <Link to="/customer/contactus" className="inline-block px-6 py-3 bg-blue-700 text-white font-semibold rounded-md shadow hover:bg-orange-600">
-              Contact Us
-            </Link>
           </div>
           <div className="md:w-1/2 flex justify-center md:justify-end mt-8 md:mt-0">
             <img src={mission} alt="Mission" className="w-full max-w-xs md:max-w-full" />

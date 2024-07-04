@@ -128,7 +128,6 @@ export default function ViewMyApplication() {
           </div>
         ) : (
           <div className="text-center">
-            <img src="/not-found.png" alt="Not found" className="mx-auto mb-4" />
             <p className="text-gray-500">No applications found.</p>
           </div>
         )}

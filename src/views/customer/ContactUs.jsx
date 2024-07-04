@@ -108,40 +108,50 @@ export default function ContactUs() {
                 <li>
                   <details className="bg-amber-100 p-4 rounded-md">
                     <summary className="font-semibold cursor-pointer">
-                      What makes Snappy different from other messaging apps?
+                      How can I adopt a pet through PAWS?
                     </summary>
                     <p className="mt-2">
-                      Snappy offers unique features like XYZ which differentiate it from other messaging apps.
+                      You can browse available pets on our platform, get to know their profiles, and follow our easy adoption process to take your new pet home.
                     </p>
                   </details>
                 </li>
                 <li>
                   <details className="bg-amber-100 p-4 rounded-md">
                     <summary className="font-semibold cursor-pointer">
-                      How secure are my conversations on Snappy?
+                      What types of pets can I find on PAWS?
                     </summary>
                     <p className="mt-2">
-                      Snappy uses end-to-end encryption to ensure that your conversations are secure.
+                      PAWS features a wide variety of pets including dogs, cats, and other small animals from shelters and rescues across the country.
                     </p>
                   </details>
                 </li>
                 <li>
                   <details className="bg-amber-100 p-4 rounded-md">
                     <summary className="font-semibold cursor-pointer">
-                      Can I personalize my Snappy experience?
+                      How secure is the adoption process on PAWS?
                     </summary>
                     <p className="mt-2">
-                      Yes, Snappy allows you to personalize your experience with various customization options.
+                      The adoption process on PAWS is secure and thorough, ensuring that all adoptions are legitimate and that pets are going to loving, suitable homes.
                     </p>
                   </details>
                 </li>
                 <li>
                   <details className="bg-amber-100 p-4 rounded-md">
                     <summary className="font-semibold cursor-pointer">
-                      What group features does Snappy offer?
+                      Can I volunteer or donate to PAWS?
                     </summary>
                     <p className="mt-2">
-                      Snappy offers group features like ABC which make group communication easy and efficient.
+                      Yes, PAWS offers opportunities for volunteering and accepting donations to support our mission of improving pet welfare and facilitating adoptions.
+                    </p>
+                  </details>
+                </li>
+                <li>
+                  <details className="bg-amber-100 p-4 rounded-md">
+                    <summary className="font-semibold cursor-pointer">
+                      Does PAWS offer any additional services?
+                    </summary>
+                    <p className="mt-2">
+                      Yes, PAWS provides services such as 24/7 veterinary support, pet shops, fun activities for pets and owners, and a regularly updated blog with helpful tips and stories.
                     </p>
                   </details>
                 </li>

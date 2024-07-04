@@ -70,6 +70,40 @@ export const deletePet = createAsyncThunk(
   }
 );
 
+// Fetch user's pets
+export const fetchUserPets = createAsyncThunk(
+  'pets/fetchUserPets',
+  async (userId, { getState }) => {
+    const token = getState().auth.token;
+    const response = await axios.get(`${API_URL.PETS}/user/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  }
+);
+
+// Add new pet
+export const addNewPet = createAsyncThunk(
+  'pets/addNewPet',
+  async (formData, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post(API_URL.PETS, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+)
+
 const petSlice = createSlice({
   name: 'pets',
   initialState: {
@@ -147,6 +181,20 @@ const petSlice = createSlice({
       .addCase(deletePet.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
+      })
+      .addCase(fetchUserPets.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchUserPets.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.pets = action.payload;
+      })
+      .addCase(fetchUserPets.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(addNewPet.fulfilled, (state, action) => {
+        state.pets.push(action.payload);
       });
   },
 });

@@ -65,7 +65,7 @@ const CartModal = () => {
   }
 
   if (status === 'failed') {
-    return <p className='text-3xl text-center pt-10'>There is some problem with {error}</p>;
+    return <p className='text-3xl text-center pt-10'>There is some problem with {typeof error === 'object' ? JSON.stringify(error) : error}</p>;
   }
 
   return (

@@ -58,7 +58,7 @@ const ManageOrder = () => {
 
       {/* Filter Section */}
       <div className="bg-indigo-50 pb-6 flex flex-wrap justify-center space-x-2 md:space-x-4 pt-6">
-        {['all', 'Pending', 'Shipped', 'Completed'].map((status) => (
+        {['All', 'Pending', 'Shipped', 'Delivered'].map((status) => (
           <button
             key={status}
             className={`px-2 md:px-4 py-1 md:py-2 rounded-md ${
@@ -83,7 +83,7 @@ const ManageOrder = () => {
               className="bg-white p-6 rounded-md shadow-md mb-6 border-2 border-black"
             >
               <div className="mb-4">
-                <div className="flex justify-between items-center mb-4">
+                <div className="flex flex-col md:flex-row justify-between items-center mb-4">
                   <div>
                     <h2 className="text-xl font-bold">Order ID: {order.orderId}</h2>
                     <p className="text-gray-600">
@@ -93,7 +93,7 @@ const ManageOrder = () => {
                     <p className="text-gray-600">Contact: {order.contact}</p>
                     <p className="text-gray-600">Address: {order.address}</p>
                   </div>
-                  <div>
+                  <div className="mt-4 md:mt-0">
                     {order.status === 'Pending' ? (
                       <button
                         onClick={() => handleUpdateStatus(order.orderId)}
@@ -103,10 +103,12 @@ const ManageOrder = () => {
                       </button>
                     ) : (
                       <button
-                        className="bg-green-500 text-white px-4 py-2 rounded-md cursor-not-allowed"
+                        className={`px-4 py-2 rounded-md cursor-not-allowed ${
+                          order.status === 'Shipped' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
+                        }`}
                         disabled
                       >
-                        Shipped
+                        {order.status}
                       </button>
                     )}
                   </div>
@@ -118,13 +120,13 @@ const ManageOrder = () => {
                   order.products.map((product) => (
                     <div
                       key={product.productId}
-                      className="flex justify-between items-center border-b py-4"
+                      className="flex flex-col md:flex-row justify-between items-center border-b py-4"
                     >
-                      <div className="flex items-center">
+                      <div className="flex items-center mb-4 md:mb-0">
                         <img
                           src={product.image || notFoundImage}
                           alt={product.name}
-                          className="w-32 h-32 object-cover mb-4 rounded"
+                          className="w-32 h-32 object-cover rounded"
                         />
                         <div className="ml-4">
                           <h3 className="text-lg font-semibold">{product.name}</h3>

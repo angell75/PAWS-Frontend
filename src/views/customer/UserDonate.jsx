@@ -41,7 +41,7 @@ export default function UserDonate() {
               <img src={feedStrays} alt="Feed Strays" className="max-w-full max-h-full" />
             </div>
             <h3 className="text-xl font-bold mb-2">Feed Strays</h3>
-            <p className="text-gray-600">We travel to more than 10 spots around Setia Alam every night to feed the stray animals.</p>
+            <p className="text-gray-600">We travel to more than 10 spots around Kuala Lumpur every night to feed the stray animals.</p>
           </div>
           <div className="flex flex-col items-center text-center p-4">
             <div className="flex items-center justify-center w-full h-80 mb-4">

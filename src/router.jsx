@@ -32,6 +32,7 @@ import ViewMyApplication from './views/customer/ViewMyApplication';
 import CartModal from './views/customer/CartModal';
 import Shopping from './views/customer/Shopping';
 import ViewMyOrder from './views/customer/ViewMyOrder';
+import BookVetService from './views/customer/BookVetService';
 
 // Seller Views
 import SellerDashboard from './views/seller/SellerDashboard';
@@ -83,6 +84,7 @@ const router = createBrowserRouter([
         element: <AdminLayout />,
         children: [
           { path: '', element: <Navigate to='dashboard' /> },
+          { path: 'profile', element: <ViewProfile  /> }, // For user to view profile
           { path: 'viewpetlist', element: <ViewPetList /> }, // For all users to view pet list
           { path: 'pet/:petId', element: <ViewPetDetail /> }, // For all users to view pet detail
           { path: 'dashboard', element: <AdminDashboard /> },
@@ -112,6 +114,7 @@ const router = createBrowserRouter([
           { path: 'shopnow', element: <Shopping  /> }, // For user to shop pet product
           { path: 'cart', element: <CartModal  /> },  // For user to view cart and place order
           { path: 'myorder', element: <ViewMyOrder  /> }, // For user to track thier current order
+          { path: 'vetservices', element: <BookVetService  /> }, // For user to track thier current order
         ],
       },
     ],
@@ -143,6 +146,7 @@ const router = createBrowserRouter([
         children: [
           { path: '', element: <Navigate to='dashboard' /> },
           { path: 'dashboard', element: <VetDashboard /> },
+          { path: 'profile', element: <ViewProfile  /> }, // For user to view profile
           { path: 'viewpetlist', element: <ViewPetList /> }, // For all users to view pet list
           { path: 'pet/:petId', element: <ViewPetDetail /> }, // For all users to view pet detail
         ],

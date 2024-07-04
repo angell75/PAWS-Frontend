@@ -32,9 +32,9 @@ export default function ViewPetList() {
 
   useEffect(() => {
     if (user) {
-      setFilteredPets(pets.filter((pet) => pet.userId !== user.userId));
+      setFilteredPets(pets.filter((pet) => pet.userId !== user.userId && pet.adoptionStatus !== 'vet'));
     } else {
-      setFilteredPets(pets);
+      setFilteredPets(pets.filter((pet) => pet.adoptionStatus !== 'vet'));
     }
   }, [pets, user]);
 
@@ -108,8 +108,12 @@ export default function ViewPetList() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(petData);
-      await dispatch(uploadPet(petData));
+      const formData = new FormData();
+      Object.keys(petData).forEach((key) => {
+        formData.append(key, petData[key]);
+      });
+      formData.append('adoptionStatus', 'vet'); // Set adoptionStatus to 'vet'
+      await dispatch(uploadPet(formData));
       Swal.fire({
         icon: "success",
         title: "Upload Successful",

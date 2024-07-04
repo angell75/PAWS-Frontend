@@ -19,12 +19,13 @@ export const createOrder = createAsyncThunk(
   }
 );
 
-// Thunk to fetch all orders
+// Thunk to fetch all orders or user-specific orders
 export const fetchOrders = createAsyncThunk(
   'order/fetchOrders',
-  async (_, { rejectWithValue }) => {
+  async (userId = null, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.get(API_URL.ORDERS);
+      const url = userId ? `${API_URL.ORDERS}/user/${userId}` : API_URL.ORDERS;
+      const response = await axiosInstance.get(url);
       return response.data;
     } catch (error) {
       if (!error.response) {
@@ -35,13 +36,12 @@ export const fetchOrders = createAsyncThunk(
   }
 );
 
-// Thunk to update order status
 export const updateOrderStatus = createAsyncThunk(
   'orders/updateOrderStatus',
   async ({ orderId, status }, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.put(`${API_URL.ORDERS}/update-status/${orderId}`, { status });
-      return response.data;
+      return response.data.order; // Return updated order
     } catch (error) {
       if (!error.response) {
         throw error;

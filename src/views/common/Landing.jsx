@@ -55,35 +55,35 @@ export default function LandingPage() {
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold uppercase">Our Services</h2>
-          <p className="mt-4 text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p className="mt-4 text-gray-600">Discover the wide range of services we offer to ensure the well-being and happiness of your pets.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="bg-white p-6 rounded-lg shadow flex flex-col items-center">
             <img src={vetImage} alt="Veterinary 24/7" className="mb-4 h-40" />
             <h3 className="text-xl font-bold mb-2 text-orange-500">Veterinary 24/7</h3>
-            <p className="text-gray-600 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p className="text-gray-600 text-center">Round-the-clock veterinary services to ensure your pet’s health.</p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow flex flex-col items-center">
             <img src={petShopImage} alt="Pet Shop" className="mb-4 h-40" />
             <h3 className="text-xl font-bold mb-2 text-orange-500">Pet Shop</h3>
-            <p className="text-gray-600 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p className="text-gray-600 text-center">A well-stocked pet shop for all your pet needs.</p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow flex flex-col items-center">
             <img src={funActivitiesImage} alt="Fun Activities" className="mb-4 h-40" />
             <h3 className="text-xl font-bold mb-2 text-orange-500">Fun Activities</h3>
-            <p className="text-gray-600 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p className="text-gray-600 text-center">Engaging activities for pets and owners.</p>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
           <div className="bg-white p-6 rounded-lg shadow flex flex-col items-center">
             <img src={donationImage} alt="Donation" className="mb-4 h-40" />
             <h3 className="text-xl font-bold mb-2 text-orange-500">Donation</h3>
-            <p className="text-gray-600 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p className="text-gray-600 text-center">Opportunities to support our mission through donations.</p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow flex flex-col items-center">
             <img src={blogImage} alt="Blog" className="mb-4 h-40" />
             <h3 className="text-xl font-bold mb-2 text-orange-500">Blog</h3>
-            <p className="text-gray-600 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p className="text-gray-600 text-center">A blog full of tips, stories, and advice for pet owners.</p>
           </div>
         </div>
       </section>
@@ -96,8 +96,8 @@ export default function LandingPage() {
         <div className="flex flex-col md:flex-row items-center justify-center">
           <div className="md:w-1/2 px-6">
             <h3 className="text-2xl font-bold mb-4">Your pets deserve the best</h3>
-            <p className="text-lg mb-4">We offer quick & easy services for cats and dogs, accumsan felis id, fermentum purus. Quisque vitae hendrerit elit.</p>
-            <p className="text-lg mb-8">Aliquam erat volutpat In id fermentum augue, ut pellentesque leo. Maecenas at arcu risus. Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id. In aliquet magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec elementum ipsum convallis.</p>
+            <p className="text-lg mb-4">We offer quick & easy services for cats and dogs, providing essential support to ensure their well-being and happiness.</p>
+            <p className="text-lg mb-8">Our mission is to facilitate pet adoptions, improve pet welfare, and create a loving community for all pets and their owners.</p>
           </div>
           <div className="md:w-1/2 flex justify-center md:justify-end mt-8 md:mt-0">
             <img src={mission} alt="Mission" className="w-full max-w-xs md:max-w-full" />
@@ -110,23 +110,23 @@ export default function LandingPage() {
         <div className="container mx-auto px-6 md:px-16 py-20 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold uppercase">Pet Adoption Process</h2>
-            <p className="mt-4 text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p className="mt-4 text-gray-600">Follow our simple and secure steps to welcome your new pet into your home.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-8">
             <div className="p-10 rounded-lg flex flex-col items-center">
               <img src={findPet} alt="Find your pet" className="w-64 sm:w-70 md:w-72 h-52 rounded mb-4" />
               <h3 className="text-xl font-bold mb-2">Find your pet</h3>
-              <p className="text-gray-600 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <p className="text-gray-600 text-center">Browse our extensive list of pets and find the perfect match for your family.</p>
             </div>
             <div className="p-10 rounded-lg flex flex-col items-center">
               <img src={knowPet} alt="Know your pet" className="w-64 sm:w-70 md:w-72 h-52 rounded mb-4" />
               <h3 className="text-xl font-bold mb-2">Know your pet</h3>
-              <p className="text-gray-600 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <p className="text-gray-600 text-center">Get detailed information and spend time with your potential new pet.</p>
             </div>
             <div className="p-10 rounded-lg flex flex-col items-center">
               <img src={takeHome} alt="Take your pet home" className="w-64 sm:w-70 md:w-72 h-52 rounded mb-4" />
               <h3 className="text-xl font-bold mb-2">Take your pet home</h3>
-              <p className="text-gray-600 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <p className="text-gray-600 text-center">Complete the adoption process and welcome your new pet into your home.</p>
             </div>
           </div>
         </div>
@@ -136,7 +136,7 @@ export default function LandingPage() {
       <section className="bg-white container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold uppercase">Featured Pets</h2>
-          <p className="mt-4 text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p className="mt-4 text-gray-600">Meet some of our adorable and adoptable pets who are looking for their forever homes.</p>
         </div>
         {loading ? (
           <p className="text-center">Loading...</p>

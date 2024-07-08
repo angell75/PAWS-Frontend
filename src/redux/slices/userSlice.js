@@ -8,22 +8,6 @@ const initialState = {
   error: null,
 };
 
-// Fetch users
-export const fetchUsers = createAsyncThunk(
-  'users/fetchUsers',
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await axiosInstance.get(`${API_URL.USERS}`);
-      return response.data;
-    } catch (error) {
-      if (!error.response) {
-        throw error;
-      }
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
-
 export const updateUserProfile = createAsyncThunk(
   'user/updateUserProfile',
   async (formData, { rejectWithValue }) => {
@@ -48,6 +32,18 @@ export const changePassword = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const deleteUser = createAsyncThunk(
+  'users/deleteUser',
+  async (id, { rejectWithValue }) => {
+    try {
+      await axiosInstance.delete(`${API_URL.USERS}/${id}`);
+      return id;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
     }
   }
 );
@@ -85,6 +81,17 @@ const userSlice = createSlice({
         state.status = 'succeeded';
       })
       .addCase(changePassword.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      })
+      .addCase(deleteUser.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(deleteUser.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.error = null;
+      })
+      .addCase(deleteUser.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
       });

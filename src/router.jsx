@@ -20,6 +20,8 @@ import ViewPetDetail from './views/common/ViewPetDetail';
 
 // Admin Views
 import AdminDashboard from './views/admin/AdminDashboard';
+import AdminViewPetList from './views/admin/AdminViewPetList';
+import AdminManageUser from './views/admin/AdminManageUser';
 
 // User Views
 import CustomerDashboard from './views/customer/CustomerDashboard';
@@ -41,6 +43,9 @@ import ManageOrder from './views/seller/ManageOrder';
 
 // Vet Views
 import VetDashboard from './views/vet/VetDashboard';
+import VetViewPetList from './views/vet/VetViewPetList';
+import VetViewPetInfo from './views/vet/VetViewPetInfo';
+import VetManageAppointment from './views/vet/VetManageAppointment';
 
 // Redirect to dashboard based on user role
 const RedirectToDashboard = () => {
@@ -85,9 +90,15 @@ const router = createBrowserRouter([
         children: [
           { path: '', element: <Navigate to='dashboard' /> },
           { path: 'profile', element: <ViewProfile  /> }, // For user to view profile
-          { path: 'viewpetlist', element: <ViewPetList /> }, // For all users to view pet list
-          { path: 'pet/:petId', element: <ViewPetDetail /> }, // For all users to view pet detail
+          { path: 'viewpetlist', element: <AdminViewPetList /> }, 
+          { path: 'manageuser', element: <AdminManageUser /> },
           { path: 'dashboard', element: <AdminDashboard /> },
+          // { path: 'manage-pets', element: <ManagePets /> },
+          // { path: 'adoption-applications', element: <ViewAdoptionApplications /> },
+          // { path: 'pet-education', element: <ViewPetEducation /> },
+          // { path: 'donations', element: <ViewDonations /> },
+          // { path: 'generate-reports', element: <GenerateReports /> },
+          // { path: 'enquiries', element: <ViewEnquiries /> },
         ],
       },
     ],
@@ -146,9 +157,11 @@ const router = createBrowserRouter([
         children: [
           { path: '', element: <Navigate to='dashboard' /> },
           { path: 'dashboard', element: <VetDashboard /> },
-          { path: 'profile', element: <ViewProfile  /> }, // For user to view profile
-          { path: 'viewpetlist', element: <ViewPetList /> }, // For all users to view pet list
-          { path: 'pet/:petId', element: <ViewPetDetail /> }, // For all users to view pet detail
+          { path: 'profile', element: <ViewProfile  /> },
+          { path: 'viewpetlist', element: <VetViewPetList /> },
+          { path: 'appointments', element: <VetManageAppointment  /> },
+          { path: 'pet/:petId', element: <VetViewPetInfo /> },
+          { path: 'pet/:petId/appointment/:appointmentId', element: <VetViewPetInfo /> },
         ],
       },
     ],

@@ -14,4 +14,8 @@ export const API_URL = {
   ORDERS: API_BASE_URL + 'orders',
   SUMMARY: API_BASE_URL + 'summary',
   APPOINTMENTS: API_BASE_URL + 'appointments',
+  ADMIN_DASHBOARD: API_BASE_URL + 'admin/dashboard',
+  PETS_WITH_OWNERS: API_BASE_URL + 'pets-with-owners',
+  USERS: API_BASE_URL + 'users',
+
 };

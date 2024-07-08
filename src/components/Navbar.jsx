@@ -111,31 +111,56 @@ const Navbar = () => {
               )}
               {user.userRole === 'vet' && (
                 <>
-                  <Link to="/vet/pets" className="px-4 flex items-center">
+                  <Link to="/vet/viewpetlist" className="px-4 flex items-center">
                     <Icon icon="ic:baseline-pets" className="mr-1" /> Pets
                   </Link>
                   <Link to="/vet/appointments" className="px-4 flex items-center">
                     <Icon icon="ic:baseline-event-note" className="mr-1" /> Appointments
                   </Link>
-                  <button onClick={handleLogout} className="px-4 flex items-center">
-                    <Icon icon="ic:baseline-logout" className="mr-1" /> Logout
-                  </button>
+                  <div className="relative" ref={dropdownRef}>
+                    <button className="px-4 flex items-center" onClick={toggleDropdown}>
+                      <Icon icon="ic:baseline-account-circle" className="mr-1" /> Profile
+                    </button>
+                    {dropdownOpen && (
+                      <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
+                        <Link to="/vet/profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">My Profile</Link>
+                        <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</button>
+                      </div>
+                    )}
+                  </div>
                 </>
               )}
               {user.userRole === 'admin' && (
                 <>
-                  <Link to="/admin/dashboard" className="px-4 flex items-center">
-                    <Icon icon="ic:baseline-dashboard" className="mr-1" /> Dashboard
-                  </Link>
-                  <Link to="/admin/users" className="px-4 flex items-center">
+                  <Link to="/admin/manageuser" className="px-4 flex items-center">
                     <Icon icon="ic:baseline-people" className="mr-1" /> Users
                   </Link>
-                  <Link to="/admin/settings" className="px-4 flex items-center">
-                    <Icon icon="ic:baseline-settings" className="mr-1" /> Settings
+                  <Link to="/admin/viewpetlist" className="px-4 flex items-center">
+                    <Icon icon="ic:baseline-pets" className="mr-1" />Pet
                   </Link>
-                  <button onClick={handleLogout} className="px-4 flex items-center">
-                    <Icon icon="ic:baseline-logout" className="mr-1" /> Logout
-                  </button>
+                  <Link to="/admin/adoption-applications" className="px-4 flex items-center">
+                    <Icon icon="ic:baseline-assignment" className="mr-1" /> Adoption Applications
+                  </Link>
+                  <Link to="/admin/blog" className="px-4 flex items-center">
+                    <Icon icon="ic:baseline-article" className="mr-1" /> Blog
+                  </Link>
+                  <Link to="/admin/donations" className="px-4 flex items-center">
+                    <Icon icon="ic:baseline-volunteer-activism" className="mr-1" /> Donation
+                  </Link>
+                  <Link to="/admin/enquiries" className="px-4 flex items-center">
+                    <Icon icon="ic:baseline-question-answer" className="mr-1" /> Enquiries
+                  </Link>
+                  <div className="relative" ref={dropdownRef}>
+                    <button className="px-4 flex items-center" onClick={toggleDropdown}>
+                      <Icon icon="ic:baseline-account-circle" className="mr-1" /> Profile
+                    </button>
+                    {dropdownOpen && (
+                      <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
+                        <Link to="/admin/profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">My Profile</Link>
+                        <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</button>
+                      </div>
+                    )}
+                  </div>
                 </>
               )}
             </>
@@ -195,31 +220,56 @@ const Navbar = () => {
                 )}
                 {user.userRole === 'vet' && (
                   <>
-                    <Link to="/vet/pets" className="block px-4 py-2 flex items-center">
+                    <Link to="/vet/viewpetlist" className="block px-4 py-2 flex items-center">
                       <Icon icon="ic:baseline-pets" className="mr-1" /> Pets
                     </Link>
                     <Link to="/vet/appointments" className="block px-4 py-2 flex items-center">
                       <Icon icon="ic:baseline-event-note" className="mr-1" /> Appointments
                     </Link>
-                    <button onClick={handleLogout} className="block px-4 py-2 flex items-center">
-                      <Icon icon="ic:baseline-logout" className="mr-1" /> Logout
-                    </button>
+                    <div className="relative" ref={dropdownRef}>
+                      <button className="block px-4 py-2 flex items-center" onClick={toggleDropdown}>
+                        <Icon icon="ic:baseline-account-circle" className="mr-1" /> Profile
+                      </button>
+                      {dropdownOpen && (
+                        <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
+                          <Link to="/vet/profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">My Profile</Link>
+                          <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</button>
+                        </div>
+                      )}
+                    </div>
                   </>
                 )}
                 {user.userRole === 'admin' && (
                   <>
-                    <Link to="/admin/dashboard" className="block px-4 py-2 flex items-center">
-                      <Icon icon="ic:baseline-dashboard" className="mr-1" /> Dashboard
-                    </Link>
-                    <Link to="/admin/users" className="block px-4 py-2 flex items-center">
+                    <Link to="/admin/manageuser" className="block px-4 py-2 flex items-center">
                       <Icon icon="ic:baseline-people" className="mr-1" /> Users
                     </Link>
-                    <Link to="/admin/settings" className="block px-4 py-2 flex items-center">
-                      <Icon icon="ic:baseline-settings" className="mr-1" /> Settings
+                    <Link to="/admin/viewpetlist" className="block px-4 py-2 flex items-center">
+                      <Icon icon="ic:baseline-pets" className="mr-1" /> Pet
                     </Link>
-                    <button onClick={handleLogout} className="block px-4 py-2 flex items-center">
-                      <Icon icon="ic:baseline-logout" className="mr-1" /> Logout
-                    </button>
+                    <Link to="/admin/adoption-applications" className="block px-4 py-2 flex items-center">
+                      <Icon icon="ic:baseline-assignment" className="mr-1" /> Adoption Applications
+                    </Link>
+                    <Link to="/admin/blog" className="block px-4 py-2 flex items-center">
+                      <Icon icon="ic:baseline-article" className="mr-1" /> Blog
+                    </Link>
+                    <Link to="/admin/donations" className="block px-4 py-2 flex items-center">
+                      <Icon icon="ic:baseline-volunteer-activism" className="mr-1" /> Donation
+                    </Link>
+                    <Link to="/admin/enquiries" className="block px-4 py-2 flex items-center">
+                      <Icon icon="ic:baseline-question-answer" className="mr-1" /> Enquiries
+                    </Link>
+                    <div className="relative" ref={dropdownRef}>
+                      <button className="block px-4 py-2 flex items-center" onClick={toggleDropdown}>
+                        <Icon icon="ic:baseline-account-circle" className="mr-1" /> Profile
+                      </button>
+                      {dropdownOpen && (
+                        <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
+                          <Link to="/admin/profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">My Profile</Link>
+                          <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</button>
+                        </div>
+                      )}
+                    </div>
                   </>
                 )}
               </>

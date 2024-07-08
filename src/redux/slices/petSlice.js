@@ -53,7 +53,7 @@ export const updatePet = createAsyncThunk(
       });
       return response.data;
     } catch (err) {
-      return rejectWithValue(err.response.data);
+      return rejectWithValue(err.response?.data || 'An unknown error occurred');
     }
   }
 );
@@ -103,6 +103,27 @@ export const addNewPet = createAsyncThunk(
     }
   }
 )
+
+// Fetch pets with owners
+export const fetchPetsWithOwners = createAsyncThunk(
+  'pets/fetchPetsWithOwners',
+  async (_, { rejectWithValue, getState }) => {
+    try {
+      const token = getState().auth.token;
+      const response = await axiosInstance.get(API_URL.PETS_WITH_OWNERS, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 const petSlice = createSlice({
   name: 'pets',
@@ -195,6 +216,17 @@ const petSlice = createSlice({
       })
       .addCase(addNewPet.fulfilled, (state, action) => {
         state.pets.push(action.payload);
+      })
+      .addCase(fetchPetsWithOwners.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchPetsWithOwners.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.pets = action.payload;
+      })
+      .addCase(fetchPetsWithOwners.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload.message || 'Failed to fetch pets';
       });
   },
 });

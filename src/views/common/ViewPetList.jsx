@@ -112,7 +112,7 @@ export default function ViewPetList() {
       Object.keys(petData).forEach((key) => {
         formData.append(key, petData[key]);
       });
-      formData.append('adoptionStatus', 'vet'); // Set adoptionStatus to 'vet'
+      formData.append('adoptionStatus', 'available');
       await dispatch(uploadPet(formData));
       Swal.fire({
         icon: "success",

@@ -5,7 +5,7 @@ import { fetchPets, addNewPet } from '../../redux/slices/petSlice';
 import Swal from 'sweetalert2';
 import Modal from 'react-modal';
 import vetClinicImage from '../../assets/vet-clinic.jpg'; 
-
+import { Link } from 'react-router-dom';
 
 const BookVetService = () => {
   const dispatch = useDispatch();
@@ -119,75 +119,97 @@ const BookVetService = () => {
 
   return (
     <div className="min-h-screen bg-petBg py-10 flex flex-col items-center">
-      <div className="flex flex-col w-full max-w-6xl bg-white rounded-lg">
-        <div className="flex flex-col md:flex-row">
-          <div className="md:w-1/2 p-6">
-            <img src={vetClinicImage} alt="Vet Clinic" className="w-full h-64 object-cover mb-4 rounded-md" />
-            <h1 className="text-2xl font-bold mb-4">Book Vet Service</h1>
-            <p className="mb-6">Book an appointment for your pet at PAWS KL. Please ensure all information is accurate.</p>
-            <form onSubmit={handleSubmit}>
-              <div className="mb-4">
-                <label htmlFor="date" className="block text-sm font-medium text-gray-700">Date</label>
-                <input
-                  type="date"
-                  name="date"
-                  id="date"
-                  value={formData.date}
-                  onChange={handleChange}
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-                />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="time" className="block text-sm font-medium text-gray-700">Time</label>
-                <select
-                  name="time"
-                  id="time"
-                  value={formData.time}
-                  onChange={handleChange}
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-                >
-                  <option value="">Select Time</option>
-                  <option value="10:00:00">10:00-11:00</option>
-                  <option value="11:00:00">11:00-12:00</option>
-                  <option value="14:00:00">14:00-15:00</option>
-                  <option value="15:00:00">15:00-16:00</option>
-                  <option value="16:00:00">16:00-17:00</option>
-                </select>
-              </div>
-              <div className="mb-4 flex items-center">
-                <div className="w-full">
-                  <label htmlFor="petId" className="block text-sm font-medium text-gray-700">Pet</label>
-                  <select
-                    name="petId"
-                    id="petId"
-                    value={formData.petId}
-                    onChange={handleChange}
-                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-                  >
-                    <option value="">Select Pet</option>
-                    {pets.filter(pet => pet.userId === user.userId).map((pet) => (
-                      <option key={pet.petId} value={pet.petId}>{pet.name}</option>
-                    ))}
-                  </select>
-                </div>
-                <button
-                  type="button"
-                  className="ml-2 bg-green-500 text-white px-4 py-2 rounded-md"
-                  onClick={openNewPetModal}
-                >
-                  Add New Pet
-                </button>
-              </div>
-              <div className="flex justify-center pt-4">
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Book Appointment</button>
-              </div>
-            </form>
-          </div>
-          <div className="md:w-1/2 p-6 bg-petBg">
-            <MyAppointments />
-          </div>
+    <div className="flex flex-col w-full max-w-6xl bg-white rounded-lg shadow-md">
+      <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+          <h2 className="text-xl font-bold">Fees</h2>
+          <p>The service is free as we get funds from donations.</p>
+          <button className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md">
+            <Link to="/customer/userdonate">Donate</Link>
+          </button>
+        </div>
+        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+          <h2 className="text-xl font-bold">Working Time</h2>
+          <p>Monday to Friday: 05:00am to 10:00pm</p>
+          <p>Weekends: 09:00am to 12:00pm</p>
+        </div>
+        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+          <h2 className="text-xl font-bold">Medical Services</h2>
+          <p>If you need a doctor urgently outside of medicenter opening hours, call emergency appointment number for emergency service.</p>
+        </div>
+        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+          <h2 className="text-xl font-bold">Doubts?</h2>
+          <p>PAWS KL, dummy address</p>
         </div>
       </div>
+      <div className="flex flex-col md:flex-row">
+        <div className="md:w-1/2 p-6">
+          <img src={vetClinicImage} alt="Vet Clinic" className="w-full h-64 object-cover mb-4 rounded-md" />
+          <h1 className="text-2xl font-bold mb-4">Book Vet Service</h1>
+          <p className="mb-6">Book an appointment for your pet at PAWS KL. Please ensure all information is accurate.</p>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label htmlFor="date" className="block text-sm font-medium text-gray-700">Date</label>
+              <input
+                type="date"
+                name="date"
+                id="date"
+                value={formData.date}
+                onChange={handleChange}
+                className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="time" className="block text-sm font-medium text-gray-700">Time</label>
+              <select
+                name="time"
+                id="time"
+                value={formData.time}
+                onChange={handleChange}
+                className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+              >
+                <option value="">Select Time</option>
+                <option value="10:00:00">10:00-11:00</option>
+                <option value="11:00:00">11:00-12:00</option>
+                <option value="14:00:00">14:00-15:00</option>
+                <option value="15:00:00">15:00-16:00</option>
+                <option value="16:00:00">16:00-17:00</option>
+              </select>
+            </div>
+            <div className="mb-4 flex items-center">
+              <div className="w-full">
+                <label htmlFor="petId" className="block text-sm font-medium text-gray-700">Pet</label>
+                <select
+                  name="petId"
+                  id="petId"
+                  value={formData.petId}
+                  onChange={handleChange}
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                >
+                  <option value="">Select Pet</option>
+                  {pets.filter(pet => pet.userId === user.userId).map((pet) => (
+                    <option key={pet.petId} value={pet.petId}>{pet.name}</option>
+                  ))}
+                </select>
+              </div>
+              <button
+                type="button"
+                className="ml-2 bg-green-500 text-white px-4 py-2 rounded-md"
+                onClick={openNewPetModal}
+              >
+                Add New Pet
+              </button>
+            </div>
+            <div className="flex justify-center pt-4">
+              <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Book Appointment</button>
+            </div>
+          </form>
+        </div>
+        <div className="md:w-1/2 p-6 bg-white">
+          <MyAppointments />
+        </div>
+      </div>
+    </div>
 
       <Modal
         isOpen={newPetModalOpen}

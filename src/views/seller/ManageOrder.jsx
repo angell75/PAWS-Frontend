@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 const ManageOrder = () => {
   const dispatch = useDispatch();
   const { orders = [], status, error } = useSelector((state) => state.order);
-  const [selectedStatus, setSelectedStatus] = useState('all');
+  const [selectedStatus, setSelectedStatus] = useState('All');
 
   useEffect(() => {
     dispatch(fetchOrders());
@@ -30,7 +30,7 @@ const ManageOrder = () => {
     setSelectedStatus(status);
   };
 
-  const filteredOrders = orders.filter(order => selectedStatus === 'all' || order.status === selectedStatus);
+  const filteredOrders = orders.filter(order => selectedStatus === 'All' || order.status === selectedStatus);
 
   if (status === 'loading') {
     return <p>Loading orders...</p>;

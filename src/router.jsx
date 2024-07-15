@@ -17,6 +17,7 @@ import Register from './views/common/Register';
 import ViewPetList from './views/common/ViewPetList';
 import ViewProfile from './views/common/ViewProfile';
 import ViewPetDetail from './views/common/ViewPetDetail';
+import ViewBlogDetails from './views/common/ViewBlogDetails';
 
 // Admin Views
 import AdminDashboard from './views/admin/AdminDashboard';
@@ -103,6 +104,7 @@ const router = createBrowserRouter([
           { path: 'viewdonations', element: <AdminViewDonations /> },
           { path: 'manageenquiries', element: <AdminManageEnquiries /> },
           { path: 'manageblog', element: <AdminManageBlog  /> }, // For admin to manage blog
+          { path: 'viewblogdetails/:blogId', element: <ViewBlogDetails /> }, // For user to view blog
         ],
       },
     ],
@@ -130,7 +132,8 @@ const router = createBrowserRouter([
           { path: 'cart', element: <CartModal  /> },  // For user to view cart and place order
           { path: 'myorder', element: <ViewMyOrder  /> }, // For user to track thier current order
           { path: 'vetservices', element: <BookVetService  /> }, // For user to book vet services
-          { path: 'viewblog', element: <ViewBlog  /> }, // For user to view blog
+          { path: 'viewblog', element: <ViewBlog /> }, // For user to view blog
+          { path: 'viewblogdetails/:blogId', element: <ViewBlogDetails /> }, // For user to view blog
         ],
       },
     ],

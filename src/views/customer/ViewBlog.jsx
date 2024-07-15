@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { fetchBlogs, createBlog, updateBlog, deleteBlog } from "../../redux/slices/blogSlice";
 import articleImage from "../../assets/no-image.png";
 import Swal from "sweetalert2";
@@ -8,7 +9,7 @@ import blogBanner from "../../assets/blog-bg.png";
 export default function ViewBlog() {
   const dispatch = useDispatch();
   const { blogs = [], status, error } = useSelector((state) => state.blogs);
-  const { user, token } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const userId = user?.userId;
   const [formData, setFormData] = useState({ title: '', subject: '', description: '', date: '', image: null });
   const [modalOpen, setModalOpen] = useState(false);
@@ -16,6 +17,9 @@ export default function ViewBlog() {
   const [searchInput, setSearchInput] = useState('');
   const [formError, setFormError] = useState(null);
   const [selectedBlog, setSelectedBlog] = useState(null);
+
+  const publicBlogs = blogs.filter(blog => blog.shelterId !== userId);
+  const userBlogs = blogs.filter(blog => blog.shelterId === userId);
 
   useEffect(() => {
     dispatch(fetchBlogs());
@@ -139,27 +143,57 @@ export default function ViewBlog() {
             Add Blog
           </button>
         </div>
-        {status === 'loading' ? (
-          <p>Loading...</p>
-        ) : error ? (
-          <p className="text-red-500">{error.message || error}</p>
-        ) : blogs?.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {blogs?.map((blog) => (
-              <div key={blog?.blogId} className="bg-white rounded-lg shadow-md overflow-hidden">
-                <img src={blog?.image || articleImage} alt={blog?.title || 'Blog Image'} className="w-full h-58 object-cover" />
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2">{blog?.title || 'No Title'}</h3>
-                  <p className="text-gray-600 mb-4 truncate">{blog?.description || 'No Description'}</p>
-                  <button onClick={() => handleEditClick(blog)} className="text-blue-500 font-bold">Edit</button>
-                  <button onClick={() => handleDeleteBlog(blog.blogId)} className="text-red-500 font-bold ml-4">Delete</button>
+        <div className="flex flex-row">
+          {status === 'loading' ? (
+            <p>Loading...</p>
+          ) : error ? (
+            <></>
+          ) : publicBlogs?.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-3/4">
+              {publicBlogs?.map((blog) => (
+                <div key={blog?.blogId} className="bg-white rounded-lg shadow-md overflow-hidden">
+                  <img src={blog?.image || articleImage} alt={blog?.title || 'Blog Image'} className="w-full h-58 object-cover" />
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-2">{blog?.title || 'No Title'}</h3>
+                    <p className="text-gray-600 mb-4 truncate">{blog?.description || 'No Description'}</p>
+                    <Link
+                      to={`/customer/viewblogdetails/${blog.blogId}`}
+                      className="text-orange-500 font-bold"
+                    >
+                      Read More
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-xl font-bold w-3/4">No blogs available</p>
+          )}
+          <div className="w-full md:w-1/4 md:pl-8 mt-10 md:mt-0 w-1/4">
+            <h2 className="text-2xl font-bold mb-4">Manage My Blogs</h2>
+            {userBlogs.length > 0 ? (
+              userBlogs.map((blog) => (
+                <div key={blog.blogId} className="bg-white p-4 rounded-lg shadow-md mb-4">
+                  <h3 className="text-xl font-bold mb-2">{blog.title}</h3>
+                  <button 
+                    onClick={() => handleEditClick(blog)} 
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2"
+                  >
+                    Edit
+                  </button>
+                  <button 
+                    onClick={() => handleDeleteBlog(blog.blogId)} 
+                    className="bg-red-500 text-white px-4 py-2 rounded-md"
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))
+            ) : (
+              <p className="text-center text-xl font-bold w-1/4">No blogs to manage</p>
+            )}
           </div>
-        ) : (
-          <p className="text-center text-xl font-bold">No blogs available</p>
-        )}
+        </div>
         {modalOpen && (
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
             <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-lg">

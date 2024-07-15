@@ -36,6 +36,36 @@ export const changePassword = createAsyncThunk(
   }
 );
 
+export const createUser = createAsyncThunk(
+  'users/createUser',
+  async (userData, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post(API_URL.USERS, userData);
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const updateUser = createAsyncThunk(
+  'users/updateUser',
+  async ({ id, data }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.put(`${API_URL.USERS}/${id}`, data);
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const deleteUser = createAsyncThunk(
   'users/deleteUser',
   async (id, { rejectWithValue }) => {
@@ -84,12 +114,40 @@ const userSlice = createSlice({
         state.status = 'failed';
         state.error = action.payload;
       })
+      .addCase(createUser.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(createUser.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        if (!Array.isArray(state.users)) {
+          state.users = []; 
+        }
+        state.users.push(action.payload);  
+      })
+      .addCase(createUser.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        const index = state.users.findIndex((user) => user.userId === action.payload.userId);
+        if (index !== -1) {
+          state.users[index] = action.payload;
+        }
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      })
       .addCase(deleteUser.pending, (state) => {
         state.status = 'loading';
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.error = null;
+        state.users = state.users.filter((user) => user.userId !== action.payload);
       })
       .addCase(deleteUser.rejected, (state, action) => {
         state.status = 'failed';

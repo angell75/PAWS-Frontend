@@ -13,6 +13,7 @@ import productsReducer from './slices/productsSlice';
 import cartReducer from './slices/cartSlice';
 import orderReducer from './slices/orderSlice';
 import sellerReducer from './slices/sellerSlice';
+import blogReducer from './slices/blogSlice';
 import appointmentReducer from './slices/appointmentSlice';
 import adminReducer from './slices/adminSlice';
 
@@ -42,6 +43,8 @@ const rootReducer = combineReducers({
   seller: sellerReducer,
   appointments: appointmentReducer,
   admin: adminReducer,
+  blogs: blogReducer,
+  
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

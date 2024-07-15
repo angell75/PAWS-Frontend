@@ -22,6 +22,11 @@ import ViewPetDetail from './views/common/ViewPetDetail';
 import AdminDashboard from './views/admin/AdminDashboard';
 import AdminViewPetList from './views/admin/AdminViewPetList';
 import AdminManageUser from './views/admin/AdminManageUser';
+import AdminViewAdoptionApplication from './views/admin/AdminViewAdoptionApplication';
+import AdminViewDonations from './views/admin/AdminViewDonations';
+import AdminManageEnquiries from './views/admin/AdminManageEnquiries';
+import AdminManageVet from './views/admin/AdminManageVet';
+import AdminManageBlog from './views/admin/AdminManageBlog';
 
 // User Views
 import CustomerDashboard from './views/customer/CustomerDashboard';
@@ -92,13 +97,12 @@ const router = createBrowserRouter([
           { path: 'profile', element: <ViewProfile  /> }, // For user to view profile
           { path: 'viewpetlist', element: <AdminViewPetList /> }, 
           { path: 'manageuser', element: <AdminManageUser /> },
+          { path: 'managevet', element: <AdminManageVet /> },
           { path: 'dashboard', element: <AdminDashboard /> },
-          // { path: 'manage-pets', element: <ManagePets /> },
-          // { path: 'adoption-applications', element: <ViewAdoptionApplications /> },
-          // { path: 'pet-education', element: <ViewPetEducation /> },
-          // { path: 'donations', element: <ViewDonations /> },
-          // { path: 'generate-reports', element: <GenerateReports /> },
-          // { path: 'enquiries', element: <ViewEnquiries /> },
+          { path: 'view-adoption-applications', element: <AdminViewAdoptionApplication /> },
+          { path: 'viewdonations', element: <AdminViewDonations /> },
+          { path: 'manageenquiries', element: <AdminManageEnquiries /> },
+          { path: 'manageblog', element: <AdminManageBlog  /> }, // For admin to manage blog
         ],
       },
     ],
@@ -125,7 +129,8 @@ const router = createBrowserRouter([
           { path: 'shopnow', element: <Shopping  /> }, // For user to shop pet product
           { path: 'cart', element: <CartModal  /> },  // For user to view cart and place order
           { path: 'myorder', element: <ViewMyOrder  /> }, // For user to track thier current order
-          { path: 'vetservices', element: <BookVetService  /> }, // For user to track thier current order
+          { path: 'vetservices', element: <BookVetService  /> }, // For user to book vet services
+          { path: 'viewblog', element: <ViewBlog  /> }, // For user to view blog
         ],
       },
     ],

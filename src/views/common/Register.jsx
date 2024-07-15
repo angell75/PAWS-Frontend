@@ -37,6 +37,16 @@ export default function Register() {
       return false;
     }
 
+    const contactRegex = /^012\s\d{3}\s\d{4}$/;
+    if (!contactRegex.test(contact)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: 'Please enter a valid contact number in the format 012 345 6789.',
+      });
+      return false;
+    }
+
     return true;
   };
 

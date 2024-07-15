@@ -9,9 +9,9 @@ const initialState = {
   totalPets: 0,
   totalDonations: 0,
   totalAdoptedPets: 0,
-  totalEnquiries: 0,
   monthlyDonations: [],
   userRoleCounts: { customer: 0, vet: 0 },
+  adoptionStatusCounts: [],
   users: [],
   error: null,
 };
@@ -28,8 +28,6 @@ export const fetchDashboardData = createAsyncThunk(
   }
 );
 
-
-// Fetch users
 export const fetchUsersData = createAsyncThunk(
   'admin/fetchUsersData',
   async (_, { rejectWithValue }) => {
@@ -62,9 +60,9 @@ const adminSlice = createSlice({
         state.totalPets = action.payload.totalPets;
         state.totalDonations = action.payload.totalDonations;
         state.totalAdoptedPets = action.payload.totalAdoptedPets;
-        state.totalEnquiries = action.payload.totalEnquiries;
         state.monthlyDonations = action.payload.monthlyDonations;
         state.userRoleCounts = action.payload.userRoleCounts;
+        state.adoptionStatusCounts = action.payload.adoptionStatusCounts;
         state.error = null;
       })
       .addCase(fetchDashboardData.rejected, (state, action) => {

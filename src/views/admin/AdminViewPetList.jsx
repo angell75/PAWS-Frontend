@@ -22,6 +22,8 @@ const AdminViewPetList = () => {
   });
   const [selectedPetId, setSelectedPetId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [adoptionStatusFilter, setAdoptionStatusFilter] = useState('');
   const petsPerPage = 10;
 
   useEffect(() => {
@@ -110,86 +112,116 @@ const AdminViewPetList = () => {
 
   const indexOfLastPet = currentPage * petsPerPage;
   const indexOfFirstPet = indexOfLastPet - petsPerPage;
-  const currentPets = pets && pets.length ? pets.slice(indexOfFirstPet, indexOfLastPet) : [];
+  const filteredPets = pets.filter((pet) =>
+    pet.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+    (adoptionStatusFilter === '' || pet.adoptionStatus === adoptionStatusFilter)
+  );
+  const currentPets = filteredPets.slice(indexOfFirstPet, indexOfLastPet);
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-petBg p-6">
       <h1 className="text-3xl font-bold mb-6">Manage Pets</h1>
       <div className="bg-white p-6 rounded-lg shadow-md overflow-auto">
         {status === 'loading' && <p>Loading...</p>}
         {status === 'failed' && <p className="text-red-500">{typeof error === 'string' ? error : JSON.stringify(error)}</p>}
-        {status === 'succeeded' && currentPets.length > 0 && (
+        {status === 'succeeded' && (
           <>
-            <table className="min-w-full bg-white">
-              <thead>
-                <tr>
-                  <th className="py-2 px-4 border-b">Pet ID</th>
-                  <th className="py-2 px-4 border-b">Pet Image</th>
-                  <th className="py-2 px-4 border-b">Pet Name</th>
-                  <th className="py-2 px-4 border-b">Breed</th>
-                  <th className="py-2 px-4 border-b">Gender</th>
-                  <th className="py-2 px-4 border-b">Age</th>
-                  <th className="py-2 px-4 border-b">Description</th>
-                  <th className="py-2 px-4 border-b">Diagnosis</th>
-                  <th className="py-2 px-4 border-b">Vaccine Date</th>
-                  <th className="py-2 px-4 border-b">Adoption Status</th>
-                  <th className="py-2 px-4 border-b">Owner Name</th>
-                  <th className="py-2 px-4 border-b">Owner Contact</th>
-                  <th className="py-2 px-4 border-b">Owner Email</th>
-                  <th className="py-2 px-4 border-b">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentPets.map((pet) => pet && (
-                  <tr key={pet?.petId} className="hover:bg-gray-100">
-                    <td className="py-2 px-4 border-b">{pet?.petId}</td>
-                    <td className="py-2 px-4 border-b">
-                      <img src={pet?.petImage} alt={pet?.name} className="w-16 h-16 object-cover rounded-md" />
-                    </td>
-                    <td className="py-2 px-4 border-b">{pet?.name}</td>
-                    <td className="py-2 px-4 border-b">{pet?.breed}</td>
-                    <td className="py-2 px-4 border-b">{pet?.gender}</td>
-                    <td className="py-2 px-4 border-b">{pet?.age}</td>
-                    <td className="py-2 px-4 border-b">{pet?.description}</td>
-                    <td className="py-2 px-4 border-b">{pet?.diagnosis}</td>
-                    <td className="py-2 px-4 border-b">{pet?.vaccineDate}</td>
-                    <td className={`py-2 px-4 border-b ${getAdoptionStatusClass(pet?.adoptionStatus)}`}>
-                      {pet?.adoptionStatus}
-                    </td>
-                    <td className="py-2 px-4 border-b">{pet?.owner?.name}</td>
-                    <td className="py-2 px-4 border-b">{pet?.owner?.contact}</td>
-                    <td className="py-2 px-4 border-b">{pet?.owner?.email}</td>
-                    <td className="py-2 px-4 border-b">
-                      <div className="flex space-x-2">
-                        <button
-                          onClick={() => handleEditClick(pet)}
-                          className="bg-blue-500 text-white px-4 py-2 rounded-md"
-                        >
-                          <Icon icon="mdi:pencil" />
-                        </button>
-                        <button
-                          onClick={() => handleDeleteClick(pet?.petId)}
-                          className="bg-red-500 text-white px-4 py-2 rounded-md"
-                        >
-                          <Icon icon="mdi:delete" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <div className="flex justify-center mt-4 space-x-2">
-              {[...Array(Math.ceil(pets.length / petsPerPage)).keys()].map((number) => (
-                <button
-                  key={number + 1}
-                  onClick={() => setCurrentPage(number + 1)}
-                  className={`px-4 py-2 rounded-md ${currentPage === number + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
-                >
-                  {number + 1}
-                </button>
-              ))}
+            <div className="flex justify-between mb-4">
+              <input
+                type="text"
+                placeholder="Search Pets"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="p-2 border rounded w-1/3"
+              />
+              <select
+                value={adoptionStatusFilter}
+                onChange={(e) => setAdoptionStatusFilter(e.target.value)}
+                className="p-2 border rounded"
+              >
+                <option value="">All Status</option>
+                <option value="available">Available</option>
+                <option value="adopted">Adopted</option>
+                <option value="pending">Pending</option>
+                <option value="vet">Vet</option>
+              </select>
             </div>
+            {currentPets.length > 0 ? (
+              <>
+                <table className="min-w-full bg-white">
+                  <thead>
+                    <tr>
+                      <th className="py-2 px-4 border-b">Pet ID</th>
+                      <th className="py-2 px-4 border-b">Pet Image</th>
+                      <th className="py-2 px-4 border-b">Pet Name</th>
+                      <th className="py-2 px-4 border-b">Breed</th>
+                      <th className="py-2 px-4 border-b">Gender</th>
+                      <th className="py-2 px-4 border-b">Age</th>
+                      <th className="py-2 px-4 border-b">Description</th>
+                      <th className="py-2 px-4 border-b">Diagnosis</th>
+                      <th className="py-2 px-4 border-b">Vaccine Date</th>
+                      <th className="py-2 px-4 border-b">Adoption Status</th>
+                      <th className="py-2 px-4 border-b">Owner Name</th>
+                      <th className="py-2 px-4 border-b">Owner Contact</th>
+                      <th className="py-2 px-4 border-b">Owner Email</th>
+                      <th className="py-2 px-4 border-b">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {currentPets.map((pet) => pet && (
+                      <tr key={pet?.petId} className="hover:bg-gray-100">
+                        <td className="py-2 px-4 border-b">{pet?.petId}</td>
+                        <td className="py-2 px-4 border-b">
+                          <img src={pet?.petImage} alt={pet?.name} className="w-16 h-16 object-cover rounded-md" />
+                        </td>
+                        <td className="py-2 px-4 border-b">{pet?.name}</td>
+                        <td className="py-2 px-4 border-b">{pet?.breed}</td>
+                        <td className="py-2 px-4 border-b">{pet?.gender}</td>
+                        <td className="py-2 px-4 border-b">{pet?.age}</td>
+                        <td className="py-2 px-4 border-b">{pet?.description}</td>
+                        <td className="py-2 px-4 border-b">{pet?.diagnosis}</td>
+                        <td className="py-2 px-4 border-b">{pet?.vaccineDate}</td>
+                        <td className={`py-2 px-4 border-b ${getAdoptionStatusClass(pet?.adoptionStatus)}`}>
+                          {pet?.adoptionStatus}
+                        </td>
+                        <td className="py-2 px-4 border-b">{pet?.owner?.name}</td>
+                        <td className="py-2 px-4 border-b">{pet?.owner?.contact}</td>
+                        <td className="py-2 px-4 border-b">{pet?.owner?.email}</td>
+                        <td className="py-2 px-4 border-b">
+                          <div className="flex space-x-2">
+                            <button
+                              onClick={() => handleEditClick(pet)}
+                              className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                            >
+                              <Icon icon="mdi:pencil" />
+                            </button>
+                            <button
+                              onClick={() => handleDeleteClick(pet?.petId)}
+                              className="bg-red-500 text-white px-4 py-2 rounded-md"
+                            >
+                              <Icon icon="mdi:delete" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <div className="flex justify-center mt-4 space-x-2">
+                  {[...Array(Math.ceil(filteredPets.length / petsPerPage)).keys()].map((number) => (
+                    <button
+                      key={number + 1}
+                      onClick={() => setCurrentPage(number + 1)}
+                      className={`px-4 py-2 rounded-md ${currentPage === number + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+                    >
+                      {number + 1}
+                    </button>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <p>No pets found.</p>
+            )}
           </>
         )}
         {status === 'succeeded' && (!pets || pets.length === 0) && <p>No pets available.</p>}

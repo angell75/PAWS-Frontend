@@ -54,6 +54,22 @@ export const confirmAdoption = createAsyncThunk(
   }
 );
 
+// Fetch all applications
+export const fetchAllApplications = createAsyncThunk(
+  'applications/fetchAllApplications',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(`${API_URL.APPLICATIONS}`);
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const applicationSlice = createSlice({
   name: 'applications',
   initialState: {
@@ -106,6 +122,17 @@ const applicationSlice = createSlice({
         state.error = null;
       })
       .addCase(confirmAdoption.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      })
+      .addCase(fetchAllApplications.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchAllApplications.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.allApplications = action.payload;
+      })
+      .addCase(fetchAllApplications.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
       });

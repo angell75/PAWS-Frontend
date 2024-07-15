@@ -17,11 +17,11 @@ export default function Login() {
     e.preventDefault();
     const result = await dispatch(loginUser({ 
       // email: "ps@gmail.com", 
-      // email: "a@gmail.com", 
+      email: "a@gmail.com", 
       // email: "john@gmail.com",
       // email: "sarah.johnson@vetcare.com",
       // email: "michael.lee@vetcare.com",
-      email: "pa@gmail.com",
+      // email: "pa@gmail.com",
       password: "Abc@12345"
     }));
     if (result.type === 'auth/loginUser/fulfilled') {

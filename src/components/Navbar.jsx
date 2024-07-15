@@ -62,7 +62,6 @@ const Navbar = () => {
               {user.userRole === 'customer' && (
                 <>
                   <Link to="/customer/viewpetlist" className="px-4">Pet</Link>
-                  <Link to="/customer/viewblog" className="px-4">Blog</Link>
                   <Link to="/customer/userdonate" className="px-4">Donate</Link>
                   <Link to="/customer/shopnow" className="px-4 flex items-center">
                     <Icon icon="ic:baseline-store" className="mr-1" /> Shop
@@ -72,6 +71,7 @@ const Navbar = () => {
                   </Link>
                   <Link to="/customer/contactus" className="px-4">Contact Us</Link>
                   <Link to="/customer/vetservices" className="px-4">Vet Services</Link>
+                  <Link to="/customer/viewblog" className="px-4">Blog</Link>
                   <div className="relative" ref={dropdownRef}>
                     <button className="px-4 flex items-center" onClick={toggleDropdown}>
                       <Icon icon="ic:baseline-account-circle" className="mr-1" /> Profile
@@ -133,22 +133,25 @@ const Navbar = () => {
               {user.userRole === 'admin' && (
                 <>
                   <Link to="/admin/manageuser" className="px-4 flex items-center">
-                    <Icon icon="ic:baseline-people" className="mr-1" /> Users
+                    <Icon icon="ic:baseline-people" className="mr-1" /> Customer
+                  </Link>
+                  <Link to="/admin/managevet" className="px-4 flex items-center">
+                    <Icon icon="ic:baseline-people" className="mr-1" /> Vet
                   </Link>
                   <Link to="/admin/viewpetlist" className="px-4 flex items-center">
                     <Icon icon="ic:baseline-pets" className="mr-1" />Pet
                   </Link>
-                  <Link to="/admin/adoption-applications" className="px-4 flex items-center">
+                  <Link to="/admin/view-adoption-applications" className="px-4 flex items-center">
                     <Icon icon="ic:baseline-assignment" className="mr-1" /> Adoption Applications
                   </Link>
-                  <Link to="/admin/blog" className="px-4 flex items-center">
-                    <Icon icon="ic:baseline-article" className="mr-1" /> Blog
-                  </Link>
-                  <Link to="/admin/donations" className="px-4 flex items-center">
+                  <Link to="/admin/viewdonations" className="px-4 flex items-center">
                     <Icon icon="ic:baseline-volunteer-activism" className="mr-1" /> Donation
                   </Link>
-                  <Link to="/admin/enquiries" className="px-4 flex items-center">
+                  <Link to="/admin/manageenquiries" className="px-4 flex items-center">
                     <Icon icon="ic:baseline-question-answer" className="mr-1" /> Enquiries
+                  </Link>
+                  <Link to="/admin/manageblog" className="px-4 flex items-center">
+                    <Icon icon="ic:baseline-assignment" className="mr-1" /> Blogs
                   </Link>
                   <div className="relative" ref={dropdownRef}>
                     <button className="px-4 flex items-center" onClick={toggleDropdown}>
@@ -177,7 +180,6 @@ const Navbar = () => {
                 {user.userRole === 'customer' && (
                   <>
                     <Link to="/customer/viewpetlist" className="block px-4 py-2">Pet</Link>
-                    <Link to="/customer/viewblog" className="block px-4 py-2">Blog</Link>
                     <Link to="/customer/userdonate" className="block px-4 py-2">Donate</Link>
                     <Link to="/customer/contactus" className="block px-4 py-2">Contact Us</Link>
                     <Link to="/customer/cart" className="block px-4 py-2">Cart</Link>
@@ -242,21 +244,24 @@ const Navbar = () => {
                 {user.userRole === 'admin' && (
                   <>
                     <Link to="/admin/manageuser" className="block px-4 py-2 flex items-center">
-                      <Icon icon="ic:baseline-people" className="mr-1" /> Users
+                      <Icon icon="ic:baseline-people" className="mr-1" /> Customer
+                    </Link>
+                    <Link to="/admin/managevet" className="block px-4 py-2 flex items-center">
+                      <Icon icon="ic:baseline-people" className="mr-1" /> Vet
                     </Link>
                     <Link to="/admin/viewpetlist" className="block px-4 py-2 flex items-center">
                       <Icon icon="ic:baseline-pets" className="mr-1" /> Pet
                     </Link>
-                    <Link to="/admin/adoption-applications" className="block px-4 py-2 flex items-center">
+                    <Link to="/admin/view-adoption-applications" className="block px-4 py-2 flex items-center">
                       <Icon icon="ic:baseline-assignment" className="mr-1" /> Adoption Applications
                     </Link>
-                    <Link to="/admin/blog" className="block px-4 py-2 flex items-center">
-                      <Icon icon="ic:baseline-article" className="mr-1" /> Blog
+                    <Link to="/admin/viewblogs" className="block px-4 py-2 flex items-center">
+                      <Icon icon="ic:baseline-assignment" className="mr-1" /> Blogs
                     </Link>
                     <Link to="/admin/donations" className="block px-4 py-2 flex items-center">
                       <Icon icon="ic:baseline-volunteer-activism" className="mr-1" /> Donation
                     </Link>
-                    <Link to="/admin/enquiries" className="block px-4 py-2 flex items-center">
+                    <Link to="/admin/manageenquiries" className="block px-4 py-2 flex items-center">
                       <Icon icon="ic:baseline-question-answer" className="mr-1" /> Enquiries
                     </Link>
                     <div className="relative" ref={dropdownRef}>

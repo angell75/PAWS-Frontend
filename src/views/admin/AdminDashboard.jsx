@@ -1,14 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDashboardData } from '../../redux/slices/adminSlice';
-import { Line, Pie } from 'react-chartjs-2';
+import { Line, Pie, Bar } from 'react-chartjs-2';
 import 'chart.js/auto';
+import mypetBackground from '../../assets/register-background.png';
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
-  const { totalUsers, totalVets, totalPets, totalAdoptedPets, totalDonations, totalEnquiries, userRoleCounts, monthlyDonations, error } = useSelector(state => state.admin);
+  const {
+    totalUsers,
+    totalVets,
+    totalPets,
+    totalAdoptedPets,
+    totalDonations,
+    userRoleCounts,
+    monthlyDonations,
+    error,
+    adoptionStatusCounts,
+  } = useSelector((state) => state.admin);
+
   const [currentYearData, setCurrentYearData] = useState([]);
   const [previousYearData, setPreviousYearData] = useState([]);
+  const [adoptionStatusData, setAdoptionStatusData] = useState({});
 
   useEffect(() => {
     dispatch(fetchDashboardData());
@@ -24,6 +37,17 @@ const AdminDashboard = () => {
       setPreviousYearData(previousYearDonations);
     }
   }, [monthlyDonations]);
+
+  useEffect(() => {
+    if (adoptionStatusCounts) {
+      const statusData = [
+        adoptionStatusCounts.available || 0,
+        adoptionStatusCounts.adopted || 0,
+        adoptionStatusCounts.pending || 0,
+      ];
+      setAdoptionStatusData(statusData);
+    }
+  }, [adoptionStatusCounts]);
 
   const calculateMonthlyData = (data, year) => {
     const monthlyData = new Array(12).fill(0);
@@ -68,9 +92,30 @@ const AdminDashboard = () => {
     ],
   };
 
+  const adoptionStatusChartData = {
+    labels: ['Adoption Status'], // Single label to group the bars
+    datasets: [
+      {
+        label: 'Available',
+        data: [adoptionStatusCounts?.available || 0],
+        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+      },
+      {
+        label: 'Pending',
+        data: [adoptionStatusCounts?.pending || 0],
+        backgroundColor: 'rgba(255, 206, 86, 0.6)',
+      },
+      {
+        label: 'Adopted',
+        data: [adoptionStatusCounts?.adopted || 0],
+        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+      },
+    ],
+  };
+
   return (
-    <div className="p-6 bg-petBg">
-      <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
+    <div className="p-6 bg-cover bg-center" style={{ backgroundImage: `url(${mypetBackground})` }}>
+      <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
         <div className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center">
           <h2 className="text-xl font-bold">Total Users</h2>
@@ -92,10 +137,6 @@ const AdminDashboard = () => {
           <h2 className="text-xl font-bold">Total Donations</h2>
           <p className="text-3xl">${Number(totalDonations).toFixed(2)}</p>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center">
-          <h2 className="text-xl font-bold">Total Enquiries</h2>
-          <p className="text-3xl">{totalEnquiries}</p>
-        </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div className="bg-white p-6 rounded-lg shadow-md mb-6">
@@ -109,6 +150,12 @@ const AdminDashboard = () => {
           <div className="w-full h-64">
             <Pie data={userRoleData} options={{ maintainAspectRatio: false }} />
           </div>
+        </div>
+      </div>
+      <div className="bg-white p-6 rounded-lg shadow-md mb-6">
+        <h2 className="text-xl font-bold mb-4">Pet Adoption Status</h2>
+        <div className="w-full h-64">
+          <Bar data={adoptionStatusChartData} options={{ maintainAspectRatio: false }} />
         </div>
       </div>
       {error && <p className="text-red-500">{error.message}</p>}

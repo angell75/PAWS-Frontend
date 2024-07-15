@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Icon } from '@iconify/react';
 import pawsLogo from '../assets/paws.png';
 import { logout } from '../redux/slices/authSlice';
-import CartModal from "../views/customer/CartModal";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -207,17 +206,8 @@ const Navbar = () => {
                     <Link to="/seller/manageorders" className="block px-4 py-2 flex items-center">
                       <Icon icon="ic:baseline-receipt-long" className="mr-1" /> Orders
                     </Link>
-                    <div className="relative" ref={dropdownRef}>
-                      <button className="block px-4 py-2 flex items-center" onClick={toggleDropdown}>
-                        <Icon icon="ic:baseline-account-circle" className="mr-1" /> Profile
-                      </button>
-                      {dropdownOpen && (
-                        <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
-                          <Link to="/seller/profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">My Profile</Link>
-                          <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</button>
-                        </div>
-                      )}
-                    </div>
+                    <Link to="/seller/profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">My Profile</Link>
+                    <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</button>
                   </>
                 )}
                 {user.userRole === 'vet' && (

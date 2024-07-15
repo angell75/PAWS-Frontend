@@ -2,17 +2,20 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBlogs, createBlog, updateBlog, deleteBlog } from "../../redux/slices/blogSlice";
 import articleImage from "../../assets/no-image.png";
+import Swal from "sweetalert2";
 import blogBanner from "../../assets/blog-bg.png";
 
 export default function ViewBlog() {
   const dispatch = useDispatch();
   const { blogs = [], status, error } = useSelector((state) => state.blogs);
-  const { user } = useSelector((state) => state.auth); // Ensure you get the user from auth state
-  const userId = user?.id; // Access userId from the user object
+  const { user, token } = useSelector((state) => state.auth);
+  const userId = user?.userId;
   const [formData, setFormData] = useState({ title: '', subject: '', description: '', date: '', image: null });
   const [modalOpen, setModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [formError, setFormError] = useState(null);
+  const [selectedBlog, setSelectedBlog] = useState(null);
 
   useEffect(() => {
     dispatch(fetchBlogs());
@@ -40,7 +43,7 @@ export default function ViewBlog() {
     form.append('description', formData.description);
     form.append('date', formData.date);
     form.append('image', formData.image);
-    form.append('shelterId', userId); // Add the userId as shelterId
+    form.append('shelterId', userId);
 
     try {
       await dispatch(createBlog(form)).unwrap();
@@ -52,20 +55,60 @@ export default function ViewBlog() {
     }
   };
 
-  const handleEditBlog = async (blogId, updatedData) => {
+  const handleEditClick = (blog) => {
+    setSelectedBlog(blog);
+    setFormData({
+      title: blog.title,
+      subject: blog.subject,
+      description: blog.description,
+      date: blog.date.split("T")[0],
+      image: null,
+    });
+    setEditModalOpen(true);
+  };
+
+  const handleEditBlog = async (e) => {
+    e.preventDefault();
+    const updatedData = new FormData();
+    updatedData.append('title', formData.title);
+    updatedData.append('subject', formData.subject);
+    updatedData.append('description', formData.description);
+    updatedData.append('date', formData.date);
+    if (formData.image) {
+      updatedData.append('image', formData.image);
+    }
+    updatedData.append('shelterId', userId);
+
     try {
-      await dispatch(updateBlog({ blogId, updatedData })).unwrap();
+      await dispatch(updateBlog({ blogId: selectedBlog.blogId, updatedData })).unwrap();
+      setEditModalOpen(false);
+      setFormError(null);
     } catch (err) {
-      console.error(err);
+      setFormError(err);
     }
   };
 
   const handleDeleteBlog = async (blogId) => {
-    try {
-      await dispatch(deleteBlog(blogId)).unwrap();
-    } catch (err) {
-      console.error(err);
-    }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this pet!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteBlog(blogId)).then((action) => {
+          if (action.meta.requestStatus === 'fulfilled') {
+            Swal.fire('Deleted!', 'The blog has been deleted.', 'success');
+            dispatch(fetchBlogs());
+          } else {
+            Swal.fire('Error!', 'There was an error deleting the pet.', 'error');
+          }
+        });
+      }
+    });
   };
 
   const handleSearchInputChange = (e) => {
@@ -103,12 +146,13 @@ export default function ViewBlog() {
         ) : blogs?.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {blogs?.map((blog) => (
-              <div key={blog?.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+              <div key={blog?.blogId} className="bg-white rounded-lg shadow-md overflow-hidden">
                 <img src={blog?.image || articleImage} alt={blog?.title || 'Blog Image'} className="w-full h-58 object-cover" />
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-2">{blog?.title || 'No Title'}</h3>
-                  <p className="text-gray-600 mb-4">{blog?.description || 'No Description'}</p>
-                  <a href="#" className="text-orange-500 font-bold">Read More</a>
+                  <p className="text-gray-600 mb-4 truncate">{blog?.description || 'No Description'}</p>
+                  <button onClick={() => handleEditClick(blog)} className="text-blue-500 font-bold">Edit</button>
+                  <button onClick={() => handleDeleteBlog(blog.blogId)} className="text-red-500 font-bold ml-4">Delete</button>
                 </div>
               </div>
             ))}
@@ -148,6 +192,43 @@ export default function ViewBlog() {
                 <div className="flex justify-end space-x-2">
                   <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded-md">Submit</button>
                   <button onClick={() => setModalOpen(false)} className="bg-red-500 text-white px-4 py-2 rounded-md">Cancel</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+        {editModalOpen && (
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
+            <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-lg">
+              <div className="flex justify-end">
+                <button onClick={() => setEditModalOpen(false)} className="text-gray-500 hover:text-gray-700">&times;</button>
+              </div>
+              <h2 className="text-3xl font-bold mb-4">Edit Blog</h2>
+              {formError && <p className="text-red-500 mb-4">{JSON.stringify(formError)}</p>}
+              <form onSubmit={handleEditBlog}>
+                <div className="mb-4">
+                  <label className="block text-lg font-semibold mb-2">Title</label>
+                  <input type="text" name="title" value={formData?.title} onChange={handleInputChange} className="w-full p-2 border rounded" required />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-lg font-semibold mb-2">Subject</label>
+                  <input type="text" name="subject" value={formData?.subject} onChange={handleInputChange} className="w-full p-2 border rounded" required />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-lg font-semibold mb-2">Description</label>
+                  <textarea name="description" value={formData?.description} onChange={handleInputChange} className="w-full p-2 border rounded" required></textarea>
+                </div>
+                <div className="mb-4">
+                  <label className="block text-lg font-semibold mb-2">Date</label>
+                  <input type="date" name="date" value={formData?.date} onChange={handleInputChange} className="w-full p-2 border rounded" required />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-lg font-semibold mb-2">Image</label>
+                  <input type="file" name="image" onChange={handleFileChange} className="w-full p-2 border rounded" />
+                </div>
+                <div className="flex justify-end space-x-2">
+                  <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Update</button>
+                  <button onClick={() => setEditModalOpen(false)} className="bg-red-500 text-white px-4 py-2 rounded-md">Cancel</button>
                 </div>
               </form>
             </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import LightGallery from "lightgallery/react";
 import "lightgallery/css/lightgallery.css";
@@ -13,6 +13,7 @@ import noImage from "../../assets/no-image.png";
 
 export default function ViewPetDetail() {
   const { petId } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const pet = useSelector((state) => state.pets.selectedPet);
   const [galleryContainer, setGalleryContainer] = useState(null);
@@ -44,6 +45,12 @@ export default function ViewPetDetail() {
 
   return (
     <div className="container mx-auto py-10 px-4 md:px-12 bg-[#DCCCBB]">
+      <button
+        onClick={() => navigate(-1)}
+        className="bg-blue-500 text-white py-2 px-4 rounded mb-4"
+      >
+        Back
+      </button>
       <div className="bg-white shadow-md rounded-lg overflow-hidden flex flex-col mb-12 p-6">
         <div className="flex flex-col md:flex-row">
           <div className="w-full md:w-1/3 p-4">

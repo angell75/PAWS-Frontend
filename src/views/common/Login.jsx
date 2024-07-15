@@ -16,12 +16,14 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = await dispatch(loginUser({ 
-      // email: "ps@gmail.com", 
-      email: "a@gmail.com", 
-      // email: "john@gmail.com",
+      // email: "seller@paws.com", 
+      // email: "james.smith@gmail.com", 
+      email: "emma.jones@gmail.com",
       // email: "sarah.johnson@vetcare.com",
       // email: "michael.lee@vetcare.com",
       // email: "pa@gmail.com",
+      // email: "admin@paws.com",
+      // password: "password123"
       password: "Abc@12345"
     }));
     if (result.type === 'auth/loginUser/fulfilled') {

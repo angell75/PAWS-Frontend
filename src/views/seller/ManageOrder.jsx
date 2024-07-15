@@ -18,7 +18,7 @@ const ManageOrder = () => {
     dispatch(updateOrderStatus({ orderId, status: 'Shipped' }))
       .unwrap()
       .then(() => {
-        Swal.fire('Success', 'Order status updated successfully!', 'success');
+        Swal.fire('Success', 'Order shipped successfully!', 'success');
         dispatch(fetchOrders()); // Fetch orders again to update the state
       })
       .catch((err) => {

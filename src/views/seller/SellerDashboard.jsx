@@ -93,12 +93,14 @@ const SellerDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100">
+    <div className="min-h-screen flex flex-col bg-petBg">
       {/* Banner Section */}
-      <section className="relative bg-cover bg-center py-32" style={{ backgroundImage: `url(${Background})` }}>
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="relative container mx-auto text-left pl-10">
-          <h1 className="text-4xl md:text-6xl font-bold text-white">PAWS Seller Dashboard</h1>
+      <section
+        className="bg-cover bg-center py-20"
+        style={{ backgroundImage: `url(${Background})` }}
+      >
+        <div className="container mx-auto text-center">
+        <h1 className="text-4xl md:text-6xl font-bold text-white">PAWS Seller Dashboard</h1>
         </div>
       </section>
 

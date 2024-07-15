@@ -146,7 +146,7 @@ export default function ManageProduct() {
   }
 
   return (
-    <div className="bg-indigo-50 container mx-auto py-10 px-4 md:px-8 lg:px-12">
+    <div className="bg-indigo-50 min-h-screen container mx-auto py-10 px-4 md:px-8 lg:px-12">
       <h2 className="text-3xl text-center pb-10 font-bold uppercase">Manage Product</h2>
       <div className="flex flex-col md:flex-row justify-between items-center mb-4">
         <div className="mb-4 md:mb-4 mt-4 sm:mt-4">
@@ -244,117 +244,111 @@ export default function ManageProduct() {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Upload Product"
-        className="modal"
-        overlayClassName="overlay"
-        style={{
-          content: {
-            maxHeight: "600px",
-            overflow: "auto",
-            width: "60%",
-            margin: "auto",
-          },
-        }}
+        className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-75"
       >
-        <h2 className="font-mono text-3xl font-bold mb-4">Upload Product</h2>
-        <form
-          onSubmit={
-            productData.productId ? handleUpdateProduct : handleAddProduct
-          }
-        >
-          <div className="mb-4">
-            <label className="block text-lg font-semibold mb-2">Image</label>
-            <input
-              type="file"
-              name="image"
-              className="w-full p-2 border rounded"
-              onChange={handleInputChange}
-              required={!productData.productId}
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-lg font-semibold mb-2">Name</label>
-            <input
-              type="text"
-              name="name"
-              className="w-full p-2 border rounded"
-              onChange={handleInputChange}
-              value={productData.name}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-lg font-semibold mb-2">Category</label>
-            <select
-              name="category"
-              className="w-full p-2 border rounded"
-              onChange={handleInputChange}
-              value={productData.category}
-              required
-            >
-              <option disabled value="">
-                Please Select
-              </option>
-              <option value="food">Food</option>
-              <option value="treat">Treat</option>
-              <option value="training-needs">Training Needs</option>
-              <option value="clothes-accessories">Clothes & Accessories</option>
-              <option value="supplies-others">Supplies & Others</option>
-            </select>
-          </div>
-          <div className="mb-4">
-            <label className="block text-lg font-semibold mb-2">
-              Description
-            </label>
-            <textarea
-              name="description"
-              className="w-full p-2 border rounded"
-              onChange={handleInputChange}
-              value={productData.description}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-lg font-semibold mb-2">Price</label>
-            <input
-              type="number"
-              name="price"
-              className="w-full p-2 border rounded"
-              onChange={handleInputChange}
-              value={productData.price}
-              required
-              min="0"
-              step="0.01"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-lg font-semibold mb-2">Quantity</label>
-            <input
-              type="number"
-              name="quantity"
-              className="w-full p-2 border rounded"
-              onChange={handleInputChange}
-              value={productData.quantity}
-              required
-              min="0"
-              step="1"
-            />
-          </div>
-          <div className="text-right">
-            <button
-              type="submit"
-              className="px-6 py-2 bg-amber-600 text-white font-semibold rounded-md shadow hover:bg-orange-700"
-            >
-              Submit
-            </button>
-            <button
-              type="button"
-              onClick={closeModal}
-              className="ml-4 px-4 py-2 bg-gray-500 text-white font-semibold rounded-md shadow hover:bg-gray-700"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
+        <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/2">
+          <h2 className="font-mono text-3xl font-bold mb-4">Upload Product</h2>
+          <form
+            onSubmit={
+              productData.productId ? handleUpdateProduct : handleAddProduct
+            }
+          >
+            <div className="mb-4">
+              <label className="block text-lg font-semibold mb-2">Image</label>
+              <input
+                type="file"
+                name="image"
+                className="w-full p-2 border rounded"
+                onChange={handleInputChange}
+                required={!productData.productId}
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-lg font-semibold mb-2">Name</label>
+              <input
+                type="text"
+                name="name"
+                className="w-full p-2 border rounded"
+                onChange={handleInputChange}
+                value={productData.name}
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-lg font-semibold mb-2">Category</label>
+              <select
+                name="category"
+                className="w-full p-2 border rounded"
+                onChange={handleInputChange}
+                value={productData.category}
+                required
+              >
+                <option disabled value="">
+                  Please Select
+                </option>
+                <option value="food">Food</option>
+                <option value="treat">Treat</option>
+                <option value="training-needs">Training Needs</option>
+                <option value="clothes-accessories">Clothes & Accessories</option>
+                <option value="supplies-others">Supplies & Others</option>
+              </select>
+            </div>
+            <div className="mb-4">
+              <label className="block text-lg font-semibold mb-2">
+                Description
+              </label>
+              <textarea
+                name="description"
+                className="w-full p-2 border rounded"
+                onChange={handleInputChange}
+                value={productData.description}
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-lg font-semibold mb-2">Price</label>
+              <input
+                type="number"
+                name="price"
+                className="w-full p-2 border rounded"
+                onChange={handleInputChange}
+                value={productData.price}
+                required
+                min="0"
+                step="0.01"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-lg font-semibold mb-2">Quantity</label>
+              <input
+                type="number"
+                name="quantity"
+                className="w-full p-2 border rounded"
+                onChange={handleInputChange}
+                value={productData.quantity}
+                required
+                min="0"
+                step="1"
+              />
+            </div>
+            <div className="text-right">
+              <button
+                type="submit"
+                className="px-6 py-2 bg-amber-600 text-white font-semibold rounded-md shadow hover:bg-orange-700"
+              >
+                Submit
+              </button>
+              <button
+                type="button"
+                onClick={closeModal}
+                className="ml-4 px-4 py-2 bg-gray-500 text-white font-semibold rounded-md shadow hover:bg-gray-700"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
       </Modal>
     </div>
   );

@@ -33,7 +33,7 @@ export const updateBlog = createAsyncThunk(
   'blogs/updateBlog',
   async ({ blogId, updatedData }, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.put(`${API_URL.BLOGS}/${blogId}`, updatedData);
+      const response = await axiosInstance.post(`${API_URL.BLOGS}/${blogId}`, updatedData);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -94,7 +94,7 @@ const blogSlice = createSlice({
       })
       .addCase(updateBlog.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        const index = state.blogs.findIndex((blog) => blog.id === action.payload.id);
+        const index = state.blogs.findIndex((blog) => blog.blogId === action.payload.blogId);
         if (index !== -1) {
           state.blogs[index] = action.payload;
         }
@@ -109,7 +109,7 @@ const blogSlice = createSlice({
       })
       .addCase(deleteBlog.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.blogs = state.blogs.filter((blog) => blog.id !== action.payload.id);
+        state.blogs = state.blogs.filter((blog) => blog.blogId !== action.payload.blogId);
       })
       .addCase(deleteBlog.rejected, (state, action) => {
         state.status = 'failed';

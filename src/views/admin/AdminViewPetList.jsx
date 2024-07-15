@@ -220,7 +220,7 @@ const AdminViewPetList = () => {
                 </div>
               </>
             ) : (
-              <p>No pets found.</p>
+              <p></p>
             )}
           </>
         )}

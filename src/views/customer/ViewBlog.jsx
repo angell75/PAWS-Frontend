@@ -95,7 +95,7 @@ export default function ViewBlog() {
   const handleDeleteBlog = async (blogId) => {
     Swal.fire({
       title: 'Are you sure?',
-      text: 'You will not be able to recover this pet!',
+      text: 'You will not be able to recover this blog!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -108,7 +108,7 @@ export default function ViewBlog() {
             Swal.fire('Deleted!', 'The blog has been deleted.', 'success');
             dispatch(fetchBlogs());
           } else {
-            Swal.fire('Error!', 'There was an error deleting the pet.', 'error');
+            Swal.fire('Error!', 'There was an error deleting the blog.', 'error');
           }
         });
       }
@@ -118,6 +118,11 @@ export default function ViewBlog() {
   const handleSearchInputChange = (e) => {
     setSearchInput(e.target.value);
   };
+
+  const filteredBlogs = publicBlogs.filter(blog =>
+    blog.title.toLowerCase().includes(searchInput.toLowerCase()) ||
+    blog.subject.toLowerCase().includes(searchInput.toLowerCase())
+  );
 
   return (
     <div className="bg-white min-h-screen flex flex-col">
@@ -148,9 +153,9 @@ export default function ViewBlog() {
             <p>Loading...</p>
           ) : error ? (
             <></>
-          ) : publicBlogs?.length > 0 ? (
+          ) : filteredBlogs?.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-3/4">
-              {publicBlogs?.map((blog) => (
+              {filteredBlogs?.map((blog) => (
                 <div key={blog?.blogId} className="bg-white rounded-lg shadow-md overflow-hidden">
                   <img src={blog?.image || articleImage} alt={blog?.title || 'Blog Image'} className="w-full h-58 object-cover" />
                   <div className="p-6">
@@ -170,27 +175,29 @@ export default function ViewBlog() {
             <p className="text-center text-xl font-bold w-3/4">No blogs available</p>
           )}
           <div className="w-full md:w-1/4 md:pl-8 mt-10 md:mt-0 w-1/4">
-            <h2 className="text-2xl font-bold mb-4">Manage My Blogs</h2>
-            {userBlogs.length > 0 ? (
-              userBlogs.map((blog) => (
-                <div key={blog.blogId} className="bg-white p-4 rounded-lg shadow-md mb-4">
-                  <h3 className="text-xl font-bold mb-2">{blog.title}</h3>
-                  <button 
-                    onClick={() => handleEditClick(blog)} 
-                    className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2"
-                  >
-                    Edit
-                  </button>
-                  <button 
-                    onClick={() => handleDeleteBlog(blog.blogId)} 
-                    className="bg-red-500 text-white px-4 py-2 rounded-md"
-                  >
-                    Delete
-                  </button>
-                </div>
-              ))
-            ) : (
-              <p className="text-center text-xl font-bold w-1/4">No blogs to manage</p>
+            {userBlogs.length > 0 && (
+              <>
+              <h2 className="text-2xl font-bold mb-4">Manage My Blogs</h2>
+              {
+                userBlogs.map((blog) => (
+                  <div key={blog.blogId} className="bg-white p-4 rounded-lg shadow-md mb-4">
+                    <h3 className="text-xl font-bold mb-2">{blog.title}</h3>
+                    <button 
+                      onClick={() => handleEditClick(blog)} 
+                      className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2"
+                    >
+                      Edit
+                    </button>
+                    <button 
+                      onClick={() => handleDeleteBlog(blog.blogId)} 
+                      className="bg-red-500 text-white px-4 py-2 rounded-md"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                ))
+              }
+              </>
             )}
           </div>
         </div>

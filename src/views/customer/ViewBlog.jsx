@@ -54,6 +54,7 @@ export default function ViewBlog() {
       setFormData({ title: '', subject: '', description: '', date: '', image: null });
       setModalOpen(false);
       setFormError(null);
+      dispatch(fetchBlogs());
     } catch (err) {
       setFormError(err);
     }
@@ -87,6 +88,7 @@ export default function ViewBlog() {
       await dispatch(updateBlog({ blogId: selectedBlog.blogId, updatedData })).unwrap();
       setEditModalOpen(false);
       setFormError(null);
+      dispatch(fetchBlogs());
     } catch (err) {
       setFormError(err);
     }

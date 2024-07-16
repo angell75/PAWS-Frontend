@@ -29,7 +29,7 @@ export default function ViewBlogDetails() {
 
   return (
     <div className="bg-white min-h-screen flex flex-col">
-      <section className="bg-cover bg-center py-20" style={{ backgroundImage: `url(${blogBanner})`, height: "300px" }}>
+      <section className="bg-cover bg-center py-20" style={{ backgroundImage: `url(${blogBanner})`, height: "200px" }}>
         <div className="container mx-auto text-center">
           <h1 className="text-6xl font-bold text-black">Blog</h1>
           <h2 className="text-2xl text-black mt-4">Stay updated with our latest stories and tips</h2>

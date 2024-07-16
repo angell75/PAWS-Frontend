@@ -28,14 +28,12 @@ export const fetchDonations = createAsyncThunk(
       const response = await axiosInstance.get(`${API_URL.DONATIONS}`);
       const donations = response.data;
 
-      // Fetch user details for each donation
       const userRequests = donations.map((donation) =>
         axiosInstance.get(`${API_URL.USERS}/${donation.userId}`)
       );
       const userResponses = await Promise.all(userRequests);
       const users = userResponses.map((res) => res.data);
 
-      // Merge user details into donations
       const donationsWithUsers = donations.map((donation) => {
         const user = users.find((user) => user.userId === donation.userId);
         return { ...donation, donorName: user.name, status: user.status };

@@ -3,10 +3,10 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaCalendarAlt, FaClock, FaMapMarkerAlt } from 'react-icons/fa';
 import PawPrint from '../../assets/PawPrint.png';
-import { submitApplication } from '../../redux/slices/applicationSlice'; // Ensure this is correctly imported
+import { submitApplication } from '../../redux/slices/applicationSlice'; 
 
 export default function AdoptionApplication() {
-  const { petId } = useParams(); // Get petId from URL
+  const { petId } = useParams(); 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
@@ -29,18 +29,18 @@ export default function AdoptionApplication() {
     if (!agree) return;
 
     const applicationData = {
-      userId: user.userId, // Ensure you use the correct field name for user ID
+      userId: user.userId, 
       petId,
-      applicationDate: new Date().toISOString().split('T')[0], // Today's date
+      applicationDate: new Date().toISOString().split('T')[0], 
       scheduleDate: date,
       scheduleTime: time,
       scheduleLocation: location,
-      status: 'pending', // Set an initial status
+      status: 'pending', 
     };
 
     try {
       await dispatch(submitApplication(applicationData));
-      navigate('/customer/dashboard'); // Navigate to dashboard or another appropriate page
+      navigate('/customer/dashboard'); 
     } catch (error) {
       console.error('Failed to submit application:', error);
     }

@@ -93,7 +93,7 @@ const AdminDashboard = () => {
   };
 
   const adoptionStatusChartData = {
-    labels: ['Adoption Status'], // Single label to group the bars
+    labels: ['Adoption Status'], 
     datasets: [
       {
         label: 'Available',

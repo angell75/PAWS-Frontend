@@ -16,7 +16,7 @@ const BookVetService = () => {
   const [formData, setFormData] = useState({
     date: '',
     time: '',
-    location: 'PAWS KL', // Default location
+    location: 'PAWS KL', 
     petId: '',
   });
 
@@ -79,7 +79,7 @@ const BookVetService = () => {
       formData.append(key, newPetData[key]);
     });
     formData.append('userId', user.userId);
-    formData.append('adoptionStatus', 'vet'); // Set adoptionStatus to 'vet'
+    formData.append('adoptionStatus', 'vet'); 
 
     dispatch(addNewPet(formData))
       .unwrap()

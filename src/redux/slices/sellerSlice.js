@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../../Utils/axiosInstance';
 import { API_URL } from '../../statis/url';
 
-// Fetch summary data
 export const fetchSummaryData = createAsyncThunk(
   'seller/fetchSummaryData',
   async (_, { rejectWithValue }) => {

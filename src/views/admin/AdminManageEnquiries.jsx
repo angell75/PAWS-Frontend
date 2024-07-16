@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchEnquiries, updateEnquiryStatus } from '../../redux/slices/enquiriesSlice';
 import Swal from 'sweetalert2';
 import emailjs from '@emailjs/browser';
-import { Icon } from '@iconify/react';
 
 const AdminManageEnquiries = () => {
   const dispatch = useDispatch();

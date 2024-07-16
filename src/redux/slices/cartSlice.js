@@ -3,7 +3,6 @@ import axiosInstance from '../../Utils/axiosInstance';
 import Swal from 'sweetalert2';
 import { API_URL } from '../../statis/url';
 
-// Thunk to add a product to the cart
 export const addToCart = createAsyncThunk(
   'cart/addToCart',
   async (product, { getState, rejectWithValue }) => {
@@ -27,7 +26,6 @@ export const addToCart = createAsyncThunk(
   }
 );
 
-// Thunk to fetch cart items
 export const fetchCartItems = createAsyncThunk(
   'cart/fetchCartItems',
   async (_, { getState, rejectWithValue }) => {
@@ -46,7 +44,6 @@ export const fetchCartItems = createAsyncThunk(
   }
 );
 
-// Thunk to update cart item quantity
 export const updateCartItemQuantity = createAsyncThunk(
   'cart/updateCartItemQuantity',
   async ({ cartId, quantity }, { rejectWithValue }) => {
@@ -62,7 +59,6 @@ export const updateCartItemQuantity = createAsyncThunk(
   }
 );
 
-// Thunk to delete cart item
 export const deleteCartItem = createAsyncThunk(
   'cart/deleteCartItem',
   async (cartId, { rejectWithValue }) => {

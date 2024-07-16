@@ -75,7 +75,7 @@ export default function Register() {
         title: 'Registration Successful',
         text: 'You have successfully registered!',
       }).then(() => {
-        navigate('/login'); // Navigate to login page after successful registration
+        navigate('/login'); 
       });
     } else if (result.type === 'auth/registerUser/rejected') {
       const errorMessages = result.payload.errors;

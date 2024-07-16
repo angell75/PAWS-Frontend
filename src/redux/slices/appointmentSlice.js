@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../../Utils/axiosInstance';
 import { API_URL } from '../../statis/url';
 
-// Fetch appointments
 export const fetchAppointments = createAsyncThunk(
   'appointments/fetchAppointments',
   async (userId, { rejectWithValue, getState }) => {
@@ -23,7 +22,6 @@ export const fetchAppointments = createAsyncThunk(
   }
 );
 
-// Create an appointment
 export const createAppointment = createAsyncThunk(
   'appointments/createAppointment',
   async (appointmentData, { rejectWithValue, getState }) => {
@@ -44,7 +42,6 @@ export const createAppointment = createAsyncThunk(
   }
 );
 
-// Cancel an appointment
 export const cancelAppointment = createAsyncThunk(
   'appointments/cancelAppointment',
   async (appointmentId, { rejectWithValue, getState }) => {
@@ -65,7 +62,6 @@ export const cancelAppointment = createAsyncThunk(
   }
 );
 
-// Fetch appointments by vet
 export const fetchAppointmentsByVet = createAsyncThunk(
   'appointments/fetchAppointmentsByVet',
   async (vetId, { rejectWithValue, getState }) => {
@@ -86,7 +82,6 @@ export const fetchAppointmentsByVet = createAsyncThunk(
   }
 );
 
-// Fetch appointments by pet ID
 export const fetchAppointmentsByPet = createAsyncThunk(
   'appointments/fetchAppointmentsByPet',
   async (petId, { rejectWithValue }) => {

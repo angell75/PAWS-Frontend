@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../../Utils/axiosInstance';
 import { API_URL } from '../../statis/url';
 
-// Fetch blogs
 export const fetchBlogs = createAsyncThunk(
   'blogs/fetchBlogs',
   async (_, { rejectWithValue }) => {
@@ -15,7 +14,6 @@ export const fetchBlogs = createAsyncThunk(
   }
 );
 
-// Create blog
 export const createBlog = createAsyncThunk(
   'blogs/createBlog',
   async (formData, { rejectWithValue }) => {
@@ -28,7 +26,6 @@ export const createBlog = createAsyncThunk(
   }
 );
 
-// Update blog
 export const updateBlog = createAsyncThunk(
   'blogs/updateBlog',
   async ({ blogId, updatedData }, { rejectWithValue }) => {
@@ -41,7 +38,6 @@ export const updateBlog = createAsyncThunk(
   }
 );
 
-// Delete blog
 export const deleteBlog = createAsyncThunk(
   'blogs/deleteBlog',
   async (blogId, { rejectWithValue }) => {

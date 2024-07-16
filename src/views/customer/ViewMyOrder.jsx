@@ -13,7 +13,7 @@ const ViewMyOrder = () => {
 
   useEffect(() => {
     if (currentUser) {
-      dispatch(fetchOrders(currentUser.userId)); // Fetch only user's orders
+      dispatch(fetchOrders(currentUser.userId)); 
     }
   }, [dispatch, currentUser]);
 
@@ -22,7 +22,7 @@ const ViewMyOrder = () => {
       .unwrap()
       .then(() => {
         Swal.fire('Success', 'Order status updated to delivered!', 'success');
-        dispatch(fetchOrders(currentUser.userId)); // Refresh orders
+        dispatch(fetchOrders(currentUser.userId)); 
       })
       .catch((err) => {
         Swal.fire('Error', err.message, 'error');

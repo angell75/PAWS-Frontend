@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../../Utils/axiosInstance';
 import { API_URL } from '../../statis/url';
 
-// Fetch products for the seller
 export const fetchSellerProducts = createAsyncThunk(
   'products/fetchSellerProducts',
   async (_, { getState, rejectWithValue }) => {
@@ -23,7 +22,6 @@ export const fetchSellerProducts = createAsyncThunk(
   }
 );
 
-// Fetch all products
 export const fetchAllProducts = createAsyncThunk(
   'products/fetchAllProducts',
   async (_, { rejectWithValue }) => {
@@ -36,7 +34,6 @@ export const fetchAllProducts = createAsyncThunk(
   }
 );
 
-// Add a new product
 export const addProduct = createAsyncThunk(
   'products/addProduct',
   async (productData, { rejectWithValue }) => {
@@ -53,7 +50,6 @@ export const addProduct = createAsyncThunk(
   }
 );
 
-// Update an existing product
 export const updateProduct = createAsyncThunk(
   'products/updateProduct',
   async ({ id, formData }, { rejectWithValue }) => {
@@ -70,7 +66,6 @@ export const updateProduct = createAsyncThunk(
   }
 );
 
-// Delete a product
 export const deleteProduct = createAsyncThunk(
   'products/deleteProduct',
   async (productId, { rejectWithValue }) => {
@@ -83,7 +78,6 @@ export const deleteProduct = createAsyncThunk(
   }
 );
 
-// Create a slice for products
 const productSlice = createSlice({
   name: 'products',
   initialState: {

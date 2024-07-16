@@ -40,7 +40,7 @@ const AdminViewDonations = () => {
     }
 
     setFilteredDonations(filtered);
-    setCurrentPage(1); // Reset to the first page when filters are applied
+    setCurrentPage(1); 
   };
 
   useEffect(() => {

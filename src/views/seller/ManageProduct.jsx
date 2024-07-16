@@ -73,7 +73,7 @@ export default function ManageProduct() {
     const formData = new FormData();
     Object.keys(productData).forEach((key) => {
       if (key === "image" && !productData[key]) {
-        return; // Skip the image key if no new image is selected
+        return; 
       }
       formData.append(key, productData[key]);
     });
@@ -84,7 +84,7 @@ export default function ManageProduct() {
       ).unwrap();
       Swal.fire("Success!", "Product updated successfully.", "success");
       closeModal();
-      dispatch(fetchSellerProducts()); // Fetch latest products after updating
+      dispatch(fetchSellerProducts()); 
     } catch (error) {
       Swal.fire(
         "Error!",

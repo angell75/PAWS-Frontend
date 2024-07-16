@@ -70,7 +70,6 @@ export const deletePet = createAsyncThunk(
   }
 );
 
-// Fetch user's pets
 export const fetchUserPets = createAsyncThunk(
   'pets/fetchUserPets',
   async (userId, { getState }) => {
@@ -84,7 +83,6 @@ export const fetchUserPets = createAsyncThunk(
   }
 );
 
-// Add new pet
 export const addNewPet = createAsyncThunk(
   'pets/addNewPet',
   async (formData, { rejectWithValue }) => {
@@ -104,7 +102,6 @@ export const addNewPet = createAsyncThunk(
   }
 )
 
-// Fetch pets with owners
 export const fetchPetsWithOwners = createAsyncThunk(
   'pets/fetchPetsWithOwners',
   async (_, { rejectWithValue, getState }) => {

@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../../Utils/axiosInstance';
 import { API_URL } from '../../statis/url';
 
-// Thunk to submit a new application
 export const submitApplication = createAsyncThunk(
   'applications/submitApplication',
   async (applicationData, { rejectWithValue }) => {
@@ -15,7 +14,6 @@ export const submitApplication = createAsyncThunk(
   }
 );
 
-// Thunk to fetch applications related to user's pets
 export const fetchMyApplications = createAsyncThunk(
   'applications/fetchMyApplications',
   async (userId, { rejectWithValue }) => {
@@ -28,7 +26,6 @@ export const fetchMyApplications = createAsyncThunk(
   }
 );
 
-// Thunk to approve an application
 export const approveApplication = createAsyncThunk(
   'applications/approveApplication',
   async (applicationId, { rejectWithValue }) => {
@@ -41,7 +38,6 @@ export const approveApplication = createAsyncThunk(
   }
 );
 
-// Thunk to confirm adoption
 export const confirmAdoption = createAsyncThunk(
   'applications/confirmAdoption',
   async ({ applicationId, petId }, { rejectWithValue }) => {
@@ -54,7 +50,6 @@ export const confirmAdoption = createAsyncThunk(
   }
 );
 
-// Fetch all applications
 export const fetchAllApplications = createAsyncThunk(
   'applications/fetchAllApplications',
   async (_, { rejectWithValue }) => {

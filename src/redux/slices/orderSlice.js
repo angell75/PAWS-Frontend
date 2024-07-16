@@ -3,7 +3,6 @@ import axiosInstance from '../../Utils/axiosInstance';
 import Swal from "sweetalert2";
 import { API_URL } from '../../statis/url';
 
-// Thunk to create a new order
 export const createOrder = createAsyncThunk(
   'orders/createOrder',
   async (orderData, { rejectWithValue }) => {
@@ -19,7 +18,6 @@ export const createOrder = createAsyncThunk(
   }
 );
 
-// Thunk to fetch all orders or user-specific orders
 export const fetchOrders = createAsyncThunk(
   'order/fetchOrders',
   async (userId = null, { rejectWithValue }) => {
@@ -41,7 +39,7 @@ export const updateOrderStatus = createAsyncThunk(
   async ({ orderId, status }, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.put(`${API_URL.ORDERS}/update-status/${orderId}`, { status });
-      return response.data.order; // Return updated order
+      return response.data.order; 
     } catch (error) {
       if (!error.response) {
         throw error;

@@ -19,7 +19,7 @@ const ManageOrder = () => {
       .unwrap()
       .then(() => {
         Swal.fire('Success', 'Order shipped successfully!', 'success');
-        dispatch(fetchOrders()); // Fetch orders again to update the state
+        dispatch(fetchOrders()); 
       })
       .catch((err) => {
         Swal.fire('Error', err.message, 'error');

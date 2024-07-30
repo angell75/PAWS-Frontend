@@ -35,14 +35,14 @@ const AdminViewPetList = () => {
     setSelectedPetId(pet.petId);
     setPetData({
       petImage: '',
-      name: pet?.name,
-      breed: pet?.breed,
-      gender: pet?.gender,
-      age: pet?.age,
-      description: pet?.description,
-      diagnosis: pet?.diagnosis,
-      vaccineDate: pet?.vaccineDate,
-      adoptionStatus: pet?.adoptionStatus,
+      name: pet.name || '',
+      breed: pet.breed || '',
+      gender: pet.gender || '',
+      age: pet.age || '',
+      description: pet.description || '',
+      diagnosis: pet.diagnosis || '',
+      vaccineDate: pet.vaccineDate || '',
+      adoptionStatus: pet.adoptionStatus || '',
     });
     setModalIsOpen(true);
   };
@@ -113,8 +113,8 @@ const AdminViewPetList = () => {
   const indexOfLastPet = currentPage * petsPerPage;
   const indexOfFirstPet = indexOfLastPet - petsPerPage;
   const filteredPets = pets.filter((pet) =>
-    pet.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
-    (adoptionStatusFilter === '' || pet.adoptionStatus === adoptionStatusFilter)
+    (pet?.name?.toLowerCase() || '').includes(searchQuery.toLowerCase()) &&
+    (adoptionStatusFilter === '' || pet?.adoptionStatus === adoptionStatusFilter)
   );
   const currentPets = filteredPets.slice(indexOfFirstPet, indexOfLastPet);
 
@@ -170,23 +170,23 @@ const AdminViewPetList = () => {
                   <tbody>
                     {currentPets.map((pet) => pet && (
                       <tr key={pet?.petId} className="hover:bg-gray-100">
-                        <td className="py-2 px-4 border-b">{pet?.petId}</td>
+                        <td className="py-2 px-4 border-b">{pet?.petId || ''}</td>
                         <td className="py-2 px-4 border-b">
-                          <img src={pet?.petImage} alt={pet?.name} className="w-16 h-16 object-cover rounded-md" />
+                          <img src={pet?.petImage || ''} alt={pet?.name || 'Pet Image'} className="w-16 h-16 object-cover rounded-md" />
                         </td>
-                        <td className="py-2 px-4 border-b">{pet?.name}</td>
-                        <td className="py-2 px-4 border-b">{pet?.breed}</td>
-                        <td className="py-2 px-4 border-b">{pet?.gender}</td>
-                        <td className="py-2 px-4 border-b">{pet?.age}</td>
-                        <td className="py-2 px-4 border-b">{pet?.description}</td>
-                        <td className="py-2 px-4 border-b">{pet?.diagnosis}</td>
-                        <td className="py-2 px-4 border-b">{pet?.vaccineDate}</td>
+                        <td className="py-2 px-4 border-b">{pet?.name || ''}</td>
+                        <td className="py-2 px-4 border-b">{pet?.breed || ''}</td>
+                        <td className="py-2 px-4 border-b">{pet?.gender || ''}</td>
+                        <td className="py-2 px-4 border-b">{pet?.age || ''}</td>
+                        <td className="py-2 px-4 border-b">{pet?.description || ''}</td>
+                        <td className="py-2 px-4 border-b">{pet?.diagnosis || ''}</td>
+                        <td className="py-2 px-4 border-b">{pet?.vaccineDate || ''}</td>
                         <td className={`py-2 px-4 border-b ${getAdoptionStatusClass(pet?.adoptionStatus)}`}>
-                          {pet?.adoptionStatus}
+                          {pet?.adoptionStatus || ''}
                         </td>
-                        <td className="py-2 px-4 border-b">{pet?.owner?.name}</td>
-                        <td className="py-2 px-4 border-b">{pet?.owner?.contact}</td>
-                        <td className="py-2 px-4 border-b">{pet?.owner?.email}</td>
+                        <td className="py-2 px-4 border-b">{pet?.owner?.name || ''}</td>
+                        <td className="py-2 px-4 border-b">{pet?.owner?.contact || ''}</td>
+                        <td className="py-2 px-4 border-b">{pet?.owner?.email || ''}</td>
                         <td className="py-2 px-4 border-b">
                           <div className="flex space-x-2">
                             <button
@@ -220,7 +220,7 @@ const AdminViewPetList = () => {
                 </div>
               </>
             ) : (
-              <p></p>
+              <p>No pets found.</p>
             )}
           </>
         )}

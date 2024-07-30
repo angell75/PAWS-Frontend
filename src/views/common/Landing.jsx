@@ -167,7 +167,7 @@ export default function LandingPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-lg font-bold">PAWS</div>
-            <div className="text-sm">© 2023 Paws. All rights reserved.</div>
+            <div className="text-sm">© 2024 Paws. All rights reserved.</div>
           </div>
           <div className="flex flex-col md:flex-row justify-between items-center mt-4">
             <div>Office: 123-456-7890</div>

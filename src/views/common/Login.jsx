@@ -16,15 +16,8 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = await dispatch(loginUser({ 
-      // email: "seller@paws.com", 
-      // email: "james.smith@gmail.com", 
-      email: "emma.jones@gmail.com",
-      // email: "sarah.johnson@vetcare.com",
-      // email: "michael.lee@vetcare.com",
-      // email: "pa@gmail.com",
-      // email: "admin@paws.com",
-      // password: "password123"
-      password: "Abc@12345"
+      email: email, 
+      password: password,
     }));
     if (result.type === 'auth/loginUser/fulfilled') {
       dispatch(setUser(result.payload.user));
@@ -39,7 +32,7 @@ export default function Login() {
       Swal.fire({
         icon: 'error',
         title: 'Login Failed',
-        text: renderError(result.payload || 'Unknown error'),
+        text: renderError(result.payload || 'Invalid Email or Password'),
       });
     }
   };
@@ -57,7 +50,7 @@ export default function Login() {
     } else if (typeof error === 'object' && error !== null && error.error) {
       return error.error;
     }
-    return 'Unknown error';
+    return 'System Error';
   };
 
   return (
